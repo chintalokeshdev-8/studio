@@ -117,7 +117,7 @@ export default function OpdQueuePage() {
                                 </div>
                                 {msg.sender === 'user' && (
                                     <Avatar className="h-8 w-8">
-                                        <AvatarImage src="https://placehold.co/100x100.png" data-ai-hint="profile picture" />
+                                        <AvatarImage src="/images/profile.jpg" />
                                         <AvatarFallback>CL</AvatarFallback>
                                     </Avatar>
                                 )}

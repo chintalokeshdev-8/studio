@@ -45,7 +45,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             </div>
         </div>
         <Avatar>
-            <AvatarImage src="https://placehold.co/100x100.png" data-ai-hint="profile picture" />
+            <AvatarImage src="/images/profile.jpg" />
             <AvatarFallback>CL</AvatarFallback>
         </Avatar>
       </header>

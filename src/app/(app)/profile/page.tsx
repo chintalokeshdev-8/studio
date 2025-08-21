@@ -24,7 +24,7 @@ export default function ProfilePage() {
                 <CardContent className="p-6">
                     <div className="flex flex-col md:flex-row items-center gap-6">
                         <Avatar className="h-28 w-28 border-4 border-primary">
-                            <AvatarImage src="https://placehold.co/100x100.png" data-ai-hint="profile picture" />
+                            <AvatarImage src="/images/profile.jpg" />
                             <AvatarFallback className="text-3xl">CL</AvatarFallback>
                         </Avatar>
                         <div className="flex-1 text-center md:text-left">
