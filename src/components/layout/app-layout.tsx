@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -18,6 +17,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 const menuItems = [
   { href: "/", label: "Home", telugu: "హోమ్", icon: LayoutGrid, color: "hsl(var(--nav-home))" },
@@ -33,39 +33,6 @@ const menuItems = [
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-
-  const renderNav = (items: typeof menuItems) => {
-    return items.map((item) => {
-        const isActive = pathname === item.href;
-        return (
-           <Link href={item.href} key={item.label}>
-               <div className={cn(
-                   "flex flex-col items-center justify-center gap-1 p-2 rounded-lg transition-transform duration-200 ease-in-out",
-                   isActive ? "scale-110" : "scale-100"
-               )}>
-                   <div 
-                        className={cn("p-3 rounded-full")}
-                        style={{
-                            backgroundColor: `${item.color.replace(')', ' / 0.1)')}`,
-                        }}
-                    >
-                       <item.icon className={cn("h-8 w-8")} style={{ color: item.color }} />
-                   </div>
-                   <div className="text-center leading-tight">
-                        <p className={cn("text-xs font-bold")}
-                           style={{color: item.color}}>
-                           {item.label}
-                        </p>
-                        <p className={cn("text-xs font-semibold")}
-                           style={{color: item.color}}>
-                           {item.telugu}
-                        </p>
-                   </div>
-               </div>
-           </Link>
-       );
-    })
-  }
 
   return (
     <div className="flex flex-col min-h-screen bg-muted/30">
@@ -87,12 +54,41 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           {children}
       </main>
       <footer className="sticky bottom-0 z-20 mt-auto bg-background border-t">
-        <nav className="grid grid-cols-5 gap-1 p-1">
-            {renderNav(menuItems.slice(0, 5))}
-        </nav>
-         <nav className="grid grid-cols-4 gap-1 p-1 pt-0">
-            {renderNav(menuItems.slice(5))}
-        </nav>
+        <ScrollArea className="w-full whitespace-nowrap">
+            <nav className="flex w-max space-x-4 p-2">
+                {menuItems.map((item) => {
+                    const isActive = pathname === item.href;
+                    return (
+                       <Link href={item.href} key={item.label} className="flex-shrink-0">
+                           <div className={cn(
+                               "flex flex-col items-center justify-center gap-1 p-1 rounded-lg transition-transform duration-200 ease-in-out w-20",
+                               isActive ? "scale-110" : "scale-100"
+                           )}>
+                               <div 
+                                    className={cn("p-2 rounded-full",  isActive ? `bg-[${item.color}]` : `bg-[${item.color.replace(')', ' / 0.1)')}]`)}
+                                    style={{
+                                        backgroundColor: isActive ? item.color : `${item.color.replace(')', ' / 0.1)')}`,
+                                    }}
+                                >
+                                   <item.icon className={cn("h-6 w-6", isActive ? 'text-white' : '')} style={{ color: isActive ? 'white' : item.color }} />
+                               </div>
+                               <div className="text-center leading-tight mt-1">
+                                    <p className={cn("text-xs font-bold")}
+                                       style={{color: item.color}}>
+                                       {item.label}
+                                    </p>
+                                    <p className={cn("text-[10px] font-semibold")}
+                                       style={{color: item.color}}>
+                                       {item.telugu}
+                                    </p>
+                               </div>
+                           </div>
+                       </Link>
+                   );
+                })}
+            </nav>
+            <ScrollBar orientation="horizontal" className="invisible" />
+        </ScrollArea>
       </footer>
     </div>
   );
