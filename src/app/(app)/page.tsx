@@ -1,56 +1,121 @@
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { HeartPulse, MessageSquare, Siren, Users, FileText, FlaskConical, LifeBuoy, Stethoscope, Microscope, Pill, Headset } from 'lucide-react';
+import { HeartPulse, MessageSquare, Siren, Users, FileText, FlaskConical, LifeBuoy, Stethoscope, Microscope, Pill, Headset, Phone, Link2 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Search } from 'lucide-react';
 
 const quickAccessItems = [
-  { href: '/symptom-checker', icon: HeartPulse, label: 'AI Symptom Check' },
-  { href: '/doctor-chat', icon: MessageSquare, label: 'Doctor Chat' },
-  { href: '/emergency', icon: Siren, label: 'Emergency' },
-  { href: '/junior-doctors', icon: Headset, label: '24/7 Junior Doctors' },
-  { href: '/opd-queue', icon: Users, label: 'OPD Queue' },
-  { href: '/lab-reports', icon: FileText, label: 'Lab Reports' },
+  { href: '/symptom-checker', icon: HeartPulse, label: 'AI Symptom Check', description: 'వైద్య లక్షణాలు తనిఖీ' },
+  { href: '/opd-queue', icon: Users, label: 'OPD Queue', description: 'మీ వంతు తెలుసుకోండి' },
+  { href: '/doctor-chat', icon: MessageSquare, label: 'Doctor Chat', description: 'వైద్యులతో మాట్లాడండి' },
+  { href: '/emergency', icon: Siren, label: 'Emergency', description: 'తక్షణ సహాయం' },
+  { href: '/junior-doctors', icon: Headset, label: '24/7 Junior Doctors', description: 'ఉచిత సలహా' },
+  { href: '/lab-reports', icon: FileText, label: 'Lab Reports', description: 'రిపోర్టులు చూడండి' },
 ];
 
 const medicineAssistanceItems = [
-    { href: '/medicine-assistant', icon: FlaskConical, label: 'AI Medicine Assistant' },
-    { href: '#', icon: Stethoscope, label: 'Nearby Pharmacies' },
-    { href: '#', icon: Microscope, label: 'Drug Interaction Check' },
-    { href: '#', icon: LifeBuoy, label: 'Pharmacist Consultation' },
+    { 
+        icon: FlaskConical, 
+        title: 'AI Medicine Assistant',
+        description: 'Get instant answers about your medications, dosages, and side effects',
+        buttonText: 'Ask AI Assistant',
+        href: '/medicine-assistant'
+    },
+    { 
+        icon: Phone, 
+        title: 'Nearby Pharmacies',
+        description: 'Find pharmacies near you with your prescribed medications in stock',
+        buttonText: 'Find Pharmacies',
+        href: '#'
+    },
+    { 
+        icon: Link2, 
+        title: 'Drug Interaction Check',
+        description: 'Check for potential interactions between your medications',
+        buttonText: 'Check Interactions',
+        href: '#'
+    },
+     { 
+        icon: Users, 
+        title: 'Pharmacist Consultation',
+        description: 'Speak directly with a licensed pharmacist for expert advice',
+        buttonText: 'Consult Pharmacist',
+        href: '#'
+    },
+];
+
+const healthOverviewItems = [
+    { value: "12", label: "Total Visits", icon: Users, color: "text-blue-500" },
+    { value: "2", label: "Active Conditions", icon: HeartPulse, color: "text-green-500" },
+    { value: "3", label: "Current Medications", icon: Pill, color: "text-orange-500" },
 ];
 
 export default function DashboardPage() {
   return (
-    <div className="space-y-8">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h1 className="text-3xl font-bold font-headline text-primary">Welcome back, Chinta Lokesh Babu</h1>
-          <p className="text-muted-foreground">Here's your health summary for today.</p>
-        </div>
-        <Card className="p-4 w-full sm:w-auto">
+    <div className="space-y-6 pb-20">
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+        <Input placeholder="Search symptoms, doctors, medicines..." className="pl-10 h-12" />
+      </div>
+
+      <Card className="bg-primary/90 text-primary-foreground overflow-hidden">
+        <CardContent className="p-6 relative">
+             <div className="absolute top-4 right-4 h-6 w-6 rounded-full bg-white/20 flex items-center justify-center">
+                <Siren className="h-4 w-4 text-white" />
+            </div>
             <div className="flex items-center gap-4">
-                <Avatar className="h-12 w-12">
+                <Avatar className="h-16 w-16 border-2 border-white">
                     <AvatarImage src="https://placehold.co/100x100.png" data-ai-hint="profile picture" />
                     <AvatarFallback>CL</AvatarFallback>
                 </Avatar>
                 <div>
-                    <p className="font-semibold">Patient ID: <Badge variant="secondary">12345</Badge></p>
-                    <p className="text-sm text-muted-foreground">28 Yrs | Male | B+ Positive</p>
+                    <h2 className="text-xl font-bold">Welcome back, Chinta Lokesh Babu</h2>
                 </div>
             </div>
-        </Card>
-      </div>
+            <div className="grid grid-cols-2 gap-x-4 gap-y-2 mt-4 text-sm">
+                <div>
+                    <p className="opacity-80">Patient ID</p>
+                    <p className="font-semibold">PAT001</p>
+                </div>
+                <div>
+                    <p className="opacity-80">Gender</p>
+                    <p className="font-semibold">Male</p>
+                </div>
+                <div>
+                    <p className="opacity-80">Age</p>
+                    <p className="font-semibold">27 years</p>
+                </div>
+                 <div>
+                    <p className="opacity-80">Contact</p>
+                    <p className="font-semibold">8008334948</p>
+                </div>
+                <div>
+                    <p className="opacity-80">Blood Group</p>
+                    <p className="font-semibold">B+</p>
+                </div>
+            </div>
+             <p className="text-center mt-4 font-medium">How can we help you today?</p>
+        </CardContent>
+      </Card>
 
       <section>
-        <h2 className="text-2xl font-semibold font-headline mb-4">Quick Access</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <h2 className="text-xl font-semibold mb-4">Quick Access</h2>
+        <div className="grid grid-cols-2 gap-4">
           {quickAccessItems.map((item) => (
             <Link key={item.href} href={item.href} passHref>
-              <Card className="text-center p-4 hover:bg-accent hover:text-accent-foreground transition-colors group cursor-pointer h-full flex flex-col items-center justify-center">
-                <item.icon className="h-10 w-10 mb-2 text-primary group-hover:text-accent-foreground" />
-                <p className="font-semibold">{item.label}</p>
+              <Card className="text-left p-4 hover:bg-primary/5 transition-colors cursor-pointer h-full">
+                <div className="flex items-center gap-3">
+                    <div className={cn("p-2 rounded-full", item.label === 'Emergency' ? 'bg-red-100' : 'bg-primary/10' )}>
+                        <item.icon className={cn("h-6 w-6", item.label === 'Emergency' ? 'text-red-500' : 'text-primary' )} />
+                    </div>
+                    <div>
+                        <p className="font-semibold">{item.label}</p>
+                        <p className="text-xs text-muted-foreground">{item.description}</p>
+                    </div>
+                </div>
               </Card>
             </Link>
           ))}
@@ -58,48 +123,35 @@ export default function DashboardPage() {
       </section>
       
       <section>
-        <h2 className="text-2xl font-semibold font-headline mb-4">Health Overview</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <Card>
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg"><Users className="text-primary"/> Total Visits</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p className="text-4xl font-bold">12</p>
-                </CardContent>
-            </Card>
-            <Card>
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg"><HeartPulse className="text-primary"/> Active Conditions</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p className="text-4xl font-bold">2</p>
-                    <p className="text-sm text-muted-foreground">Diabetes, Hypertension</p>
-                </CardContent>
-            </Card>
-            <Card>
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg"><Pill className="text-primary"/> Current Medications</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p className="text-4xl font-bold">4</p>
-                    <p className="text-sm text-muted-foreground">View schedule</p>
-                </CardContent>
-            </Card>
+        <h2 className="text-xl font-semibold mb-4">Health Overview</h2>
+        <div className="grid grid-cols-3 gap-4">
+            {healthOverviewItems.map((item) => (
+                 <Card key={item.label} className="p-4 flex flex-col items-center justify-center text-center">
+                    <div className="p-3 bg-primary/10 rounded-full mb-2">
+                        <item.icon className="h-6 w-6 text-primary" />
+                    </div>
+                    <p className="text-2xl font-bold">{item.value}</p>
+                    <p className="text-sm text-muted-foreground">{item.label}</p>
+                </Card>
+            ))}
         </div>
       </section>
 
       <section>
-        <h2 className="text-2xl font-semibold font-headline mb-4">Medicine Assistance</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <h2 className="text-xl font-semibold mb-4">Medicine Assistance</h2>
+        <div className="space-y-4">
           {medicineAssistanceItems.map((item) => (
-             <Link key={item.label} href={item.href} passHref>
+             <Link key={item.title} href={item.href} passHref>
                 <Card className="hover:shadow-lg transition-shadow cursor-pointer">
                     <CardContent className="p-4 flex items-center gap-4">
                         <div className="bg-primary/10 p-3 rounded-full">
                             <item.icon className="h-6 w-6 text-primary" />
                         </div>
-                        <p className="font-semibold">{item.label}</p>
+                        <div className="flex-1">
+                            <h3 className="font-semibold">{item.title}</h3>
+                            <p className="text-sm text-muted-foreground">{item.description}</p>
+                        </div>
+                        <Button size="sm" variant="outline">{item.buttonText}</Button>
                     </CardContent>
                 </Card>
             </Link>
