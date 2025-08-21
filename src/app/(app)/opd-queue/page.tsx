@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { User, Clock, Bell, Send, Stethoscope, Briefcase, Plane } from "lucide-react";
@@ -66,18 +67,18 @@ export default function OpdQueuePage() {
                             <CardTitle>Doctor Status</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-4">
+                             <div className="flex items-center gap-4 p-4 bg-primary/10 border border-primary/20 rounded-lg">
+                                <Stethoscope className="h-6 w-6 text-primary"/>
+                                <div>
+                                    <p className="font-bold text-primary animate-pulse">Available</p>
+                                    <p className="text-sm text-primary/80">The doctor is available for consultation.</p>
+                                </div>
+                            </div>
                             <div className="flex items-center gap-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                                 <Briefcase className="h-6 w-6 text-yellow-700"/>
                                 <div>
                                     <p className="font-bold text-yellow-800">In Surgery</p>
                                     <p className="text-sm text-yellow-700">Estimated back in 2 hours</p>
-                                </div>
-                            </div>
-                             <div className="flex items-center gap-4 p-4 bg-primary/10 border border-primary/20 rounded-lg animate-pulse">
-                                <Stethoscope className="h-6 w-6 text-primary"/>
-                                <div>
-                                    <p className="font-bold text-primary">Available</p>
-                                    <p className="text-sm text-primary/80">The doctor is available for consultation.</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-4 p-4 bg-red-50 border border-red-200 rounded-lg">
