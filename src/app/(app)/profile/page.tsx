@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { User, Heart, Droplets, Phone, Mail, MapPin, Shield, FileDown, Pencil, ShieldAlert } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 
 const recentVisits = [
   { date: "2024-07-15", reason: "Fever & Cold", doctor: "Dr. Rajesh Kumar" },
@@ -20,20 +21,28 @@ export default function ProfilePage() {
     return (
         <div className="space-y-8">
             <Card>
-                <CardContent className="p-6 flex flex-col md:flex-row items-center gap-6">
-                     <Avatar className="h-28 w-28 border-4 border-primary">
-                        <AvatarImage src="https://placehold.co/100x100.png" data-ai-hint="profile picture" />
-                        <AvatarFallback className="text-3xl">CL</AvatarFallback>
-                    </Avatar>
-                    <div className="flex-1 text-center md:text-left">
-                        <h1 className="text-3xl font-bold">Chinta Lokesh Babu</h1>
-                        <div className="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-2 mt-2 text-muted-foreground">
-                            <div className="flex items-center gap-2"><User /> 28 years old</div>
-                            <div className="flex items-center gap-2"><Heart /> Male</div>
-                            <div className="flex items-center gap-2"><Droplets /> B+ Positive</div>
+                <CardContent className="p-6">
+                    <div className="flex flex-col md:flex-row items-center gap-6">
+                        <Avatar className="h-28 w-28 border-4 border-primary">
+                            <AvatarImage src="https://placehold.co/100x100.png" data-ai-hint="profile picture" />
+                            <AvatarFallback className="text-3xl">CL</AvatarFallback>
+                        </Avatar>
+                        <div className="flex-1 text-center md:text-left">
+                            <h1 className="text-3xl font-bold">Chinta Lokesh Babu</h1>
+                            <div className="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-2 mt-2 text-muted-foreground">
+                                <div className="flex items-center gap-2"><User /> 28 years old</div>
+                                <div className="flex items-center gap-2"><Heart /> Male</div>
+                                <div className="flex items-center gap-2"><Droplets /> B+ Positive</div>
+                            </div>
                         </div>
+                        <Button><Pencil className="mr-2 h-4 w-4" /> Edit Profile</Button>
                     </div>
-                    <Button><Pencil className="mr-2 h-4 w-4" /> Edit Profile</Button>
+                    <Separator className="my-6" />
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                        <div className="flex items-center gap-3"><Mail className="text-primary h-5 w-5"/><span>chinta.lokesh@email.com</span></div>
+                        <div className="flex items-center gap-3"><Phone className="text-primary h-5 w-5"/><span>+91 98765 43210</span></div>
+                        <div className="flex items-start gap-3"><MapPin className="text-primary h-5 w-5 mt-1"/><span>H.No 1-2-3, Jubilee Hills, Hyderabad, India</span></div>
+                    </div>
                 </CardContent>
             </Card>
 
@@ -75,14 +84,6 @@ export default function ProfilePage() {
                     </Card>
                 </div>
                 <div className="space-y-8">
-                    <Card>
-                        <CardHeader><CardTitle>Contact Information</CardTitle></CardHeader>
-                        <CardContent className="space-y-3">
-                            <div className="flex items-center gap-3"><Mail className="text-primary"/><span>chinta.lokesh@email.com</span></div>
-                            <div className="flex items-center gap-3"><Phone className="text-primary"/><span>+91 98765 43210</span></div>
-                            <div className="flex items-start gap-3"><MapPin className="text-primary mt-1"/><span>H.No 1-2-3, Jubilee Hills, Hyderabad, India</span></div>
-                        </CardContent>
-                    </Card>
                     <Card>
                         <CardHeader>
                             <CardTitle>Health Insurance</CardTitle>
