@@ -40,24 +40,24 @@ export default function OpdQueuePage() {
                 <div className="space-y-8">
                     <div className="grid md:grid-cols-2 gap-6">
                         <Card className="border-primary/20" style={{backgroundColor: 'hsla(var(--nav-chat)/0.1)', borderColor: 'hsla(var(--nav-chat)/0.2)'}}>
-                            <CardHeader>
-                                <CardTitle className="flex items-center gap-2" style={{color: 'hsl(var(--nav-chat))'}}><User /> Your Token</CardTitle>
+                            <CardHeader className="pb-2">
+                                <CardTitle className="flex items-center gap-2 text-base" style={{color: 'hsl(var(--nav-chat))'}}><User /> Your Token</CardTitle>
                             </CardHeader>
-                            <CardContent className="text-center">
-                                <p className="text-6xl font-bold" style={{color: 'hsl(var(--nav-chat))'}}>#23</p>
-                                <div className="flex items-center justify-center gap-2 mt-4" style={{color: 'hsla(var(--nav-chat)/0.8)'}}>
-                                    <Clock className="w-5 h-5" />
+                            <CardContent className="text-center p-4">
+                                <p className="text-5xl font-bold" style={{color: 'hsl(var(--nav-chat))'}}>#23</p>
+                                <div className="flex items-center justify-center gap-2 mt-2 text-sm" style={{color: 'hsla(var(--nav-chat)/0.8)'}}>
+                                    <Clock className="w-4 h-4" />
                                     <span className="font-semibold">Est. Wait: 5 mins</span>
                                 </div>
                             </CardContent>
                         </Card>
                         <Card>
-                            <CardHeader>
-                                <CardTitle>Now Serving</CardTitle>
+                            <CardHeader className="pb-2">
+                                <CardTitle className="text-base">Now Serving</CardTitle>
                                 <CardDescription>Patient with the doctor</CardDescription>
                             </CardHeader>
-                            <CardContent className="text-center">
-                                <p className="text-6xl font-bold">#19</p>
+                            <CardContent className="text-center p-4">
+                                <p className="text-5xl font-bold">#19</p>
                             </CardContent>
                         </Card>
                     </div>
