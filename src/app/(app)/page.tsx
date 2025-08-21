@@ -50,7 +50,7 @@ export default function DashboardPage() {
             <h1 className="text-3xl font-bold">Welcome back, Chinta!</h1>
             <p className="text-muted-foreground">Here is your health summary for today.</p>
           </div>
-          <Button variant="outline">
+          <Button>
             <Search className="mr-2 h-4 w-4"/>
             Search
           </Button>
@@ -83,11 +83,11 @@ export default function DashboardPage() {
             </div>
              <div>
                 <p className="text-sm text-muted-foreground">Village</p>
-                <p className="font-bold">Jubilee Hills</p>
+                <p className="font-bold">Guntur</p>
             </div>
              <div>
                 <p className="text-sm text-muted-foreground">District</p>
-                <p className="font-bold">Hyderabad</p>
+                <p className="font-bold">Guntur</p>
             </div>
         </CardContent>
       </Card>
