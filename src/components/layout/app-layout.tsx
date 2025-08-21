@@ -51,7 +51,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                        <item.icon className="h-5 w-5" />
                    </div>
                    <span 
-                        className={cn("text-[10px] font-medium text-center leading-tight",
+                        className={cn("text-xs font-semibold text-center leading-tight",
                             isActive ? 'text-foreground' : 'text-muted-foreground'
                         )}
                         style={isActive ? {color: item.color} : {}}
