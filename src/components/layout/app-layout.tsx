@@ -40,19 +40,20 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         return (
            <Link href={item.href} key={item.label}>
                <div className={cn(
-                   "flex flex-col items-center justify-center gap-1 p-2 rounded-lg transition-colors"
+                   "flex flex-col items-center justify-center gap-1 p-2 rounded-lg transition-transform duration-200 ease-in-out",
+                   isActive ? "scale-110" : "scale-100"
                )}>
                    <div 
-                        className="p-3 rounded-full transition-colors"
+                        className="p-3 rounded-full"
                         style={{ 
-                            backgroundColor: isActive ? item.color : `${item.color.replace(')', ' / 0.1)')}` 
+                            backgroundColor: `${item.color.replace(')', ' / 0.1)')}` 
                         }}
                     >
-                       <item.icon className="h-7 w-7" style={{ color: isActive ? 'white' : item.color }} />
+                       <item.icon className="h-8 w-8" style={{ color: item.color }} />
                    </div>
                    <span 
                         className={cn("text-xs font-bold text-center leading-tight",
-                            isActive ? 'font-bold' : 'text-muted-foreground'
+                           isActive ? 'font-bold' : 'text-muted-foreground'
                         )}
                         style={isActive ? {color: item.color} : {}}
                     >
