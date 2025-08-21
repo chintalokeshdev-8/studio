@@ -45,92 +45,86 @@ export default function SymptomCheckerPage() {
     };
 
     return (
-        <div className="bg-background">
-            <div className="bg-primary text-primary-foreground text-center p-6">
-                <h1 className="text-2xl font-bold">AI Symptom Checker</h1>
-                <p className="text-sm opacity-90">లక్షణాలు చెప్పండి • Describe your symptoms</p>
+        <div className="space-y-8">
+            <div className="text-center">
+                <h1 className="text-3xl font-bold text-primary">AI Symptom Checker</h1>
+                <p className="text-muted-foreground mt-2">Select your symptoms to get intelligent health guidance.</p>
             </div>
-
-            <div className="p-4 space-y-6">
-                 <div className="text-center">
-                    <h2 className="text-xl font-semibold text-primary">AI Symptom Checker</h2>
-                    <p className="text-muted-foreground text-sm">(Powered by Dialogflow + Infermedica)</p>
-                    <p className="text-muted-foreground mt-1">Select your symptoms to get intelligent health guidance for Chinta Lokesh Babu</p>
-                 </div>
-
-                <div className="grid grid-cols-2 gap-4">
+            
+            <Card>
+                <CardHeader>
+                    <CardTitle>Select Your Symptoms</CardTitle>
+                </CardHeader>
+                <CardContent className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     {commonSymptoms.map(symptom => (
-                        <Card 
+                        <div
                             key={symptom.english}
                             onClick={() => handleSymptomClick(symptom.english)}
                             className={cn(
-                                "cursor-pointer transition-all",
-                                selectedSymptoms.includes(symptom.english) ? 'border-primary ring-2 ring-primary/50' : 'border-border'
+                                "cursor-pointer transition-all rounded-lg p-4 text-center border-2",
+                                selectedSymptoms.includes(symptom.english) ? 'border-primary bg-primary/10' : 'bg-muted/40 border-transparent hover:border-muted-foreground/20'
                             )}
                         >
-                            <CardContent className="p-4 text-center">
-                                <p className="font-semibold">{symptom.english}</p>
-                                <p className="text-muted-foreground text-sm">{symptom.telugu}</p>
-                            </CardContent>
-                        </Card>
-                    ))}
-                </div>
-
-                <Card className="bg-green-50 border-green-200">
-                    <CardContent className="p-4 flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                             <div className="bg-primary/10 p-2 rounded-full">
-                                <Mic className="h-6 w-6 text-primary"/>
-                            </div>
-                            <div>
-                                <h3 className="font-semibold text-primary">Voice Symptom Input</h3>
-                                <p className="text-sm text-muted-foreground">(Telugu/English)</p>
-                                <p className="text-sm text-muted-foreground">Speak your symptoms in your preferred language</p>
-                            </div>
+                            <p className="font-semibold">{symptom.english}</p>
+                            <p className="text-muted-foreground text-sm">{symptom.telugu}</p>
                         </div>
-                        <Button size="sm">Speak Now</Button>
+                    ))}
+                </CardContent>
+            </Card>
+
+            <Card className="bg-primary/10 border-primary/20">
+                <CardContent className="p-4 flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                            <div className="bg-primary/10 p-2 rounded-full">
+                            <Mic className="h-6 w-6 text-primary"/>
+                        </div>
+                        <div>
+                            <h3 className="font-semibold text-primary">Voice Symptom Input</h3>
+                            <p className="text-sm text-muted-foreground">Speak your symptoms in Telugu or English</p>
+                        </div>
+                    </div>
+                    <Button>Speak Now</Button>
+                </CardContent>
+            </Card>
+            
+            {isPending && (
+                <Card>
+                    <CardContent className="p-6 flex flex-col items-center justify-center text-center">
+                        <Loader2 className="h-12 w-12 animate-spin text-primary mb-4" />
+                        <h2 className="text-xl font-semibold">Analyzing your symptoms...</h2>
+                        <p className="text-muted-foreground">Our AI is working on it. This may take a moment.</p>
                     </CardContent>
                 </Card>
-                
-                {isPending && (
-                    <Card>
-                        <CardContent className="p-6 flex flex-col items-center justify-center text-center">
-                            <Loader2 className="h-12 w-12 animate-spin text-primary mb-4" />
-                            <h2 className="text-xl font-semibold">Analyzing your symptoms...</h2>
-                            <p className="text-muted-foreground">Our AI is working on it. This may take a moment.</p>
-                        </CardContent>
-                    </Card>
-                )}
+            )}
 
-                {analysis && !isPending && (
-                    <Card className="bg-primary/5">
-                        <CardHeader>
-                            <CardTitle className="flex items-center gap-2 text-primary">
-                                <Sparkles /> AI Analysis Result
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                            <p className="whitespace-pre-wrap">{analysis.analysis}</p>
-                            <p className="text-sm text-muted-foreground italic">
-                                Disclaimer: This is an AI-generated analysis and not a substitute for professional medical advice. Please consult a doctor for an accurate diagnosis.
-                            </p>
-                        </CardContent>
-                    </Card>
-                )}
-            </div>
-            
-            <div className="p-4 sticky bottom-16">
-                 <Button onClick={handleSubmit} disabled={isPending || selectedSymptoms.length === 0} className="w-full h-12 text-lg">
+            {analysis && !isPending && (
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2 text-primary">
+                            <Sparkles /> AI Analysis Result
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                        <p className="whitespace-pre-wrap leading-relaxed">{analysis.analysis}</p>
+                        <p className="text-sm text-muted-foreground italic pt-4 border-t">
+                            Disclaimer: This is an AI-generated analysis and not a substitute for professional medical advice. Please consult a doctor for an accurate diagnosis.
+                        </p>
+                    </CardContent>
+                </Card>
+            )}
+
+            <div className="p-4 sticky bottom-20">
+                    <Button onClick={handleSubmit} disabled={isPending || selectedSymptoms.length === 0} className="w-full h-12 text-lg font-bold">
                     {isPending ? (
                         <>
                             <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                             Analyzing...
                         </>
                     ) : (
-                         <>
+                            <>
                             <Search className="mr-2 h-5 w-5" />
-                            GET AI ANALYSIS
-                         </>
+                            GET AI ANALYSIS ({selectedSymptoms.length})
+                            </>
                     )}
                 </Button>
             </div>

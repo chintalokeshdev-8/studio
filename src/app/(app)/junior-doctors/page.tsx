@@ -47,13 +47,13 @@ export default function JuniorDoctorsPage() {
     return (
         <div className="space-y-8">
             <div className="text-center">
-                <h1 className="text-3xl font-bold font-headline text-primary">24/7 Junior Doctors</h1>
+                <h1 className="text-3xl font-bold text-primary">24/7 Junior Doctors</h1>
                 <p className="text-muted-foreground mt-2">Get instant consultation from our team of dedicated junior doctors, anytime.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {doctors.map((doctor, index) => (
-                    <Card key={index} className="flex flex-col">
+                    <Card key={index} className="flex flex-col transition-shadow hover:shadow-md">
                         <CardHeader className="flex flex-row items-center gap-4">
                             <Avatar className="h-16 w-16 border-2 border-primary">
                                 <AvatarImage src={doctor.avatar} data-ai-hint={doctor.dataAiHint} />
@@ -62,14 +62,14 @@ export default function JuniorDoctorsPage() {
                             <div>
                                 <CardTitle className="text-xl flex items-center gap-2">
                                     {doctor.name}
-                                    <Badge variant={doctor.status === 'Online' ? 'default' : 'secondary'} className={doctor.status === 'Online' ? 'bg-green-500' : ''}>
-                                        {doctor.status}
-                                    </Badge>
                                 </CardTitle>
                                 <CardDescription>{doctor.specialty}</CardDescription>
                             </div>
+                             <Badge variant={doctor.status === 'Online' ? 'default' : 'secondary'} className={`ml-auto ${doctor.status === 'Online' ? 'bg-green-500' : ''}`}>
+                                {doctor.status}
+                            </Badge>
                         </CardHeader>
-                        <CardContent className="flex-grow space-y-3 text-sm">
+                        <CardContent className="flex-grow space-y-3 text-sm p-4 pt-0">
                             <p className="text-muted-foreground"><BadgeCheck className="inline-block mr-2 h-4 w-4 text-primary"/>{doctor.experience} of experience</p>
                             <p className="text-muted-foreground">Speaks: {doctor.languages}</p>
                         </CardContent>

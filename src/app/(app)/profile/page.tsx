@@ -19,36 +19,33 @@ const medicalReports = [
 export default function ProfilePage() {
     return (
         <div className="space-y-8">
-            <div className="flex items-center gap-6">
-                <Avatar className="h-24 w-24 border-4 border-primary">
-                    <AvatarImage src="https://placehold.co/100x100.png" data-ai-hint="profile picture" />
-                    <AvatarFallback className="text-3xl">CL</AvatarFallback>
-                </Avatar>
-                <div>
-                    <h1 className="text-3xl font-bold font-headline">Chinta Lokesh Babu</h1>
-                    <div className="flex flex-wrap gap-4 mt-2 text-muted-foreground">
-                        <div className="flex items-center gap-2"><User /> 28 years old</div>
-                        <div className="flex items-center gap-2"><Heart /> Male</div>
-                        <div className="flex items-center gap-2"><Droplets /> B+ Positive</div>
+            <Card>
+                <CardContent className="p-6 flex flex-col md:flex-row items-center gap-6">
+                     <Avatar className="h-28 w-28 border-4 border-primary">
+                        <AvatarImage src="https://placehold.co/100x100.png" data-ai-hint="profile picture" />
+                        <AvatarFallback className="text-3xl">CL</AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1 text-center md:text-left">
+                        <h1 className="text-3xl font-bold">Chinta Lokesh Babu</h1>
+                        <div className="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-2 mt-2 text-muted-foreground">
+                            <div className="flex items-center gap-2"><User /> 28 years old</div>
+                            <div className="flex items-center gap-2"><Heart /> Male</div>
+                            <div className="flex items-center gap-2"><Droplets /> B+ Positive</div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                    <Button><Pencil className="mr-2 h-4 w-4" /> Edit Profile</Button>
+                </CardContent>
+            </Card>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <Card><CardContent className="p-4"><p className="font-semibold">Total Visits</p><p className="text-2xl font-bold">12</p></CardContent></Card>
-                <Card><CardContent className="p-4"><p className="font-semibold">Active Conditions</p><p className="text-2xl font-bold">2</p></CardContent></Card>
-                <Card><CardContent className="p-4"><p className="font-semibold">Current Medications</p><p className="text-2xl font-bold">4</p></CardContent></Card>
-                <Card><CardContent className="p-4"><p className="font-semibold">Last Test Date</p><p className="text-2xl font-bold">15 Jul 2024</p></CardContent></Card>
-            </div>
             
-            <div className="grid lg:grid-cols-3 gap-8">
+            <div className="grid lg:grid-cols-3 gap-8 items-start">
                 <div className="lg:col-span-2 space-y-8">
                     <Card>
                         <CardHeader><CardTitle>Recent Visits</CardTitle></CardHeader>
                         <CardContent>
                            <ul className="space-y-4">
                              {recentVisits.map((visit, index) => (
-                               <li key={index} className="flex justify-between items-center p-3 bg-secondary/50 rounded-lg">
+                               <li key={index} className="flex justify-between items-center p-3 bg-muted/40 rounded-lg">
                                    <div>
                                        <p className="font-semibold">{visit.reason}</p>
                                        <p className="text-sm text-muted-foreground">{visit.doctor}</p>
@@ -92,14 +89,11 @@ export default function ProfilePage() {
                             <CardDescription>Star Health - Family Plan</CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <div className="flex items-center gap-2 font-semibold"><Shield className="text-primary"/> Status: <Badge className="bg-green-600 text-white">Active</Badge></div>
+                            <div className="flex items-center gap-2 font-semibold"><Shield className="text-primary"/> Status: <Badge className="bg-green-100 text-green-800">Active</Badge></div>
                             <Button variant="link" className="p-0 h-auto mt-2">View Network Hospitals</Button>
                         </CardContent>
                     </Card>
-                    <div className="grid grid-cols-2 gap-4">
-                        <Button><Pencil className="mr-2 h-4 w-4" /> Edit Profile</Button>
-                        <Button variant="destructive"><ShieldAlert className="mr-2 h-4 w-4" /> Emergency Contacts</Button>
-                    </div>
+                    <Button variant="destructive" className="w-full"><ShieldAlert className="mr-2 h-4 w-4" /> Manage Emergency Contacts</Button>
                 </div>
             </div>
         </div>

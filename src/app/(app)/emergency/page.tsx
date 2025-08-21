@@ -15,7 +15,7 @@ export default function EmergencyPage() {
     return (
         <div className="max-w-4xl mx-auto space-y-8">
             <div className="text-center">
-                <h1 className="text-4xl font-bold font-headline text-destructive">Emergency Services</h1>
+                <h1 className="text-4xl font-bold text-destructive">Emergency Services</h1>
                 <p className="text-muted-foreground mt-2">In case of emergency, use the options below immediately.</p>
             </div>
 
@@ -28,7 +28,7 @@ export default function EmergencyPage() {
                 </Button>
             </div>
             
-            <Card className="border-destructive">
+            <Card className="border-destructive/50 bg-destructive/5">
                 <CardHeader>
                     <CardTitle className="text-destructive flex items-center gap-2"><ShieldAlert/> Critical Information</CardTitle>
                     <CardDescription>Share this with emergency services.</CardDescription>
@@ -49,13 +49,13 @@ export default function EmergencyPage() {
                     <CardContent>
                         <ul className="space-y-3">
                             {emergencyContacts.map(contact => (
-                                <li key={contact.name} className="flex items-center justify-between p-3 bg-secondary/50 rounded-lg">
+                                <li key={contact.name} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
                                     <div>
                                         <p className="font-semibold">{contact.name}</p>
                                         <p className="text-sm text-muted-foreground">{contact.distance}</p>
                                     </div>
                                     <div className="flex items-center gap-4">
-                                        <Badge variant={contact.available ? 'default' : 'destructive'} className={contact.available ? 'bg-green-600' : ''}>
+                                        <Badge variant={contact.available ? 'default' : 'destructive'} className={contact.available ? 'bg-green-500' : ''}>
                                             {contact.available ? 'Available' : 'Unavailable'}
                                         </Badge>
                                         <Button size="icon" variant="outline"><Phone className="h-4 w-4"/></Button>

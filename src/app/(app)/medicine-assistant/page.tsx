@@ -25,14 +25,15 @@ export default function MedicineAssistantPage() {
     return (
         <div className="max-w-4xl mx-auto space-y-8">
             <div className="text-center">
-                <h1 className="text-3xl font-bold font-headline text-primary">AI Medicine Assistant</h1>
+                <h1 className="text-3xl font-bold text-primary">AI Medicine Assistant</h1>
                 <p className="text-muted-foreground">Get information about medications, dosages, and side effects.</p>
             </div>
 
-            <Card>
+            <Card className="overflow-hidden">
                 <form onSubmit={handleSubmit}>
                     <CardHeader>
                         <CardTitle>Enter Medicine Name</CardTitle>
+                        <CardDescription>Our AI will provide detailed information about the drug.</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <Input
@@ -42,7 +43,7 @@ export default function MedicineAssistantPage() {
                             disabled={isPending}
                         />
                     </CardContent>
-                    <CardFooter>
+                    <CardFooter className="bg-muted/30 px-6 py-4">
                         <Button type="submit" disabled={isPending || !medicineName}>
                             {isPending ? (
                                 <>
@@ -62,37 +63,40 @@ export default function MedicineAssistantPage() {
 
             {isPending && (
                 <Card>
-                    <CardContent className="p-6 flex flex-col items-center justify-center text-center">
-                        <Loader2 className="h-12 w-12 animate-spin text-primary mb-4" />
-                        <h2 className="text-xl font-semibold">Loading Medicine Data...</h2>
+                    <CardContent className="p-6 flex flex-col items-center justify-center text-center space-y-2">
+                        <Loader2 className="h-12 w-12 animate-spin text-primary" />
+                        <h2 className="text-xl font-semibold">Loading Medicine Data</h2>
                         <p className="text-muted-foreground">Our AI is preparing the information for you.</p>
                     </CardContent>
                 </Card>
             )}
 
             {result && !isPending && (
-                <Card className="bg-primary/5">
+                <Card>
                     <CardHeader>
                         <CardTitle className="text-2xl text-primary">{result.name}</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-6">
                         <div>
-                            <h3 className="font-semibold flex items-center gap-2 mb-2"><Pill /> Dosage</h3>
-                            <p>{result.dosage}</p>
+                            <h3 className="font-semibold text-lg flex items-center gap-2 mb-2"><Pill /> Dosage</h3>
+                            <p className="text-muted-foreground">{result.dosage}</p>
                         </div>
                          <hr/>
                         <div>
-                            <h3 className="font-semibold flex items-center gap-2 mb-2"><AlertTriangle /> Side Effects</h3>
-                            <p>{result.sideEffects}</p>
+                            <h3 className="font-semibold text-lg flex items-center gap-2 mb-2"><AlertTriangle /> Side Effects</h3>
+                            <p className="text-muted-foreground">{result.sideEffects}</p>
                         </div>
-                        <Card className="bg-yellow-50 border-yellow-200 mt-6">
-                            <CardHeader>
-                                <CardTitle className="flex items-center gap-2 text-yellow-800 text-base"><FileText size={16}/> Disclaimer</CardTitle>
-                            </CardHeader>
-                            <CardContent className="text-sm text-yellow-700">
-                                This information is AI-generated and for informational purposes only. It is not a substitute for professional medical advice. Always consult with a qualified healthcare provider before making any decisions about your health or treatment.
-                            </CardContent>
-                        </Card>
+                        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-6">
+                           <div className="flex items-start gap-3">
+                                <FileText className="h-5 w-5 text-yellow-700 mt-1"/>
+                                <div>
+                                    <h4 className="font-semibold text-yellow-800">Disclaimer</h4>
+                                    <p className="text-sm text-yellow-700">
+                                        This information is AI-generated and for informational purposes only. It is not a substitute for professional medical advice. Always consult with a qualified healthcare provider before making any decisions about your health or treatment.
+                                    </p>
+                                </div>
+                           </div>
+                        </div>
                     </CardContent>
                 </Card>
             )}

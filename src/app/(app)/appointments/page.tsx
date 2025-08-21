@@ -69,11 +69,11 @@ export default function AppointmentsPage() {
     return (
         <div className="space-y-8">
             <div className="text-center">
-                <h1 className="text-3xl font-bold font-headline text-primary">Book an Appointment</h1>
+                <h1 className="text-3xl font-bold text-primary">Book an Appointment</h1>
                 <p className="text-muted-foreground mt-2">Find the right doctor for your needs.</p>
             </div>
 
-            <Card className="p-4">
+            <Card className="p-4 shadow-sm">
                 <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
                     <div className="relative">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
@@ -120,7 +120,7 @@ export default function AppointmentsPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {doctors.map((doctor, index) => (
-                    <Card key={index}>
+                    <Card key={index} className="transition-shadow hover:shadow-md">
                         <CardContent className="p-6">
                             <div className="flex flex-col sm:flex-row gap-6">
                                 <Avatar className="h-28 w-28 border-4 border-primary">
@@ -128,7 +128,7 @@ export default function AppointmentsPage() {
                                     <AvatarFallback>{doctor.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                                 </Avatar>
                                 <div className="flex-1">
-                                    <h3 className="text-2xl font-bold font-headline">{doctor.name}</h3>
+                                    <h3 className="text-2xl font-bold">{doctor.name}</h3>
                                     <p className="text-primary font-semibold">{doctor.specialty}</p>
                                     <p className="text-sm text-muted-foreground">{doctor.experience} experience</p>
                                     <p className="text-sm text-muted-foreground font-medium mt-1">{doctor.hospital}</p>

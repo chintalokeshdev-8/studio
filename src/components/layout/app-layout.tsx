@@ -7,77 +7,63 @@ import * as React from "react";
 import {
   HeartPulse,
   Home,
-  LayoutDashboard,
-  Stethoscope,
-  Pill,
-  FileText,
   MessageSquare,
   Siren,
   User,
-  Users,
-  BriefcaseMedical,
+  FileText,
+  Pill,
   CalendarCheck,
+  LayoutGrid,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const menuItems = [
-  { href: "/", label: "Home", icon: Home },
-  { href: "/symptom-checker", label: "Symptoms", icon: HeartPulse },
+  { href: "/", label: "Home", icon: LayoutGrid },
   { href: "/appointments", label: "Appointments", icon: CalendarCheck },
-  { href: "/opd-queue", label: "Chat & Queue", icon: MessageSquare },
-  { href: "/medicines", label: "Medicine", icon: Pill },
+  { href: "/opd-queue", label: "Chat", icon: MessageSquare },
+  { href: "/medicines", label: "Medicines", icon: Pill },
   { href: "/lab-reports", label: "Reports", icon: FileText },
   { href: "/profile", label: "Profile", icon: User },
   { href: "/emergency", label: "Emergency", icon: Siren },
+  { href: "/symptom-checker", label: "Symptoms", icon: HeartPulse },
 ];
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <header className="sticky top-0 z-10 flex items-center justify-between p-4 bg-primary text-primary-foreground shadow-md">
+    <div className="flex flex-col min-h-screen bg-muted/30">
+      <header className="sticky top-0 z-20 flex items-center justify-between p-4 bg-background border-b">
         <div className="flex items-center gap-2">
-            <Stethoscope className="w-8 h-8" />
+            <div className="p-2 bg-primary rounded-lg">
+                <HeartPulse className="w-6 h-6 text-primary-foreground" />
+            </div>
             <div>
-              <h1 className="text-xl font-bold font-headline">AarogyaAI</h1>
-              <p className="text-sm">Your Health Friend</p>
+              <h1 className="text-xl font-bold">AarogyaAI</h1>
             </div>
         </div>
-        <User className="h-6 w-6"/>
+        <Avatar>
+            <AvatarImage src="https://placehold.co/100x100.png" data-ai-hint="profile picture" />
+            <AvatarFallback>CL</AvatarFallback>
+        </Avatar>
       </header>
-      <main className="flex-1 p-4 sm:p-6 lg:p-8 bg-background">
+      <main className="flex-1 p-4 sm:p-6 lg:p-8">
           {children}
       </main>
-      <footer className="sticky bottom-0 z-10 mt-auto bg-card border-t">
-        <nav className="grid grid-cols-4">
+      <footer className="sticky bottom-0 z-20 mt-auto bg-background border-t">
+        <nav className="grid grid-cols-4 gap-1 p-1">
             {menuItems.slice(0, 4).map((item) => {
                  const isActive = pathname === item.href;
                  return (
                     <Link href={item.href} key={item.label}>
                         <div className={cn(
-                            "flex flex-col items-center justify-center gap-1 p-2 text-muted-foreground",
-                            isActive && "text-primary bg-primary/10",
-                            item.label === 'Emergency' && 'text-destructive'
+                            "flex flex-col items-center justify-center gap-1 p-2 rounded-lg transition-colors",
+                            isActive ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted/50",
+                             item.label === 'Emergency' && isActive ? "bg-destructive text-destructive-foreground" : "",
+                             item.label === 'Emergency' && !isActive ? "text-destructive" : ""
                         )}>
-                            <item.icon className="h-6 w-6" />
-                            <span className="text-xs font-medium">{item.label}</span>
-                        </div>
-                    </Link>
-                );
-            })}
-        </nav>
-        <nav className="grid grid-cols-4">
-            {menuItems.slice(4).map((item) => {
-                 const isActive = pathname === item.href;
-                 return (
-                    <Link href={item.href} key={item.label}>
-                        <div className={cn(
-                            "flex flex-col items-center justify-center gap-1 p-2 text-muted-foreground",
-                            isActive && "text-primary bg-primary/10",
-                            item.label === 'Emergency' && 'text-destructive bg-destructive/10'
-                        )}>
-                            <item.icon className="h-6 w-6" />
+                            <item.icon className="h-5 w-5" />
                             <span className="text-xs font-medium">{item.label}</span>
                         </div>
                     </Link>

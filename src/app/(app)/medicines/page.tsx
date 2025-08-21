@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { FlaskConical, Stethoscope, Microscope, LifeBuoy, Bell, Utensils, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from 'next/link';
+import { cn } from "@/lib/utils";
 
 const medicineSchedule = [
     { name: "Paracetamol", dosage: "500mg", time: "After Breakfast", taken: true },
@@ -24,7 +25,7 @@ export default function MyMedicinesPage() {
     return (
         <div className="space-y-8">
             <div className="text-left">
-                <h1 className="text-3xl font-bold font-headline text-primary">My Medicines</h1>
+                <h1 className="text-3xl font-bold text-primary">My Medicines</h1>
                 <p className="text-muted-foreground">Your daily medication schedule and recovery plan.</p>
             </div>
             
@@ -38,14 +39,14 @@ export default function MyMedicinesPage() {
                         <CardContent>
                             <div className="space-y-4">
                                 {medicineSchedule.map((med, index) => (
-                                    <div key={index} className={`p-4 rounded-lg flex items-center justify-between ${med.taken ? 'bg-green-100/50 border border-green-200' : 'bg-secondary/50'}`}>
+                                    <div key={index} className={cn('p-4 rounded-lg flex items-center justify-between transition-all', med.taken ? 'bg-green-100/60 border border-green-200' : 'bg-muted/40')}>
                                         <div>
                                             <p className="font-bold text-lg">{med.name}</p>
                                             <p className="text-sm text-muted-foreground">{med.dosage} • {med.time}</p>
                                         </div>
-                                        <div className="flex items-center space-x-2">
+                                        <div className="flex items-center space-x-3">
+                                            <Label htmlFor={`med-${index}`} className="text-sm font-medium">{med.taken ? 'Taken' : 'Take'}</Label>
                                             <Checkbox id={`med-${index}`} checked={med.taken} />
-                                            <Label htmlFor={`med-${index}`}>{med.taken ? 'Taken' : 'Take'}</Label>
                                         </div>
                                     </div>
                                 ))}
@@ -58,16 +59,14 @@ export default function MyMedicinesPage() {
                              <CardTitle className="flex items-center gap-2"><Award /> Weekly Progress</CardTitle>
                              <CardDescription>Your adherence to medication and diet plan this week.</CardDescription>
                         </CardHeader>
-                        <CardContent>
-                            <div className="space-y-4">
-                                <div>
-                                    <div className="flex justify-between mb-1"><p>Medication</p><p>90%</p></div>
-                                    <Progress value={90} className="h-2"/>
-                                </div>
-                                 <div>
-                                    <div className="flex justify-between mb-1"><p>Diet</p><p>75%</p></div>
-                                    <Progress value={75} className="h-2"/>
-                                </div>
+                        <CardContent className="space-y-6">
+                            <div>
+                                <div className="flex justify-between mb-1"><p>Medication</p><p className="font-semibold">90%</p></div>
+                                <Progress value={90} className="h-2"/>
+                            </div>
+                             <div>
+                                <div className="flex justify-between mb-1"><p>Diet</p><p className="font-semibold">75%</p></div>
+                                <Progress value={75} className="h-2"/>
                             </div>
                         </CardContent>
                     </Card>
@@ -87,13 +86,13 @@ export default function MyMedicinesPage() {
                                 </div>
                             </div>
                             <div>
-                                <h3 className="font-semibold flex items-center gap-2 mb-2"><Utensils className="text-primary"/> Recommended Diet Plan</h3>
-                                <div className="text-sm text-muted-foreground p-3 bg-secondary/50 rounded-lg">
+                                <h3 className="font-semibold flex items-center gap-2 mb-2"><Utensils className="text-primary"/> Recommended Diet</h3>
+                                <div className="text-sm text-muted-foreground p-3 bg-muted/40 rounded-lg space-y-1">
                                     <p>• Low-carb, high-protein diet.</p>
                                     <p>• Avoid sugary drinks and processed foods.</p>
                                     <p>• Drink at least 8 glasses of water daily.</p>
                                 </div>
-                                <Button variant="link" className="p-0 h-auto mt-2">View Detailed Plan</Button>
+                                <Button variant="link" className="p-0 h-auto mt-2 text-sm">View Detailed Plan</Button>
                             </div>
                         </CardContent>
                     </Card>
@@ -103,9 +102,9 @@ export default function MyMedicinesPage() {
                         <CardContent className="space-y-3">
                            {medicineAssistanceItems.map((item) => (
                              <Link key={item.label} href={item.href} passHref>
-                                <Button variant="outline" className="w-full justify-start gap-2">
+                                <Button variant="outline" className="w-full justify-start gap-3">
                                     <item.icon className="h-5 w-5 text-primary" />
-                                    {item.label}
+                                    <span>{item.label}</span>
                                 </Button>
                             </Link>
                            ))}
