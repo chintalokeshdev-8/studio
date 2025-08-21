@@ -1,9 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User, Heart, Droplets, Phone, Mail, MapPin, Shield, FileDown, Pencil, ShieldAlert, Users, HeartPulse, Pill } from "lucide-react";
+import { User, Heart, Droplets, Phone, Mail, MapPin, Shield, FileDown, Pencil, ShieldAlert, Users, HeartPulse, Pill, Trash2, Palette } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const recentVisits = [
   { date: "2024-07-15", reason: "Fever & Cold", doctor: "Dr. Rajesh Kumar" },
@@ -58,6 +59,27 @@ export default function ProfilePage() {
             
             <div className="grid lg:grid-cols-3 gap-8 items-start">
                 <div className="lg:col-span-2 space-y-8">
+                     <Card>
+                        <CardHeader>
+                            <CardTitle>Settings</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <div className="flex items-center justify-between p-3 bg-muted/40 rounded-lg">
+                                <div className="flex items-center gap-3">
+                                    <Palette className="h-5 w-5" style={{color: 'hsl(var(--nav-profile))'}}/>
+                                    <p className="font-semibold">Theme</p>
+                                </div>
+                                <ThemeToggle />
+                            </div>
+                             <div className="flex items-center justify-between p-3 bg-muted/40 rounded-lg">
+                                <div className="flex items-center gap-3">
+                                   <Trash2 className="h-5 w-5 text-destructive"/>
+                                   <p className="font-semibold">Account</p>
+                                </div>
+                               <Button variant="destructive" size="sm">Delete Account</Button>
+                            </div>
+                        </CardContent>
+                    </Card>
                     <Card>
                         <CardHeader><CardTitle>Recent Visits</CardTitle></CardHeader>
                         <CardContent>
