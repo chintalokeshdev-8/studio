@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -79,9 +80,9 @@ export default function DashboardPage() {
             <Link key={item.href} href={item.href} passHref>
               <Card className="text-center p-4 hover:bg-muted/50 transition-colors cursor-pointer h-full flex flex-col items-center justify-center aspect-square">
                 <div className="p-3 rounded-full mb-3" style={{backgroundColor: `${item.color.replace(')', ' / 0.1)')}`}}>
-                    <item.icon className="h-6 w-6" style={{color: item.color}} />
+                    <item.icon className="h-10 w-10" style={{color: item.color}} />
                 </div>
-                <p className="font-semibold text-sm">{item.label}</p>
+                <p className="font-bold text-sm">{item.label}</p>
                 <p className="text-xs text-muted-foreground">{item.description}</p>
               </Card>
             </Link>
