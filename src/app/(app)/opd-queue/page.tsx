@@ -70,7 +70,13 @@ export default function OpdQueuePage() {
                              <div className="flex items-center gap-4 p-4 bg-green-100/60 border border-green-200 rounded-lg">
                                 <Stethoscope className="h-6 w-6 text-green-700"/>
                                 <div>
-                                    <p className="font-bold text-green-800">Available</p>
+                                    <p className="font-bold text-green-800 flex items-center gap-2">
+                                        Available
+                                        <span className="relative flex h-3 w-3">
+                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                            <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                                        </span>
+                                    </p>
                                     <p className="text-sm text-green-700">The doctor is available for consultation.</p>
                                 </div>
                             </div>
@@ -130,7 +136,7 @@ export default function OpdQueuePage() {
                             <CardTitle>Dr. Rajesh Kumar</CardTitle>
                             <p className="text-sm text-green-600 font-medium flex items-center gap-1.5">
                                 <span className="relative flex h-3 w-3">
-                                    <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
                                     <span className="relative inline-flex rounded-full h-3 w-3 bg-green-600"></span>
                                 </span>
                                 Online
