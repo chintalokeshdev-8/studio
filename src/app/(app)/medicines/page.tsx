@@ -1,17 +1,18 @@
+
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { FlaskConical, Stethoscope, Microscope, LifeBuoy, Bell, Utensils, Award } from "lucide-react";
+import { FlaskConical, Stethoscope, Microscope, LifeBuoy, Bell, Utensils, Award, AlarmClock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from 'next/link';
 import { cn } from "@/lib/utils";
 
 const medicineSchedule = [
-    { name: "Paracetamol", dosage: "500mg", time: "After Breakfast", taken: true },
-    { name: "Vitamin D3", dosage: "60000 IU", time: "After Lunch", taken: true },
-    { name: "Metformin", dosage: "1000mg", time: "After Dinner", taken: false },
-    { name: "Omega-3", dosage: "1 capsule", time: "After Dinner", taken: false },
+    { name: "Paracetamol", dosage: "500mg", time: "After Breakfast", taken: true, frequency: "3 times a day", alertTime: "9:00 AM" },
+    { name: "Vitamin D3", dosage: "60000 IU", time: "After Lunch", taken: true, frequency: "Once a week", alertTime: "1:00 PM" },
+    { name: "Metformin", dosage: "1000mg", time: "After Dinner", taken: false, frequency: "Twice a day", alertTime: "9:00 PM" },
+    { name: "Omega-3", dosage: "1 capsule", time: "After Dinner", taken: false, frequency: "Once a day", alertTime: "9:30 PM" },
 ];
 
 const medicineAssistanceItems = [
@@ -40,9 +41,17 @@ export default function MyMedicinesPage() {
                             <div className="space-y-4">
                                 {medicineSchedule.map((med, index) => (
                                     <div key={index} className={cn('p-4 rounded-lg flex items-center justify-between transition-all', med.taken ? 'bg-green-100/60 border border-green-200' : 'bg-muted/40')}>
-                                        <div>
-                                            <p className="font-bold text-lg">{med.name}</p>
-                                            <p className="text-sm text-muted-foreground">{med.dosage} • {med.time}</p>
+                                        <div className="flex items-start gap-4">
+                                            <div className="pt-1">
+                                                <AlarmClock className="h-5 w-5 text-primary" />
+                                            </div>
+                                            <div>
+                                                <p className="font-bold text-lg">{med.name}</p>
+                                                <p className="text-sm text-muted-foreground">{med.dosage} • {med.time}</p>
+                                                <div className="text-xs font-semibold mt-1 p-1 px-2 bg-primary/10 text-primary rounded-full inline-block">
+                                                    {med.alertTime} • {med.frequency}
+                                                </div>
+                                            </div>
                                         </div>
                                         <div className="flex items-center space-x-3">
                                             <Label htmlFor={`med-${index}`} className="text-sm font-medium">{med.taken ? 'Taken' : 'Take'}</Label>
