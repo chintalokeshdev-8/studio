@@ -29,6 +29,16 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+
+    --nav-home: 220 90% 55%;
+    --nav-symptoms: 340 85% 60%;
+    --nav-chat: 140 80% 45%;
+    --nav-appointments: 200 95% 50%;
+    --nav-junior-doctors: 280 85% 65%;
+    --nav-diagnostics: 25 90% 55%;
+    --nav-medicines: 310 80% 60%;
+    --nav-profile: 50 95% 55%;
+    --nav-emergency: 0 100% 50%;
   }
 
   .dark {
@@ -56,6 +66,16 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+
+    --nav-home: 210 90% 55%;
+    --nav-symptoms: 340 85% 60%;
+    --nav-chat: 140 70% 50%;
+    --nav-appointments: 200 95% 55%;
+    --nav-junior-doctors: 280 85% 70%;
+    --nav-diagnostics: 25 90% 60%;
+    --nav-medicines: 310 80% 65%;
+    --nav-profile: 50 95% 60%;
+    --nav-emergency: 0 90% 60%;
   }
 }
 
@@ -66,4 +86,16 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@layer utilities {
+    .animation-blink {
+        animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+        50% {
+            opacity: 0.2;
+        }
+    }
 }

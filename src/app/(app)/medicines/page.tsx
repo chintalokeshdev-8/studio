@@ -26,7 +26,7 @@ export default function MyMedicinesPage() {
     return (
         <div className="space-y-8">
             <div className="text-left">
-                <h1 className="text-3xl font-bold text-primary">My Medicines</h1>
+                <h1 className="text-3xl font-bold" style={{color: 'hsl(var(--nav-medicines))'}}>My Medicines</h1>
                 <p className="text-muted-foreground">Your daily medication schedule and recovery plan.</p>
             </div>
             
@@ -43,12 +43,12 @@ export default function MyMedicinesPage() {
                                     <div key={index} className={cn('p-4 rounded-lg flex items-center justify-between transition-all', med.taken ? 'bg-green-100/60 border border-green-200' : 'bg-muted/40')}>
                                         <div className="flex items-start gap-4">
                                             <div className="pt-1">
-                                                <AlarmClock className="h-5 w-5 text-primary" />
+                                                <AlarmClock className="h-5 w-5" style={{color: 'hsl(var(--nav-medicines))'}} />
                                             </div>
                                             <div>
                                                 <p className="font-bold text-lg">{med.name}</p>
                                                 <p className="text-sm text-muted-foreground">{med.dosage} • {med.time}</p>
-                                                <div className="text-xs font-semibold mt-2 p-1 px-2.5 bg-primary/10 text-primary rounded-full inline-flex items-center gap-1.5">
+                                                <div className="text-xs font-semibold mt-2 p-1 px-2.5 rounded-full inline-flex items-center gap-1.5" style={{backgroundColor: 'hsla(var(--nav-medicines)/0.1)', color: 'hsl(var(--nav-medicines))'}}>
                                                     <Bell className="h-3 w-3"/>
                                                     {med.alertTime} • {med.frequency}
                                                 </div>
@@ -92,17 +92,17 @@ export default function MyMedicinesPage() {
                                 <Label>Recovery Probability</Label>
                                 <div className="flex items-center gap-2 mt-1">
                                     <Progress value={85} className="w-full" />
-                                    <span className="font-bold text-primary">85%</span>
+                                    <span className="font-bold" style={{color: 'hsl(var(--nav-medicines))'}}>85%</span>
                                 </div>
                             </div>
                             <div>
-                                <h3 className="font-semibold flex items-center gap-2 mb-2"><Utensils className="text-primary"/> Recommended Diet</h3>
+                                <h3 className="font-semibold flex items-center gap-2 mb-2"><Utensils style={{color: 'hsl(var(--nav-medicines))'}}/> Recommended Diet</h3>
                                 <div className="text-sm text-muted-foreground p-3 bg-muted/40 rounded-lg space-y-1">
                                     <p>• Low-carb, high-protein diet.</p>
                                     <p>• Avoid sugary drinks and processed foods.</p>
                                     <p>• Drink at least 8 glasses of water daily.</p>
                                 </div>
-                                <Button variant="link" className="p-0 h-auto mt-2 text-sm">View Detailed Plan</Button>
+                                <Button variant="link" className="p-0 h-auto mt-2 text-sm" style={{color: 'hsl(var(--nav-medicines))'}}>View Detailed Plan</Button>
                             </div>
                         </CardContent>
                     </Card>
@@ -113,7 +113,7 @@ export default function MyMedicinesPage() {
                            {medicineAssistanceItems.map((item) => (
                              <Link key={item.label} href={item.href} passHref>
                                 <Button variant="outline" className="w-full justify-start gap-3">
-                                    <item.icon className="h-5 w-5 text-primary" />
+                                    <item.icon className="h-5 w-5" style={{color: 'hsl(var(--nav-medicines))'}} />
                                     <span>{item.label}</span>
                                 </Button>
                             </Link>

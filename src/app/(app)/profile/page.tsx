@@ -29,7 +29,7 @@ export default function ProfilePage() {
             <Card>
                 <CardContent className="p-6">
                     <div className="flex flex-col md:flex-row items-center gap-6">
-                        <Avatar className="h-28 w-28 border-4 border-primary">
+                        <Avatar className="h-28 w-28 border-4" style={{borderColor: 'hsl(var(--nav-profile))'}}>
                             <AvatarImage src="/images/profile.jpg" />
                             <AvatarFallback className="text-3xl">CL</AvatarFallback>
                         </Avatar>
@@ -44,13 +44,13 @@ export default function ProfilePage() {
                                 <div className="flex items-center gap-2"><MapPin /> Guntur, Guntur District</div>
                             </div>
                         </div>
-                        <Button><Pencil className="mr-2 h-4 w-4" /> Edit Profile</Button>
+                        <Button style={{backgroundColor: 'hsl(var(--nav-profile))'}}><Pencil className="mr-2 h-4 w-4" /> Edit Profile</Button>
                     </div>
                     <Separator className="my-6" />
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                        <div className="flex items-center gap-3"><Mail className="text-primary h-5 w-5"/><span>chinta.lokesh@email.com</span></div>
-                        <div className="flex items-center gap-3"><Phone className="text-primary h-5 w-5"/><span>+91 98765 43210</span></div>
-                        <div className="flex items-start gap-3"><MapPin className="text-primary h-5 w-5 mt-1"/><span>H.No 1-2-3, Jubilee Hills, Hyderabad, India</span></div>
+                        <div className="flex items-center gap-3"><Mail style={{color: 'hsl(var(--nav-profile))'}} className="h-5 w-5"/><span>chinta.lokesh@email.com</span></div>
+                        <div className="flex items-center gap-3"><Phone style={{color: 'hsl(var(--nav-profile))'}} className="h-5 w-5"/><span>+91 98765 43210</span></div>
+                        <div className="flex items-start gap-3"><MapPin style={{color: 'hsl(var(--nav-profile))'}} className="h-5 w-5 mt-1"/><span>H.No 1-2-3, Jubilee Hills, Hyderabad, India</span></div>
                     </div>
                 </CardContent>
             </Card>
@@ -101,7 +101,7 @@ export default function ProfilePage() {
                                     <div className="flex items-center justify-between">
                                       <div className="flex items-center gap-3">
                                          <div className="p-2 bg-muted/50 rounded-full">
-                                            <item.icon className="h-5 w-5 text-primary" />
+                                            <item.icon className="h-5 w-5" style={{color: 'hsl(var(--nav-profile))'}} />
                                         </div>
                                         <p className="font-semibold">{item.label}</p>
                                       </div>
@@ -117,8 +117,8 @@ export default function ProfilePage() {
                             <CardDescription>Star Health - Family Plan</CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <div className="flex items-center gap-2 font-semibold"><Shield className="text-primary"/> Status: <Badge className="bg-green-100 text-green-800">Active</Badge></div>
-                            <Button variant="link" className="p-0 h-auto mt-2">View Network Hospitals</Button>
+                            <div className="flex items-center gap-2 font-semibold"><Shield style={{color: 'hsl(var(--nav-profile))'}}/> Status: <Badge className="bg-green-100 text-green-800">Active</Badge></div>
+                            <Button variant="link" className="p-0 h-auto mt-2" style={{color: 'hsl(var(--nav-profile))'}}>View Network Hospitals</Button>
                         </CardContent>
                     </Card>
                     <Button variant="destructive" className="w-full"><ShieldAlert className="mr-2 h-4 w-4" /> Manage Emergency Contacts</Button>

@@ -47,7 +47,7 @@ export default function JuniorDoctorsPage() {
     return (
         <div className="space-y-8">
             <div className="text-center">
-                <h1 className="text-3xl font-bold text-primary">24/7 Junior Doctors</h1>
+                <h1 className="text-3xl font-bold" style={{color: 'hsl(var(--nav-junior-doctors))'}}>24/7 Junior Doctors</h1>
                 <p className="text-muted-foreground mt-2">Get instant consultation from our team of dedicated junior doctors, anytime.</p>
             </div>
 
@@ -55,7 +55,7 @@ export default function JuniorDoctorsPage() {
                 {doctors.map((doctor, index) => (
                     <Card key={index} className="flex flex-col transition-shadow hover:shadow-md">
                         <CardHeader className="flex flex-row items-center gap-4">
-                            <Avatar className="h-16 w-16 border-2 border-primary">
+                            <Avatar className="h-16 w-16 border-2" style={{borderColor: 'hsl(var(--nav-junior-doctors))'}}>
                                 <AvatarImage src={doctor.avatar} data-ai-hint={doctor.dataAiHint} />
                                 <AvatarFallback>{doctor.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                             </Avatar>
@@ -80,11 +80,11 @@ export default function JuniorDoctorsPage() {
                             )}
                         </CardHeader>
                         <CardContent className="flex-grow space-y-3 text-sm p-4 pt-0">
-                            <p className="text-muted-foreground"><BadgeCheck className="inline-block mr-2 h-4 w-4 text-primary"/>{doctor.experience} of experience</p>
+                            <p className="text-muted-foreground"><BadgeCheck className="inline-block mr-2 h-4 w-4" style={{color: 'hsl(var(--nav-junior-doctors))'}}/>{doctor.experience} of experience</p>
                             <p className="text-muted-foreground">Speaks: {doctor.languages}</p>
                         </CardContent>
                         <div className="p-4 pt-0 grid grid-cols-2 gap-2">
-                            <Button disabled={doctor.status === 'Offline'}>
+                            <Button disabled={doctor.status === 'Offline'} style={{backgroundColor: doctor.status === 'Online' ? 'hsl(var(--nav-junior-doctors))' : ''}}>
                                 <Video className="mr-2 h-4 w-4" /> Video Call
                             </Button>
                             <Button variant="outline" disabled={doctor.status === 'Offline'}>

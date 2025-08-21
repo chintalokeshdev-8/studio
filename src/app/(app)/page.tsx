@@ -9,14 +9,14 @@ import { Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const quickAccessItems = [
-  { href: '/symptom-checker', icon: HeartPulse, label: 'AI Symptom Check', description: 'వైద్య లక్షణాలు తనిఖీ' },
-  { href: '/opd-queue', icon: MessageSquare, label: 'Chat & Queue', description: 'మీ వంతు & చాట్' },
-  { href: '/appointments', icon: CalendarCheck, label: 'Appointments', description: 'సమయం నమోదు చేసుకోండి' },
-  { href: '/emergency', icon: Siren, label: 'Emergency', description: 'తక్షణ సహాయం' },
-  { href: '/junior-doctors', icon: Headset, label: '24/7 Jr. Doctors', description: 'ఉచిత సలహా' },
-  { href: '/lab-reports', icon: TestTube, label: 'Diagnostics', description: 'రిపోర్టులు చూడండి' },
-  { href: '/medicines', icon: Pill, label: 'My Medicines', description: 'మీ మందులు' },
-  { href: '/profile', icon: User, label: 'Profile', description: 'ప్రొఫైల్' },
+  { href: '/symptom-checker', icon: HeartPulse, label: 'AI Symptom Check', description: 'వైద్య లక్షణాలు తనిఖీ', color: 'hsl(var(--nav-symptoms))' },
+  { href: '/opd-queue', icon: MessageSquare, label: 'Chat & Queue', description: 'మీ వంతు & చాట్', color: 'hsl(var(--nav-chat))' },
+  { href: '/appointments', icon: CalendarCheck, label: 'Appointments', description: 'సమయం నమోదు చేసుకోండి', color: 'hsl(var(--nav-appointments))' },
+  { href: '/junior-doctors', icon: Headset, label: '24/7 Jr. Doctors', description: 'ఉచిత సలహా', color: 'hsl(var(--nav-junior-doctors))' },
+  { href: '/lab-reports', icon: TestTube, label: 'Diagnostics', description: 'రిపోర్టులు చూడండి', color: 'hsl(var(--nav-diagnostics))' },
+  { href: '/medicines', icon: Pill, label: 'My Medicines', description: 'మీ మందులు', color: 'hsl(var(--nav-medicines))' },
+  { href: '/profile', icon: User, label: 'Profile', description: 'ప్రొఫైల్', color: 'hsl(var(--nav-profile))' },
+  { href: '/emergency', icon: Siren, label: 'Emergency', description: 'తక్షణ సహాయం', color: 'hsl(var(--nav-emergency))' },
 ];
 
 const medicineAssistanceItems = [
@@ -37,9 +37,9 @@ const medicineAssistanceItems = [
 ];
 
 const healthOverviewItems = [
-    { value: "12", label: "Total Visits", icon: Users, color: "text-blue-500" },
-    { value: "2", label: "Active Conditions", icon: HeartPulse, color: "text-green-500" },
-    { value: "4", label: "Medications", icon: Pill, color: "text-orange-500" },
+    { value: "12", label: "Total Visits", icon: Users },
+    { value: "2", label: "Active Conditions", icon: HeartPulse },
+    { value: "4", label: "Medications", icon: Pill },
 ];
 
 export default function DashboardPage() {
@@ -82,8 +82,8 @@ export default function DashboardPage() {
           {quickAccessItems.map((item) => (
             <Link key={item.href} href={item.href} passHref>
               <Card className="text-center p-4 hover:bg-muted/50 transition-colors cursor-pointer h-full flex flex-col items-center justify-center aspect-square">
-                <div className={cn("p-3 rounded-full mb-3", item.label === 'Emergency' ? 'bg-red-100' : 'bg-primary/10' )}>
-                    <item.icon className={cn("h-6 w-6", item.label === 'Emergency' ? 'text-red-600' : 'text-primary' )} />
+                <div className="p-3 rounded-full mb-3" style={{backgroundColor: `${item.color.replace(')', ' / 0.1)')}`}}>
+                    <item.icon className="h-6 w-6" style={{color: item.color}} />
                 </div>
                 <p className="font-semibold text-sm">{item.label}</p>
                 <p className="text-xs text-muted-foreground">{item.description}</p>
@@ -127,7 +127,7 @@ export default function DashboardPage() {
                               <h3 className="font-semibold">{item.title}</h3>
                               <p className="text-sm text-muted-foreground">{item.description}</p>
                           </div>
-                          <Button size="sm" variant="ghost">{item.buttonText}</Button>
+                          <Button size="sm" variant="ghost" style={{color: 'hsl(var(--nav-medicines))'}}>{item.buttonText}</Button>
                       </CardContent>
                   </Card>
               </Link>

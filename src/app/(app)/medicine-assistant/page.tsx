@@ -25,7 +25,7 @@ export default function MedicineAssistantPage() {
     return (
         <div className="max-w-4xl mx-auto space-y-8">
             <div className="text-center">
-                <h1 className="text-3xl font-bold text-primary">AI Medicine Assistant</h1>
+                <h1 className="text-3xl font-bold" style={{color: 'hsl(var(--nav-medicines))'}}>AI Medicine Assistant</h1>
                 <p className="text-muted-foreground">Get information about medications, dosages, and side effects.</p>
             </div>
 
@@ -44,7 +44,7 @@ export default function MedicineAssistantPage() {
                         />
                     </CardContent>
                     <CardFooter className="bg-muted/30 px-6 py-4">
-                        <Button type="submit" disabled={isPending || !medicineName}>
+                        <Button type="submit" disabled={isPending || !medicineName} style={{backgroundColor: 'hsl(var(--nav-medicines))'}}>
                             {isPending ? (
                                 <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -64,7 +64,7 @@ export default function MedicineAssistantPage() {
             {isPending && (
                 <Card>
                     <CardContent className="p-6 flex flex-col items-center justify-center text-center space-y-2">
-                        <Loader2 className="h-12 w-12 animate-spin text-primary" />
+                        <Loader2 className="h-12 w-12 animate-spin" style={{color: 'hsl(var(--nav-medicines))'}} />
                         <h2 className="text-xl font-semibold">Loading Medicine Data</h2>
                         <p className="text-muted-foreground">Our AI is preparing the information for you.</p>
                     </CardContent>
@@ -74,7 +74,7 @@ export default function MedicineAssistantPage() {
             {result && !isPending && (
                 <Card>
                     <CardHeader>
-                        <CardTitle className="text-2xl text-primary">{result.name}</CardTitle>
+                        <CardTitle className="text-2xl" style={{color: 'hsl(var(--nav-medicines))'}}>{result.name}</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-6">
                         <div>

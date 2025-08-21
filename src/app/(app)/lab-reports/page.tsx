@@ -42,7 +42,7 @@ export default function DiagnosticsPage() {
     return (
         <div className="space-y-8">
              <div>
-                <h1 className="text-3xl font-bold text-primary">Diagnostics + Reports</h1>
+                <h1 className="text-3xl font-bold" style={{color: 'hsl(var(--nav-diagnostics))'}}>Diagnostics + Reports</h1>
                 <p className="text-muted-foreground">Find diagnostic tests and view your reports.</p>
             </div>
             <Tabs defaultValue="diagnostics" className="w-full">
@@ -96,8 +96,8 @@ export default function DiagnosticsPage() {
                                             <Badge variant="outline" className="mt-2">{test.category}</Badge>
                                         </div>
                                         <div className="flex items-center gap-4">
-                                            <p className="text-xl font-bold text-primary">₹{test.price}</p>
-                                            <Button>Book Now</Button>
+                                            <p className="text-xl font-bold" style={{color: 'hsl(var(--nav-diagnostics))'}}>₹{test.price}</p>
+                                            <Button style={{backgroundColor: 'hsl(var(--nav-diagnostics))'}}>Book Now</Button>
                                         </div>
                                     </Card>
                                 ))}
@@ -112,7 +112,7 @@ export default function DiagnosticsPage() {
                                 <CardTitle>My Reports</CardTitle>
                                 <CardDescription>View and download your medical test results.</CardDescription>
                             </div>
-                             <Button>
+                             <Button style={{backgroundColor: 'hsl(var(--nav-diagnostics))'}}>
                                 <Upload className="mr-2 h-4 w-4" />
                                 Upload Report
                             </Button>

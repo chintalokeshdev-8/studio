@@ -69,7 +69,7 @@ export default function AppointmentsPage() {
     return (
         <div className="space-y-8">
             <div className="text-center">
-                <h1 className="text-3xl font-bold text-primary">Book an Appointment</h1>
+                <h1 className="text-3xl font-bold" style={{color: 'hsl(var(--nav-appointments))'}}>Book an Appointment</h1>
                 <p className="text-muted-foreground mt-2">Find the right doctor for your needs.</p>
             </div>
 
@@ -123,13 +123,13 @@ export default function AppointmentsPage() {
                     <Card key={index} className="transition-shadow hover:shadow-md">
                         <CardContent className="p-6">
                             <div className="flex flex-col sm:flex-row gap-6">
-                                <Avatar className="h-28 w-28 border-4 border-primary">
+                                <Avatar className="h-28 w-28 border-4" style={{borderColor: 'hsl(var(--nav-appointments))'}}>
                                     <AvatarImage src={doctor.avatar} data-ai-hint={doctor.dataAiHint} />
                                     <AvatarFallback>{doctor.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                                 </Avatar>
                                 <div className="flex-1">
                                     <h3 className="text-2xl font-bold">{doctor.name}</h3>
-                                    <p className="text-primary font-semibold">{doctor.specialty}</p>
+                                    <p style={{color: 'hsl(var(--nav-appointments))'}} className="font-semibold">{doctor.specialty}</p>
                                     <p className="text-sm text-muted-foreground">{doctor.experience} experience</p>
                                     <p className="text-sm text-muted-foreground font-medium mt-1">{doctor.hospital}</p>
                                 </div>
@@ -140,7 +140,7 @@ export default function AppointmentsPage() {
                             </div>
                              <div className="mt-6 flex justify-end gap-2">
                                 <Button variant="outline">View Profile</Button>
-                                <Button>Book Appointment</Button>
+                                <Button style={{backgroundColor: 'hsl(var(--nav-appointments))'}}>Book Appointment</Button>
                             </div>
                         </CardContent>
                     </Card>

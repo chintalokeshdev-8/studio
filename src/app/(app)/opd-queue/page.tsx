@@ -32,20 +32,20 @@ export default function OpdQueuePage() {
     return (
         <div className="space-y-8">
             <div className="text-center">
-                <h1 className="text-3xl font-bold text-primary">Chat & OPD Queue</h1>
+                <h1 className="text-3xl font-bold" style={{color: 'hsl(var(--nav-chat))'}}>Chat & OPD Queue</h1>
                 <p className="text-muted-foreground">Live updates and chat for Dr. Rajesh Kumar's clinic.</p>
             </div>
 
             <div className="grid lg:grid-cols-2 gap-8 items-start">
                 <div className="space-y-8">
                     <div className="grid md:grid-cols-2 gap-6">
-                        <Card className="bg-primary/10 border-primary/20">
+                        <Card className="border-primary/20" style={{backgroundColor: 'hsla(var(--nav-chat)/0.1)', borderColor: 'hsla(var(--nav-chat)/0.2)'}}>
                             <CardHeader>
-                                <CardTitle className="flex items-center gap-2 text-primary"><User /> Your Token</CardTitle>
+                                <CardTitle className="flex items-center gap-2" style={{color: 'hsl(var(--nav-chat))'}}><User /> Your Token</CardTitle>
                             </CardHeader>
                             <CardContent className="text-center">
-                                <p className="text-6xl font-bold text-primary">#23</p>
-                                <div className="flex items-center justify-center gap-2 mt-4 text-primary/80">
+                                <p className="text-6xl font-bold" style={{color: 'hsl(var(--nav-chat))'}}>#23</p>
+                                <div className="flex items-center justify-center gap-2 mt-4" style={{color: 'hsla(var(--nav-chat)/0.8)'}}>
                                     <Clock className="w-5 h-5" />
                                     <span className="font-semibold">Est. Wait: 5 mins</span>
                                 </div>
@@ -69,16 +69,16 @@ export default function OpdQueuePage() {
                         <CardContent className="space-y-4">
                              <div className="flex items-center gap-4 p-4 bg-green-100/60 border border-green-200 rounded-lg">
                                 <Stethoscope className="h-6 w-6 text-green-700"/>
-                                <div>
+                                <div className="flex-1">
                                     <p className="font-bold text-green-800 flex items-center gap-2">
                                         Available
-                                        <span className="relative flex h-3 w-3">
-                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                                            <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                                        </span>
                                     </p>
                                     <p className="text-sm text-green-700">The doctor is available for consultation.</p>
                                 </div>
+                                 <span className="relative flex h-4 w-4">
+                                    <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-4 w-4 bg-green-600"></span>
+                                </span>
                             </div>
                             <div className="flex items-center gap-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                                 <Briefcase className="h-6 w-6 text-yellow-700"/>
@@ -104,9 +104,9 @@ export default function OpdQueuePage() {
                         <CardContent>
                             <div className="space-y-3">
                                 {queue.map(patient => (
-                                    <div key={patient.token} className={`flex items-center justify-between p-3 rounded-lg ${patient.token === 23 ? 'bg-primary/10' : 'bg-muted/40'}`}>
+                                    <div key={patient.token} className={`flex items-center justify-between p-3 rounded-lg ${patient.token === 23 ? 'bg-primary/10' : 'bg-muted/40'}`} style={patient.token === 23 ? {backgroundColor: 'hsla(var(--nav-chat)/0.1)'} : {}}>
                                         <div className="flex items-center gap-3">
-                                            <div className={`flex items-center justify-center h-10 w-10 rounded-full font-bold text-lg ${patient.token === 23 ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
+                                            <div className={`flex items-center justify-center h-10 w-10 rounded-full font-bold text-lg ${patient.token === 23 ? 'text-primary-foreground' : 'bg-muted'}`} style={patient.token === 23 ? {backgroundColor: 'hsl(var(--nav-chat))'} : {}}>
                                                 {patient.token}
                                             </div>
                                             <div>
@@ -115,6 +115,7 @@ export default function OpdQueuePage() {
                                         </div>
                                         <Badge variant={patient.status === 'Consulting' ? 'default' : (patient.token === 23 ? 'outline' : 'secondary')}
                                            className={patient.status === 'Consulting' ? 'bg-primary' : (patient.token === 23 ? 'border-primary text-primary' : '')}
+                                           style={patient.status === 'Consulting' ? {backgroundColor: 'hsl(var(--nav-chat))'} : (patient.token === 23 ? {borderColor: 'hsl(var(--nav-chat))', color: 'hsl(var(--nav-chat))'} : {})}
                                         >
                                             {patient.status}
                                         </Badge>
@@ -152,7 +153,8 @@ export default function OpdQueuePage() {
                                         <AvatarFallback>DR</AvatarFallback>
                                     </Avatar>
                                 )}
-                                <div className={`rounded-lg px-4 py-2 ${msg.sender === 'user' ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
+                                <div className={`rounded-lg px-4 py-2 ${msg.sender === 'user' ? 'text-primary-foreground' : 'bg-muted'}`}
+                                 style={msg.sender === 'user' ? {backgroundColor: 'hsl(var(--nav-chat))'} : {}}>
                                     <p>{msg.text}</p>
                                     <p className={`text-xs mt-1 text-right ${msg.sender === 'user' ? 'text-primary-foreground/70' : 'text-muted-foreground'}`}>{msg.time}</p>
 
@@ -174,7 +176,7 @@ export default function OpdQueuePage() {
                         </div>
                         <div className="flex w-full items-center space-x-2">
                             <Input type="text" placeholder="Type your message..." className="flex-1" />
-                            <Button type="submit" size="icon">
+                            <Button type="submit" size="icon" style={{backgroundColor: 'hsl(var(--nav-chat))'}}>
                                 <Send className="h-4 w-4" />
                                 <span className="sr-only">Send</span>
                             </Button>
