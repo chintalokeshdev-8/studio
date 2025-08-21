@@ -64,20 +64,20 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                                "flex flex-col items-center justify-center gap-1 p-1 rounded-lg transition-transform duration-200 ease-in-out w-20",
                                isActive ? "scale-110" : "scale-100"
                            )}>
-                               <div 
-                                    className={cn("p-2 rounded-full",  isActive ? `bg-[${item.color}]` : `bg-[${item.color.replace(')', ' / 0.1)')}]`)}
+                               <div
+                                    className="p-2 rounded-full"
                                     style={{
-                                        backgroundColor: isActive ? item.color : `${item.color.replace(')', ' / 0.1)')}`,
+                                        backgroundColor: `${item.color.replace(')', ' / 0.1)')}`,
                                     }}
                                 >
-                                   <item.icon className={cn("h-6 w-6", isActive ? 'text-white' : '')} style={{ color: isActive ? 'white' : item.color }} />
+                                   <item.icon className="h-6 w-6" style={{ color: item.color }} />
                                </div>
                                <div className="text-center leading-tight mt-1">
-                                    <p className={cn("text-xs font-bold")}
+                                    <p className="text-xs font-bold"
                                        style={{color: item.color}}>
                                        {item.label}
                                     </p>
-                                    <p className={cn("text-[10px] font-semibold")}
+                                    <p className="text-[10px] font-semibold"
                                        style={{color: item.color}}>
                                        {item.telugu}
                                     </p>
