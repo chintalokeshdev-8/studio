@@ -44,9 +44,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                )}>
                    <div 
                         className={cn("p-2 rounded-full transition-colors", 
-                            isActive ? 'text-white' : 'text-muted-foreground'
+                            isActive ? 'text-white' : ''
                         )}
-                        style={ isActive ? { backgroundColor: item.color, color: 'white' } : { color: item.color, backgroundColor: `${item.color.replace(')', ' / 0.1)')}` }}
+                        style={ isActive ? { backgroundColor: item.color } : { color: item.color, backgroundColor: `${item.color.replace(')', ' / 0.1)')}` }}
                     >
                        <item.icon className="h-5 w-5" />
                    </div>
