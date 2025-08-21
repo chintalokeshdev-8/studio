@@ -38,14 +38,14 @@ const getStatusInfo = (status: string) => {
         case "Available":
             return {
                 icon: Stethoscope,
-                color: "text-green-700 bg-green-100/60 border-green-200",
+                color: "border-green-200",
                 textColor: "text-green-800",
                 indicator: true,
             };
         case "In Surgery":
             return {
                 icon: Briefcase,
-                color: "text-yellow-700 bg-yellow-50 border-yellow-200",
+                color: "border-yellow-200",
                 textColor: "text-yellow-800",
                 details: "Estimated back in 2 hours",
                 indicator: false,
@@ -53,7 +53,7 @@ const getStatusInfo = (status: string) => {
         case "On Leave":
             return {
                 icon: Plane,
-                color: "text-red-700 bg-red-50 border-red-200",
+                color: "border-red-200",
                 textColor: "text-red-800",
                 details: "Doctor will be back tomorrow.",
                 indicator: false,
@@ -61,7 +61,7 @@ const getStatusInfo = (status: string) => {
         default:
             return {
                 icon: Stethoscope,
-                color: "text-muted-foreground bg-muted",
+                color: "border-muted",
                 textColor: "text-foreground",
                 indicator: false,
             };
@@ -110,7 +110,7 @@ export default function OpdQueuePage() {
                             <CardTitle>Doctor Status</CardTitle>
                         </CardHeader>
                         <CardContent>
-                             <div className={`flex items-center gap-4 p-4 ${currentStatusInfo.color} rounded-lg`}>
+                             <div className={`flex items-center gap-4 p-4 ${currentStatusInfo.color} rounded-lg border bg-background`}>
                                 <StatusIcon className={`h-6 w-6 ${currentStatusInfo.textColor}`}/>
                                 <div className="flex-1">
                                     <p className={`font-bold ${currentStatusInfo.textColor} flex items-center gap-2`}>
@@ -120,7 +120,7 @@ export default function OpdQueuePage() {
                                 </div>
                                 {currentStatusInfo.indicator && (
                                     <span className="relative flex h-4 w-4">
-                                        <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
                                         <span className="relative inline-flex rounded-full h-4 w-4 bg-green-600"></span>
                                     </span>
                                 )}
