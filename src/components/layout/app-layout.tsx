@@ -24,11 +24,11 @@ const menuItems = [
   { href: "/symptom-checker", label: "Symptoms", icon: HeartPulse },
   { href: "/opd-queue", label: "Chat & Queue", icon: MessageSquare },
   { href: "/appointments", label: "Appointments", icon: CalendarCheck },
-  { href: "/emergency", label: "Emergency", icon: Siren },
   { href: "/junior-doctors", label: "Jr. Doctors", icon: Headset },
   { href: "/lab-reports", label: "Diagnostics", icon: TestTube },
   { href: "/medicines", label: "Medicines", icon: Pill },
   { href: "/profile", label: "Profile", icon: User },
+  { href: "/emergency", label: "Emergency", icon: Siren },
 ];
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
@@ -76,13 +76,14 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
          <nav className="grid grid-cols-4 gap-1 p-1 pt-0">
             {menuItems.slice(5).map((item) => {
                  const isActive = pathname === item.href;
+                 const isEmergency = item.label === 'Emergency';
                  return (
                     <Link href={item.href} key={item.label}>
                         <div className={cn(
                             "flex flex-col items-center justify-center gap-1 p-2 rounded-lg transition-colors",
                             isActive 
-                                ? "bg-primary text-primary-foreground"
-                                : "text-muted-foreground hover:bg-muted/50"
+                                ? (isEmergency ? "bg-destructive text-destructive-foreground" : "bg-primary text-primary-foreground")
+                                : (isEmergency ? "text-destructive" : "text-muted-foreground hover:bg-muted/50")
                         )}>
                             <item.icon className="h-5 w-5" />
                              <span className="text-[10px] font-medium text-center leading-tight">{item.label}</span>
