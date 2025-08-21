@@ -27,8 +27,51 @@ const quickQuestions = [
     "Can I share my reports?",
 ];
 
+// Assume this is the current status from a data source
+const doctorStatus = {
+    status: "Available", // Can be "Available", "In Surgery", "On Leave"
+    details: "The doctor is available for consultation."
+};
+
+const getStatusInfo = (status: string) => {
+    switch (status) {
+        case "Available":
+            return {
+                icon: Stethoscope,
+                color: "text-green-700 bg-green-100/60 border-green-200",
+                textColor: "text-green-800",
+                indicator: true,
+            };
+        case "In Surgery":
+            return {
+                icon: Briefcase,
+                color: "text-yellow-700 bg-yellow-50 border-yellow-200",
+                textColor: "text-yellow-800",
+                details: "Estimated back in 2 hours",
+                indicator: false,
+            };
+        case "On Leave":
+            return {
+                icon: Plane,
+                color: "text-red-700 bg-red-50 border-red-200",
+                textColor: "text-red-800",
+                details: "Doctor will be back tomorrow.",
+                indicator: false,
+            };
+        default:
+            return {
+                icon: Stethoscope,
+                color: "text-muted-foreground bg-muted",
+                textColor: "text-foreground",
+                indicator: false,
+            };
+    }
+};
 
 export default function OpdQueuePage() {
+    const currentStatusInfo = getStatusInfo(doctorStatus.status);
+    const StatusIcon = currentStatusInfo.icon;
+
     return (
         <div className="space-y-8">
             <div className="text-center">
@@ -38,15 +81,15 @@ export default function OpdQueuePage() {
 
             <div className="grid lg:grid-cols-2 gap-8 items-start">
                 <div className="space-y-8">
-                    <div className="grid grid-cols-2 gap-6">
+                     <div className="grid grid-cols-2 gap-4">
                         <Card className="border-primary/20" style={{backgroundColor: 'hsla(var(--nav-chat)/0.1)', borderColor: 'hsla(var(--nav-chat)/0.2)'}}>
                             <CardHeader className="pb-2">
                                 <CardTitle className="flex items-center gap-2 text-base" style={{color: 'hsl(var(--nav-chat))'}}><User /> Your Token</CardTitle>
                             </CardHeader>
-                            <CardContent className="text-center p-4">
-                                <p className="text-5xl font-bold" style={{color: 'hsl(var(--nav-chat))'}}>#23</p>
-                                <div className="flex items-center justify-center gap-2 mt-2 text-sm" style={{color: 'hsla(var(--nav-chat)/0.8)'}}>
-                                    <Clock className="w-4 h-4" />
+                            <CardContent className="text-center">
+                                <p className="text-4xl font-bold" style={{color: 'hsl(var(--nav-chat))'}}>#23</p>
+                                <div className="flex items-center justify-center gap-2 mt-1 text-xs" style={{color: 'hsla(var(--nav-chat)/0.8)'}}>
+                                    <Clock className="w-3 h-3" />
                                     <span className="font-semibold">Est. Wait: 5 mins</span>
                                 </div>
                             </CardContent>
@@ -54,10 +97,10 @@ export default function OpdQueuePage() {
                         <Card>
                             <CardHeader className="pb-2">
                                 <CardTitle className="text-base">Now Serving</CardTitle>
-                                <CardDescription>Patient with the doctor</CardDescription>
+                                <CardDescription className="text-xs">Patient with the doctor</CardDescription>
                             </CardHeader>
-                            <CardContent className="text-center p-4">
-                                <p className="text-5xl font-bold">#19</p>
+                            <CardContent className="text-center">
+                                <p className="text-4xl font-bold">#19</p>
                             </CardContent>
                         </Card>
                     </div>
@@ -66,33 +109,21 @@ export default function OpdQueuePage() {
                         <CardHeader>
                             <CardTitle>Doctor Status</CardTitle>
                         </CardHeader>
-                        <CardContent className="space-y-4">
-                             <div className="flex items-center gap-4 p-4 bg-green-100/60 border border-green-200 rounded-lg">
-                                <Stethoscope className="h-6 w-6 text-green-700"/>
+                        <CardContent>
+                             <div className={`flex items-center gap-4 p-4 ${currentStatusInfo.color} rounded-lg`}>
+                                <StatusIcon className={`h-6 w-6 ${currentStatusInfo.textColor}`}/>
                                 <div className="flex-1">
-                                    <p className="font-bold text-green-800 flex items-center gap-2">
-                                        Available
+                                    <p className={`font-bold ${currentStatusInfo.textColor} flex items-center gap-2`}>
+                                        {doctorStatus.status}
                                     </p>
-                                    <p className="text-sm text-green-700">The doctor is available for consultation.</p>
+                                    <p className={`text-sm ${currentStatusInfo.textColor}/80`}>{doctorStatus.details}</p>
                                 </div>
-                                 <span className="relative flex h-4 w-4">
-                                    <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
-                                    <span className="relative inline-flex rounded-full h-4 w-4 bg-green-600"></span>
-                                </span>
-                            </div>
-                            <div className="flex items-center gap-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-                                <Briefcase className="h-6 w-6 text-yellow-700"/>
-                                <div>
-                                    <p className="font-bold text-yellow-800">In Surgery</p>
-                                    <p className="text-sm text-yellow-700">Estimated back in 2 hours</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-                                <Plane className="h-6 w-6 text-red-700"/>
-                                <div>
-                                    <p className="font-bold text-red-800">On Leave</p>
-                                    <p className="text-sm text-red-700">Doctor will be back tomorrow.</p>
-                                </div>
+                                {currentStatusInfo.indicator && (
+                                    <span className="relative flex h-4 w-4">
+                                        <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+                                        <span className="relative inline-flex rounded-full h-4 w-4 bg-green-600"></span>
+                                    </span>
+                                )}
                             </div>
                         </CardContent>
                     </Card>
