@@ -1,0 +1,151 @@
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Search, MapPin, HeartPulse, Bone, Brain, Stethoscope as StethoscopeIcon } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+
+const doctors = [
+    {
+        name: "Dr. Sameer Joshi",
+        specialty: "Cardiologist",
+        experience: "15 years",
+        hospital: "Apollo Hospital, Jubilee Hills",
+        surgeries: "500+ successful cardiac surgeries",
+        mainDealing: "Complex angioplasty and valve replacements.",
+        avatar: "https://placehold.co/100x100.png",
+        dataAiHint: "male doctor portrait",
+        location: "Hyderabad"
+    },
+    {
+        name: "Dr. Meena Reddy",
+        specialty: "Orthopedic Surgeon",
+        experience: "12 years",
+        hospital: "Care Hospital, Banjara Hills",
+        surgeries: "800+ joint replacement surgeries",
+        mainDealing: "Knee and hip replacements.",
+        avatar: "https://placehold.co/100x100.png",
+        dataAiHint: "female doctor",
+        location: "Hyderabad"
+    },
+    {
+        name: "Dr. Arjun Kumar",
+        specialty: "Neurologist",
+        experience: "20 years",
+        hospital: "Yashoda Hospital, Secunderabad",
+        surgeries: "300+ successful brain surgeries",
+        mainDealing: "Epilepsy and stroke treatment.",
+        avatar: "https://placehold.co/100x100.png",
+        dataAiHint: "male doctor professional",
+        location: "Hyderabad"
+    },
+    {
+        name: "Dr. Aisha Khan",
+        specialty: "General Physician",
+        experience: "8 years",
+        hospital: "MaxCure Hospital, Madhapur",
+        surgeries: "N/A",
+        mainDealing: "General health check-ups and infectious diseases.",
+        avatar: "https://placehold.co/100x100.png",
+        dataAiHint: "female doctor smile",
+        location: "Hyderabad"
+    }
+];
+
+const departments = [
+    { value: "all", label: "All Departments", icon: StethoscopeIcon },
+    { value: "cardiology", label: "Cardiology", icon: HeartPulse },
+    { value: "orthopedics", label: "Orthopedics", icon: Bone },
+    { value: "neurology", label: "Neurology", icon: Brain },
+    { value: "general", label: "General Physician", icon: StethoscopeIcon },
+];
+
+const hospitals = [
+    "All Hospitals", "Apollo Hospital, Jubilee Hills", "Care Hospital, Banjara Hills", "Yashoda Hospital, Secunderabad", "MaxCure Hospital, Madhapur"
+];
+
+export default function AppointmentsPage() {
+    return (
+        <div className="space-y-8">
+            <div className="text-center">
+                <h1 className="text-3xl font-bold font-headline text-primary">Book an Appointment</h1>
+                <p className="text-muted-foreground mt-2">Find the right doctor for your needs.</p>
+            </div>
+
+            <Card className="p-4">
+                <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                        <Input placeholder="Doctor or hospital..." className="pl-10" />
+                    </div>
+                    <Select defaultValue="all">
+                        <SelectTrigger>
+                            <SelectValue placeholder="Select Department" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {departments.map(dep => (
+                                <SelectItem key={dep.value} value={dep.value}>
+                                    <div className="flex items-center gap-2">
+                                        <dep.icon className="h-4 w-4" />
+                                        {dep.label}
+                                    </div>
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                    <Select>
+                        <SelectTrigger>
+                            <SelectValue placeholder="Select Hospital" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {hospitals.map(h => <SelectItem key={h} value={h}>{h}</SelectItem>)}
+                        </SelectContent>
+                    </Select>
+                    <Select>
+                         <SelectTrigger>
+                            <div className="flex items-center gap-2">
+                               <MapPin className="h-4 w-4" />
+                               <SelectValue placeholder="Location" />
+                            </div>
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="hyderabad">Hyderabad</SelectItem>
+                            <SelectItem value="mumbai">Mumbai</SelectItem>
+                            <SelectItem value="bangalore">Bangalore</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
+            </Card>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {doctors.map((doctor, index) => (
+                    <Card key={index}>
+                        <CardContent className="p-6">
+                            <div className="flex flex-col sm:flex-row gap-6">
+                                <Avatar className="h-28 w-28 border-4 border-primary">
+                                    <AvatarImage src={doctor.avatar} data-ai-hint={doctor.dataAiHint} />
+                                    <AvatarFallback>{doctor.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                                </Avatar>
+                                <div className="flex-1">
+                                    <h3 className="text-2xl font-bold font-headline">{doctor.name}</h3>
+                                    <p className="text-primary font-semibold">{doctor.specialty}</p>
+                                    <p className="text-sm text-muted-foreground">{doctor.experience} experience</p>
+                                    <p className="text-sm text-muted-foreground font-medium mt-1">{doctor.hospital}</p>
+                                </div>
+                            </div>
+                            <div className="mt-4 space-y-3 text-sm">
+                                <p><strong className="font-semibold">Successful Surgeries:</strong> {doctor.surgeries}</p>
+                                <p><strong className="font-semibold">Main Focus:</strong> {doctor.mainDealing}</p>
+                            </div>
+                             <div className="mt-6 flex justify-end gap-2">
+                                <Button variant="outline">View Profile</Button>
+                                <Button>Book Appointment</Button>
+                            </div>
+                        </CardContent>
+                    </Card>
+                ))}
+            </div>
+        </div>
+    );
+}

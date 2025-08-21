@@ -2,18 +2,21 @@ import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { HeartPulse, MessageSquare, Siren, Users, FileText, FlaskConical, LifeBuoy, Stethoscope, Microscope, Pill, Headset, Phone, Link2 } from 'lucide-react';
+import { HeartPulse, MessageSquare, Siren, Users, FileText, FlaskConical, LifeBuoy, Stethoscope, Microscope, Pill, Headset, Phone, Link2, CalendarCheck } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const quickAccessItems = [
   { href: '/symptom-checker', icon: HeartPulse, label: 'AI Symptom Check', description: 'వైద్య లక్షణాలు తనిఖీ' },
   { href: '/opd-queue', icon: Users, label: 'OPD Queue', description: 'మీ వంతు తెలుసుకోండి' },
   { href: '/doctor-chat', icon: MessageSquare, label: 'Doctor Chat', description: 'వైద్యులతో మాట్లాడండి' },
+  { href: '/appointments', icon: CalendarCheck, label: 'Appointments', description: 'సమయం నమోదు చేసుకోండి' },
   { href: '/emergency', icon: Siren, label: 'Emergency', description: 'తక్షణ సహాయం' },
   { href: '/junior-doctors', icon: Headset, label: '24/7 Junior Doctors', description: 'ఉచిత సలహా' },
   { href: '/lab-reports', icon: FileText, label: 'Lab Reports', description: 'రిపోర్టులు చూడండి' },
+  { href: '/medicines', icon: Pill, label: 'My Medicines', description: 'మీ మందులు' },
 ];
 
 const medicineAssistanceItems = [
@@ -103,19 +106,15 @@ export default function DashboardPage() {
 
       <section>
         <h2 className="text-xl font-semibold mb-4">Quick Access</h2>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {quickAccessItems.map((item) => (
             <Link key={item.href} href={item.href} passHref>
-              <Card className="text-left p-4 hover:bg-primary/5 transition-colors cursor-pointer h-full">
-                <div className="flex items-center gap-3">
-                    <div className={cn("p-2 rounded-full", item.label === 'Emergency' ? 'bg-red-100' : 'bg-primary/10' )}>
-                        <item.icon className={cn("h-6 w-6", item.label === 'Emergency' ? 'text-red-500' : 'text-primary' )} />
-                    </div>
-                    <div>
-                        <p className="font-semibold">{item.label}</p>
-                        <p className="text-xs text-muted-foreground">{item.description}</p>
-                    </div>
+              <Card className="text-center p-4 hover:bg-primary/5 transition-colors cursor-pointer h-full flex flex-col items-center justify-center">
+                <div className={cn("p-3 rounded-full mb-2", item.label === 'Emergency' ? 'bg-red-100' : 'bg-primary/10' )}>
+                    <item.icon className={cn("h-7 w-7", item.label === 'Emergency' ? 'text-red-500' : 'text-primary' )} />
                 </div>
+                <p className="font-semibold text-sm">{item.label}</p>
+                <p className="text-xs text-muted-foreground">{item.description}</p>
               </Card>
             </Link>
           ))}

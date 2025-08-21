@@ -16,13 +16,14 @@ import {
   User,
   Users,
   BriefcaseMedical,
+  CalendarCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const menuItems = [
   { href: "/", label: "Home", icon: Home },
   { href: "/symptom-checker", label: "Symptoms", icon: HeartPulse },
-  { href: "/opd-queue", label: "OPD Queue", icon: Users },
+  { href: "/appointments", label: "Appointments", icon: CalendarCheck },
   { href: "/doctor-chat", label: "Chat", icon: MessageSquare },
   { href: "/medicines", label: "Medicine", icon: Pill },
   { href: "/lab-reports", label: "Reports", icon: FileText },
@@ -39,17 +40,17 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         <div className="flex items-center gap-2">
             <Stethoscope className="w-8 h-8" />
             <div>
-              <h1 className="text-xl font-bold font-headline">AarogyaMitra</h1>
-              <p className="text-sm">आरोग्य मित्र - Your Health Friend</p>
+              <h1 className="text-xl font-bold font-headline">AarogyaAI</h1>
+              <p className="text-sm">Your Health Friend</p>
             </div>
         </div>
         <User className="h-6 w-6"/>
       </header>
-      <main className="flex-1 p-4 sm:p-6 lg:p-8">
+      <main className="flex-1 p-4 sm:p-6 lg:p-8 bg-background">
           {children}
       </main>
       <footer className="sticky bottom-0 z-10 mt-auto bg-card border-t">
-        <nav className="grid grid-cols-4 sm:flex sm:justify-center sm:gap-8">
+        <nav className="grid grid-cols-4">
             {menuItems.slice(0, 4).map((item) => {
                  const isActive = pathname === item.href;
                  return (
@@ -66,7 +67,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 );
             })}
         </nav>
-        <nav className="grid grid-cols-4 sm:flex sm:justify-center sm:gap-8">
+        <nav className="grid grid-cols-4">
             {menuItems.slice(4).map((item) => {
                  const isActive = pathname === item.href;
                  return (
