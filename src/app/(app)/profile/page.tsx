@@ -92,7 +92,7 @@ export default function ProfilePage() {
                             <CardDescription>Star Health - Family Plan</CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <p className="flex items-center gap-2 font-semibold"><Shield className="text-primary"/> Status: <Badge className="bg-green-600 text-white">Active</Badge></p>
+                            <div className="flex items-center gap-2 font-semibold"><Shield className="text-primary"/> Status: <Badge className="bg-green-600 text-white">Active</Badge></div>
                             <Button variant="link" className="p-0 h-auto mt-2">View Network Hospitals</Button>
                         </CardContent>
                     </Card>
