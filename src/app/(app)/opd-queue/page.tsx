@@ -38,7 +38,7 @@ export default function OpdQueuePage() {
 
             <div className="grid lg:grid-cols-2 gap-8 items-start">
                 <div className="space-y-8">
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-2 gap-6">
                         <Card className="border-primary/20" style={{backgroundColor: 'hsla(var(--nav-chat)/0.1)', borderColor: 'hsla(var(--nav-chat)/0.2)'}}>
                             <CardHeader className="pb-2">
                                 <CardTitle className="flex items-center gap-2 text-base" style={{color: 'hsl(var(--nav-chat))'}}><User /> Your Token</CardTitle>
