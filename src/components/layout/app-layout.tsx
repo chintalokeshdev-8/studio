@@ -20,15 +20,15 @@ import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const menuItems = [
-  { href: "/", label: "Home", icon: LayoutGrid, color: "hsl(var(--nav-home))" },
-  { href: "/symptom-checker", label: "Symptoms", icon: HeartPulse, color: "hsl(var(--nav-symptoms))" },
-  { href: "/opd-queue", label: "Chat & Queue", icon: MessageSquare, color: "hsl(var(--nav-chat))" },
-  { href: "/appointments", label: "Appointments", icon: CalendarCheck, color: "hsl(var(--nav-appointments))" },
-  { href: "/junior-doctors", label: "Jr. Doctors", icon: Headset, color: "hsl(var(--nav-junior-doctors))" },
-  { href: "/lab-reports", label: "Diagnostics", icon: TestTube, color: "hsl(var(--nav-diagnostics))" },
-  { href: "/medicines", label: "Medicines", icon: Pill, color: "hsl(var(--nav-medicines))" },
-  { href: "/profile", label: "Profile", icon: User, color: "hsl(var(--nav-profile))" },
-  { href: "/emergency", label: "Emergency", icon: Siren, color: "hsl(var(--nav-emergency))" },
+  { href: "/", label: "Home", telugu: "హోమ్", icon: LayoutGrid, color: "hsl(var(--nav-home))" },
+  { href: "/symptom-checker", label: "Symptoms", telugu: "లక్షణాలు", icon: HeartPulse, color: "hsl(var(--nav-symptoms))" },
+  { href: "/opd-queue", label: "Chat & Queue", telugu: "మీ వంతు & చాట్", icon: MessageSquare, color: "hsl(var(--nav-chat))" },
+  { href: "/appointments", label: "Appointments", telugu: "నమోదులు", icon: CalendarCheck, color: "hsl(var(--nav-appointments))" },
+  { href: "/junior-doctors", label: "Jr. Doctors", telugu: "డాక్టర్లు", icon: Headset, color: "hsl(var(--nav-junior-doctors))" },
+  { href: "/lab-reports", label: "Diagnostics", telugu: "రిపోర్టులు", icon: TestTube, color: "hsl(var(--nav-diagnostics))" },
+  { href: "/medicines", label: "Medicines", telugu: "మందులు", icon: Pill, color: "hsl(var(--nav-medicines))" },
+  { href: "/profile", label: "Profile", telugu: "ప్రొఫైల్", icon: User, color: "hsl(var(--nav-profile))" },
+  { href: "/emergency", label: "Emergency", telugu: "తక్షణ సహాయం", icon: Siren, color: "hsl(var(--nav-emergency))" },
 ];
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
@@ -44,21 +44,26 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                    isActive ? "scale-110" : "scale-100"
                )}>
                    <div 
-                        className="p-3 rounded-full"
-                        style={{ 
-                            backgroundColor: `${item.color.replace(')', ' / 0.1)')}` 
+                        className={cn("p-3 rounded-full", {
+                            "bg-primary/10": !isActive,
+                            [item.color]: isActive,
+                        })}
+                        style={{
+                            backgroundColor: isActive ? item.color : `${item.color.replace(')', ' / 0.1)')}`,
                         }}
                     >
-                       <item.icon className="h-8 w-8" style={{ color: item.color }} />
+                       <item.icon className={cn("h-8 w-8", isActive ? "text-primary-foreground" : "")} style={{ color: isActive ? '#fff' : item.color }} />
                    </div>
-                   <span 
-                        className={cn("text-xs font-bold text-center leading-tight",
-                           isActive ? 'font-bold' : 'text-muted-foreground'
-                        )}
-                        style={isActive ? {color: item.color} : {}}
-                    >
-                       {item.label}
-                   </span>
+                   <div className="text-center leading-tight">
+                        <p className={cn("text-xs font-bold", isActive ? 'font-bold' : 'text-muted-foreground')}
+                           style={isActive ? {color: item.color} : {}}>
+                           {item.label}
+                        </p>
+                        <p className={cn("text-xs", isActive ? 'font-semibold' : 'text-muted-foreground')}
+                           style={isActive ? {color: item.color} : {}}>
+                           {item.telugu}
+                        </p>
+                   </div>
                </div>
            </Link>
        );
