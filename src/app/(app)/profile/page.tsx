@@ -40,6 +40,9 @@ export default function ProfilePage() {
                                 <div className="flex items-center gap-2"><Heart /> Male</div>
                                 <div className="flex items-center gap-2"><Droplets /> B+ Positive</div>
                             </div>
+                            <div className="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-2 mt-2 text-muted-foreground">
+                                <div className="flex items-center gap-2"><MapPin /> Guntur, Guntur District</div>
+                            </div>
                         </div>
                         <Button><Pencil className="mr-2 h-4 w-4" /> Edit Profile</Button>
                     </div>

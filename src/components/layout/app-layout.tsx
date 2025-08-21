@@ -14,6 +14,7 @@ import {
   CalendarCheck,
   LayoutGrid,
   Headset,
+  Activity,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -38,10 +39,10 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       <header className="sticky top-0 z-20 flex items-center justify-between p-4 bg-background border-b">
         <div className="flex items-center gap-2">
             <div className="p-2 bg-primary rounded-lg">
-                <HeartPulse className="w-6 h-6 text-primary-foreground" />
+                <Activity className="w-6 h-6 text-primary-foreground" />
             </div>
             <div>
-              <h1 className="text-xl font-bold">AarogyaAI</h1>
+              <h1 className="text-xl font-bold">MedBridge</h1>
             </div>
         </div>
         <Avatar>
