@@ -43,16 +43,17 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                    "flex flex-col items-center justify-center gap-1 p-2 rounded-lg transition-colors"
                )}>
                    <div 
-                        className={cn("p-2 rounded-full transition-colors", 
-                            isActive ? 'text-white' : ''
-                        )}
-                        style={ isActive ? { backgroundColor: item.color } : { color: item.color, backgroundColor: `${item.color.replace(')', ' / 0.1)')}` }}
+                        className="p-2 rounded-full transition-colors"
+                        style={{ 
+                            color: isActive ? item.color : item.color, 
+                            backgroundColor: `${item.color.replace(')', ' / 0.1)')}` 
+                        }}
                     >
                        <item.icon className="h-5 w-5" />
                    </div>
                    <span 
                         className={cn("text-xs font-semibold text-center leading-tight",
-                            isActive ? 'text-foreground' : 'text-muted-foreground'
+                            isActive ? 'font-bold' : 'text-muted-foreground'
                         )}
                         style={isActive ? {color: item.color} : {}}
                     >
