@@ -44,23 +44,20 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                    isActive ? "scale-110" : "scale-100"
                )}>
                    <div 
-                        className={cn("p-3 rounded-full", {
-                            "bg-primary/10": !isActive,
-                            [item.color]: isActive,
-                        })}
+                        className={cn("p-3 rounded-full")}
                         style={{
-                            backgroundColor: isActive ? item.color : `${item.color.replace(')', ' / 0.1)')}`,
+                            backgroundColor: `${item.color.replace(')', ' / 0.1)')}`,
                         }}
                     >
-                       <item.icon className={cn("h-8 w-8", isActive ? "text-primary-foreground" : "")} style={{ color: isActive ? '#fff' : item.color }} />
+                       <item.icon className={cn("h-8 w-8")} style={{ color: item.color }} />
                    </div>
                    <div className="text-center leading-tight">
-                        <p className={cn("text-xs font-bold", isActive ? 'font-bold' : 'text-muted-foreground')}
-                           style={isActive ? {color: item.color} : {}}>
+                        <p className={cn("text-xs font-bold")}
+                           style={{color: item.color}}>
                            {item.label}
                         </p>
-                        <p className={cn("text-xs", isActive ? 'font-semibold' : 'text-muted-foreground')}
-                           style={isActive ? {color: item.color} : {}}>
+                        <p className={cn("text-xs font-semibold")}
+                           style={{color: item.color}}>
                            {item.telugu}
                         </p>
                    </div>
