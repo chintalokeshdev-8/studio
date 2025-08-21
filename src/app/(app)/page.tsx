@@ -46,10 +46,6 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8">
       <div className="space-y-4">
-        <div>
-          <h1 className="text-3xl font-bold">Welcome back, Chinta!</h1>
-          <p className="text-muted-foreground">Here is your health summary for today.</p>
-        </div>
         <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <Input placeholder="Search for doctors, medicines, reports..." className="pl-10 h-12 text-base" />
