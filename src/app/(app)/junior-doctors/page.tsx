@@ -65,9 +65,19 @@ export default function JuniorDoctorsPage() {
                                 </CardTitle>
                                 <CardDescription>{doctor.specialty}</CardDescription>
                             </div>
-                             <Badge variant={doctor.status === 'Online' ? 'default' : 'secondary'} className={`ml-auto ${doctor.status === 'Online' ? 'bg-green-500' : ''}`}>
-                                {doctor.status}
-                            </Badge>
+                             {doctor.status === 'Online' ? (
+                                <div className="ml-auto flex items-center gap-2 text-primary font-semibold">
+                                    <span className="relative flex h-3 w-3">
+                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                                        <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+                                    </span>
+                                    Online
+                                </div>
+                            ) : (
+                                <Badge variant='secondary' className="ml-auto">
+                                    Offline
+                                </Badge>
+                            )}
                         </CardHeader>
                         <CardContent className="flex-grow space-y-3 text-sm p-4 pt-0">
                             <p className="text-muted-foreground"><BadgeCheck className="inline-block mr-2 h-4 w-4 text-primary"/>{doctor.experience} of experience</p>
