@@ -56,21 +56,38 @@ export default function DashboardPage() {
           </Button>
       </div>
 
-      <Card className="bg-primary text-primary-foreground">
-        <CardContent className="p-6 flex items-center justify-between">
-            <div className="flex items-center gap-4">
-                <Avatar className="h-16 w-16 border-2 border-primary-foreground/50">
-                    <AvatarImage src="https://placehold.co/100x100.png" data-ai-hint="profile picture" />
-                    <AvatarFallback>CL</AvatarFallback>
-                </Avatar>
-                <div>
-                    <h2 className="text-xl font-semibold">Chinta Lokesh Babu</h2>
-                    <p className="text-sm opacity-80">Patient ID: PAT001</p>
-                </div>
+      <Card>
+        <CardHeader>
+            <CardTitle className="text-primary">Patient Information</CardTitle>
+        </CardHeader>
+        <CardContent className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-6">
+            <div>
+                <p className="text-sm text-muted-foreground">Name</p>
+                <p className="font-bold">Chinta Lokesh Babu</p>
             </div>
-            <div className="text-right">
-                <p className="font-bold text-lg">B+ Positive</p>
-                <p className="text-sm opacity-80">Blood Group</p>
+            <div>
+                <p className="text-sm text-muted-foreground">Age</p>
+                <p className="font-bold">27 years</p>
+            </div>
+            <div>
+                <p className="text-sm text-muted-foreground">Blood Group</p>
+                <p className="font-bold">B+</p>
+            </div>
+            <div>
+                <p className="text-sm text-muted-foreground">Contact</p>
+                <p className="font-bold">8008334948</p>
+            </div>
+             <div>
+                <p className="text-sm text-muted-foreground">Patient ID</p>
+                <p className="font-bold">PAT001</p>
+            </div>
+             <div>
+                <p className="text-sm text-muted-foreground">Village</p>
+                <p className="font-bold">Jubilee Hills</p>
+            </div>
+             <div>
+                <p className="text-sm text-muted-foreground">District</p>
+                <p className="font-bold">Hyderabad</p>
             </div>
         </CardContent>
       </Card>
