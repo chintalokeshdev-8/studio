@@ -48,7 +48,8 @@ export default function MyMedicinesPage() {
                                             <div>
                                                 <p className="font-bold text-lg">{med.name}</p>
                                                 <p className="text-sm text-muted-foreground">{med.dosage} • {med.time}</p>
-                                                <div className="text-xs font-semibold mt-1 p-1 px-2 bg-primary/10 text-primary rounded-full inline-block">
+                                                <div className="text-xs font-semibold mt-2 p-1 px-2.5 bg-primary/10 text-primary rounded-full inline-flex items-center gap-1.5">
+                                                    <Bell className="h-3 w-3"/>
                                                     {med.alertTime} • {med.frequency}
                                                 </div>
                                             </div>
