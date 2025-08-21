@@ -67,11 +67,11 @@ export default function OpdQueuePage() {
                             <CardTitle>Doctor Status</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                             <div className="flex items-center gap-4 p-4 bg-primary/10 border border-primary/20 rounded-lg">
-                                <Stethoscope className="h-6 w-6 text-primary"/>
+                             <div className="flex items-center gap-4 p-4 bg-green-100/60 border border-green-200 rounded-lg">
+                                <Stethoscope className="h-6 w-6 text-green-700"/>
                                 <div>
-                                    <p className="font-bold text-primary animate-pulse">Available</p>
-                                    <p className="text-sm text-primary/80">The doctor is available for consultation.</p>
+                                    <p className="font-bold text-green-800">Available</p>
+                                    <p className="text-sm text-green-700">The doctor is available for consultation.</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
@@ -128,7 +128,13 @@ export default function OpdQueuePage() {
                         </Avatar>
                         <div>
                             <CardTitle>Dr. Rajesh Kumar</CardTitle>
-                            <p className="text-sm text-primary font-medium flex items-center gap-1.5"><span className="relative flex h-2 w-2"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span><span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span></span>Online</p>
+                            <p className="text-sm text-green-600 font-medium flex items-center gap-1.5">
+                                <span className="relative flex h-3 w-3">
+                                    <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-3 w-3 bg-green-600"></span>
+                                </span>
+                                Online
+                            </p>
                         </div>
                     </CardHeader>
                     <CardContent className="flex-1 overflow-y-auto p-6 space-y-6">
