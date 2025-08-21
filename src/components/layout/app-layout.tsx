@@ -9,7 +9,7 @@ import {
   MessageSquare,
   Siren,
   User,
-  FileText,
+  TestTube,
   Pill,
   CalendarCheck,
   LayoutGrid,
@@ -25,7 +25,7 @@ const menuItems = [
   { href: "/appointments", label: "Appointments", icon: CalendarCheck },
   { href: "/emergency", label: "Emergency", icon: Siren },
   { href: "/junior-doctors", label: "Jr. Doctors", icon: Headset },
-  { href: "/lab-reports", label: "Reports", icon: FileText },
+  { href: "/lab-reports", label: "Diagnostics", icon: TestTube },
   { href: "/medicines", label: "Medicines", icon: Pill },
   { href: "/profile", label: "Profile", icon: User },
 ];
@@ -54,7 +54,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       </main>
       <footer className="sticky bottom-0 z-20 mt-auto bg-background border-t">
         <nav className="grid grid-cols-5 gap-1 p-1">
-            {menuItems.map((item) => {
+            {menuItems.slice(0, 5).map((item) => {
                  const isActive = pathname === item.href;
                  const isEmergency = item.label === 'Emergency';
                  return (
@@ -66,7 +66,25 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                                 : (isEmergency ? "text-destructive" : "text-muted-foreground hover:bg-muted/50")
                         )}>
                             <item.icon className="h-5 w-5" />
-                            <span className="text-xs font-medium text-center">{item.label}</span>
+                            <span className="text-[10px] font-medium text-center leading-tight">{item.label}</span>
+                        </div>
+                    </Link>
+                );
+            })}
+        </nav>
+         <nav className="grid grid-cols-4 gap-1 p-1 pt-0">
+            {menuItems.slice(5).map((item) => {
+                 const isActive = pathname === item.href;
+                 return (
+                    <Link href={item.href} key={item.label}>
+                        <div className={cn(
+                            "flex flex-col items-center justify-center gap-1 p-2 rounded-lg transition-colors",
+                            isActive 
+                                ? "bg-primary text-primary-foreground"
+                                : "text-muted-foreground hover:bg-muted/50"
+                        )}>
+                            <item.icon className="h-5 w-5" />
+                             <span className="text-[10px] font-medium text-center leading-tight">{item.label}</span>
                         </div>
                     </Link>
                 );

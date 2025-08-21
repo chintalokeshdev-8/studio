@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { HeartPulse, MessageSquare, Siren, Users, FileText, FlaskConical, LifeBuoy, Stethoscope, Microscope, Pill, Headset, Phone, Link2, CalendarCheck, User } from 'lucide-react';
+import { HeartPulse, MessageSquare, Siren, Users, TestTube, FlaskConical, LifeBuoy, Stethoscope, Microscope, Pill, Headset, Phone, Link2, CalendarCheck, User } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
@@ -13,8 +13,8 @@ const quickAccessItems = [
   { href: '/opd-queue', icon: MessageSquare, label: 'Chat & Queue', description: 'మీ వంతు & చాట్' },
   { href: '/appointments', icon: CalendarCheck, label: 'Appointments', description: 'సమయం నమోదు చేసుకోండి' },
   { href: '/emergency', icon: Siren, label: 'Emergency', description: 'తక్షణ సహాయం' },
-  { href: '/junior-doctors', icon: Headset, label: '24/7 Junior Doctors', description: 'ఉచిత సలహా' },
-  { href: '/lab-reports', icon: FileText, label: 'Lab Reports', description: 'రిపోర్టులు చూడండి' },
+  { href: '/junior-doctors', icon: Headset, label: '24/7 Jr. Doctors', description: 'ఉచిత సలహా' },
+  { href: '/lab-reports', icon: TestTube, label: 'Diagnostics', description: 'రిపోర్టులు చూడండి' },
   { href: '/medicines', icon: Pill, label: 'My Medicines', description: 'మీ మందులు' },
   { href: '/profile', icon: User, label: 'Profile', description: 'ప్రొఫైల్' },
 ];
@@ -50,7 +50,7 @@ export default function DashboardPage() {
             <h1 className="text-3xl font-bold">Welcome back, Chinta!</h1>
             <p className="text-muted-foreground">Here is your health summary for today.</p>
           </div>
-          <Button>
+          <Button variant="default">
             <Search className="mr-2 h-4 w-4"/>
             Search
           </Button>
@@ -67,7 +67,7 @@ export default function DashboardPage() {
             </div>
             <div>
                 <p className="text-sm text-muted-foreground">Age</p>
-                <p className="font-bold">27 years</p>
+                <p className="font-bold">28 years</p>
             </div>
             <div>
                 <p className="text-sm text-muted-foreground">Blood Group</p>
@@ -75,7 +75,7 @@ export default function DashboardPage() {
             </div>
             <div>
                 <p className="text-sm text-muted-foreground">Contact</p>
-                <p className="font-bold">8008334948</p>
+                <p className="font-bold">+91 98765 43210</p>
             </div>
              <div>
                 <p className="text-sm text-muted-foreground">Patient ID</p>
@@ -94,7 +94,7 @@ export default function DashboardPage() {
 
       <section>
         <h2 className="text-xl font-semibold mb-4">Quick Access</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
           {quickAccessItems.map((item) => (
             <Link key={item.href} href={item.href} passHref>
               <Card className="text-center p-4 hover:bg-muted/50 transition-colors cursor-pointer h-full flex flex-col items-center justify-center aspect-square">
