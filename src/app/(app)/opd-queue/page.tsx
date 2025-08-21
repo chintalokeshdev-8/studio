@@ -73,11 +73,11 @@ export default function OpdQueuePage() {
                                     <p className="text-sm text-yellow-700">Estimated back in 2 hours</p>
                                 </div>
                             </div>
-                             <div className="flex items-center gap-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-                                <Stethoscope className="h-6 w-6 text-green-700"/>
+                             <div className="flex items-center gap-4 p-4 bg-primary/10 border border-primary/20 rounded-lg animate-pulse">
+                                <Stethoscope className="h-6 w-6 text-primary"/>
                                 <div>
-                                    <p className="font-bold text-green-800">Available</p>
-                                    <p className="text-sm text-green-700">The doctor is available for consultation.</p>
+                                    <p className="font-bold text-primary">Available</p>
+                                    <p className="text-sm text-primary/80">The doctor is available for consultation.</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-4 p-4 bg-red-50 border border-red-200 rounded-lg">
@@ -122,7 +122,7 @@ export default function OpdQueuePage() {
                  <Card className="flex flex-col h-[70vh]">
                     <CardHeader className="flex flex-row items-center gap-4 border-b">
                         <Avatar>
-                            <AvatarImage src="https://placehold.co/100x100.png" data-ai-hint="doctor portrait" />
+                            <AvatarImage src="/images/profile.jpg" data-ai-hint="doctor portrait" />
                             <AvatarFallback>DR</AvatarFallback>
                         </Avatar>
                         <div>
@@ -135,7 +135,7 @@ export default function OpdQueuePage() {
                             <div key={index} className={`flex items-end gap-2 max-w-[80%] ${msg.sender === 'user' ? 'justify-end ml-auto' : 'justify-start'}`}>
                                 {msg.sender === 'doctor' && (
                                     <Avatar className="h-8 w-8">
-                                        <AvatarImage src="https://placehold.co/100x100.png" data-ai-hint="doctor portrait" />
+                                        <AvatarImage src="/images/profile.jpg" data-ai-hint="doctor portrait" />
                                         <AvatarFallback>DR</AvatarFallback>
                                     </Avatar>
                                 )}
