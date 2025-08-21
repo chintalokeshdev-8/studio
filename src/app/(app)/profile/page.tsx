@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User, Heart, Droplets, Phone, Mail, MapPin, Shield, FileDown, Pencil, ShieldAlert } from "lucide-react";
+import { User, Heart, Droplets, Phone, Mail, MapPin, Shield, FileDown, Pencil, ShieldAlert, Users, HeartPulse, Pill } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 
@@ -16,6 +16,12 @@ const medicalReports = [
     { name: "Lipid Profile", date: "2024-06-20" },
     { name: "X-Ray Chest", date: "2023-11-05" },
 ]
+
+const healthOverviewItems = [
+    { value: "12", label: "Total Visits", icon: Users },
+    { value: "2", label: "Active Conditions", icon: HeartPulse },
+    { value: "4", label: "Medications", icon: Pill },
+];
 
 export default function ProfilePage() {
     return (
@@ -84,6 +90,24 @@ export default function ProfilePage() {
                     </Card>
                 </div>
                 <div className="space-y-8">
+                    <section>
+                        <h2 className="text-xl font-semibold mb-4">Health Overview</h2>
+                        <div className="grid grid-cols-1 gap-4">
+                            {healthOverviewItems.map((item) => (
+                                 <Card key={item.label} className="p-4">
+                                    <div className="flex items-center justify-between">
+                                      <div className="flex items-center gap-3">
+                                         <div className="p-2 bg-muted/50 rounded-full">
+                                            <item.icon className="h-5 w-5 text-primary" />
+                                        </div>
+                                        <p className="font-semibold">{item.label}</p>
+                                      </div>
+                                      <p className="text-2xl font-bold">{item.value}</p>
+                                    </div>
+                                </Card>
+                            ))}
+                        </div>
+                    </section>
                     <Card>
                         <CardHeader>
                             <CardTitle>Health Insurance</CardTitle>
