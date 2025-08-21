@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { HeartPulse, MessageSquare, Siren, Users, FileText, FlaskConical, LifeBuoy, Stethoscope, Microscope, Pill, Headset, Phone, Link2, CalendarCheck } from 'lucide-react';
+import { HeartPulse, MessageSquare, Siren, Users, FileText, FlaskConical, LifeBuoy, Stethoscope, Microscope, Pill, Headset, Phone, Link2, CalendarCheck, User } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
@@ -10,13 +10,13 @@ import { cn } from '@/lib/utils';
 
 const quickAccessItems = [
   { href: '/symptom-checker', icon: HeartPulse, label: 'AI Symptom Check', description: 'వైద్య లక్షణాలు తనిఖీ' },
-  { href: '/opd-queue', icon: Users, label: 'OPD Queue', description: 'మీ వంతు తెలుసుకోండి' },
-  { href: '/doctor-chat', icon: MessageSquare, label: 'Doctor Chat', description: 'వైద్యులతో మాట్లాడండి' },
+  { href: '/opd-queue', icon: MessageSquare, label: 'Chat & Queue', description: 'మీ వంతు & చాట్' },
   { href: '/appointments', icon: CalendarCheck, label: 'Appointments', description: 'సమయం నమోదు చేసుకోండి' },
   { href: '/emergency', icon: Siren, label: 'Emergency', description: 'తక్షణ సహాయం' },
   { href: '/junior-doctors', icon: Headset, label: '24/7 Junior Doctors', description: 'ఉచిత సలహా' },
   { href: '/lab-reports', icon: FileText, label: 'Lab Reports', description: 'రిపోర్టులు చూడండి' },
   { href: '/medicines', icon: Pill, label: 'My Medicines', description: 'మీ మందులు' },
+  { href: '/profile', icon: User, label: 'Profile', description: 'ప్రొఫైల్' },
 ];
 
 const medicineAssistanceItems = [

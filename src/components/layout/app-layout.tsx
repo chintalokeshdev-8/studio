@@ -24,7 +24,7 @@ const menuItems = [
   { href: "/", label: "Home", icon: Home },
   { href: "/symptom-checker", label: "Symptoms", icon: HeartPulse },
   { href: "/appointments", label: "Appointments", icon: CalendarCheck },
-  { href: "/doctor-chat", label: "Chat", icon: MessageSquare },
+  { href: "/opd-queue", label: "Chat & Queue", icon: MessageSquare },
   { href: "/medicines", label: "Medicine", icon: Pill },
   { href: "/lab-reports", label: "Reports", icon: FileText },
   { href: "/profile", label: "Profile", icon: User },
