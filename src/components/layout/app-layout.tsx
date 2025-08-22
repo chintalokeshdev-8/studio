@@ -67,7 +67,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                                    <div
                                         className="p-2.5 rounded-full"
                                         style={{
-                                            backgroundColor: `${item.color.replace(')', ' / 0.1)')}`,
+                                            backgroundColor: isActive ? `${item.color.replace(')', ' / 0.1)')}` : 'transparent',
                                         }}
                                     >
                                        <item.icon className="h-5 w-5" style={{ color: item.color }} />
@@ -90,8 +90,8 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 <ScrollBar orientation="horizontal" className="invisible" />
             </ScrollArea>
              <div className="absolute top-0 right-0 h-full flex items-center pr-2 pointer-events-none bg-gradient-to-l from-background to-transparent w-12">
-                <div className="bg-muted/50 rounded-full p-1">
-                  <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                <div className="bg-muted rounded-full p-1">
+                  <ChevronRight className="h-5 w-5 text-foreground" />
                 </div>
             </div>
         </div>
