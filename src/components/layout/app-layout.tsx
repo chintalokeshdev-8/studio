@@ -36,16 +36,14 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex flex-col min-h-screen bg-muted/30">
-      <header className="sticky top-0 z-20 flex items-center justify-between p-4 bg-background border-b">
+      <header className="sticky top-0 z-20 flex items-center justify-between p-3 bg-background border-b">
         <div className="flex items-center gap-2">
-            <div className="p-2 bg-primary rounded-lg">
+            <div className="p-1.5 bg-primary rounded-lg">
                 <Activity className="w-6 h-6 text-primary-foreground" />
             </div>
-            <div>
-              <h1 className="text-xl font-bold">MedBridge</h1>
-            </div>
+            <h1 className="text-xl font-bold">MedBridge</h1>
         </div>
-        <Avatar>
+        <Avatar className="h-8 w-8">
             <AvatarImage src="/images/profile.jpg" />
             <AvatarFallback>CL</AvatarFallback>
         </Avatar>
@@ -55,30 +53,30 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       </main>
       <footer className="sticky bottom-0 z-20 mt-auto bg-background border-t">
         <ScrollArea className="w-full whitespace-nowrap">
-            <nav className="flex w-max space-x-4 p-2">
+            <nav className="flex w-max space-x-2 p-2 justify-center">
                 {menuItems.map((item) => {
                     const isActive = pathname === item.href;
                     return (
                        <Link href={item.href} key={item.label} className="flex-shrink-0">
                            <div className={cn(
-                               "flex flex-col items-center justify-center gap-1 p-1 rounded-lg transition-transform duration-200 ease-in-out w-20",
+                               "flex flex-col items-center justify-center gap-1 rounded-lg transition-transform duration-200 ease-in-out w-20 py-2",
                                isActive ? "scale-110" : "scale-100"
                            )}>
                                <div
-                                    className="p-2 rounded-full"
+                                    className="p-2.5 rounded-full"
                                     style={{
                                         backgroundColor: `${item.color.replace(')', ' / 0.1)')}`,
                                     }}
                                 >
-                                   <item.icon className="h-6 w-6" style={{ color: item.color }} />
+                                   <item.icon className="h-5 w-5" style={{ color: item.color }} />
                                </div>
                                <div className="text-center leading-tight mt-1">
-                                    <p className="text-xs font-bold"
-                                       style={{color: item.color}}>
+                                    <p className="text-xs font-semibold"
+                                       style={{color: isActive ? item.color : 'hsl(var(--foreground))'}}>
                                        {item.label}
                                     </p>
-                                    <p className="text-[10px] font-semibold"
-                                       style={{color: item.color}}>
+                                    <p className="text-[10px] font-medium text-muted-foreground"
+                                       style={{color: isActive ? item.color : 'hsl(var(--muted-foreground))'}}>
                                        {item.telugu}
                                     </p>
                                </div>
