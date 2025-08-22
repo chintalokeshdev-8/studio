@@ -14,6 +14,7 @@ import {
   LayoutGrid,
   Headset,
   Activity,
+  ChevronRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -52,41 +53,48 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           {children}
       </main>
       <footer className="sticky bottom-0 z-20 mt-auto bg-background border-t">
-        <ScrollArea className="w-full whitespace-nowrap">
-            <nav className="flex w-max space-x-2 p-2 justify-center">
-                {menuItems.map((item) => {
-                    const isActive = pathname === item.href;
-                    return (
-                       <Link href={item.href} key={item.label} className="flex-shrink-0">
-                           <div className={cn(
-                               "flex flex-col items-center justify-center gap-1 rounded-lg transition-transform duration-200 ease-in-out w-20 py-2",
-                               isActive ? "scale-110" : "scale-100"
-                           )}>
-                               <div
-                                    className="p-2.5 rounded-full"
-                                    style={{
-                                        backgroundColor: `${item.color.replace(')', ' / 0.1)')}`,
-                                    }}
-                                >
-                                   <item.icon className="h-5 w-5" style={{ color: item.color }} />
+        <div className="relative">
+            <ScrollArea className="w-full whitespace-nowrap">
+                <nav className="flex w-max space-x-2 p-2 pr-12 justify-center">
+                    {menuItems.map((item) => {
+                        const isActive = pathname === item.href;
+                        return (
+                           <Link href={item.href} key={item.label} className="flex-shrink-0">
+                               <div className={cn(
+                                   "flex flex-col items-center justify-center gap-1 rounded-lg transition-transform duration-200 ease-in-out w-20 py-2",
+                                   isActive ? "scale-110" : "scale-100"
+                               )}>
+                                   <div
+                                        className="p-2.5 rounded-full"
+                                        style={{
+                                            backgroundColor: `${item.color.replace(')', ' / 0.1)')}`,
+                                        }}
+                                    >
+                                       <item.icon className="h-5 w-5" style={{ color: item.color }} />
+                                   </div>
+                                   <div className="text-center leading-tight mt-1">
+                                        <p className="text-xs font-semibold"
+                                           style={{color: isActive ? item.color : 'hsl(var(--foreground))'}}>
+                                           {item.label}
+                                        </p>
+                                        <p className="text-[10px] font-medium text-muted-foreground"
+                                           style={{color: isActive ? item.color : 'hsl(var(--muted-foreground))'}}>
+                                           {item.telugu}
+                                        </p>
+                                   </div>
                                </div>
-                               <div className="text-center leading-tight mt-1">
-                                    <p className="text-xs font-semibold"
-                                       style={{color: isActive ? item.color : 'hsl(var(--foreground))'}}>
-                                       {item.label}
-                                    </p>
-                                    <p className="text-[10px] font-medium text-muted-foreground"
-                                       style={{color: isActive ? item.color : 'hsl(var(--muted-foreground))'}}>
-                                       {item.telugu}
-                                    </p>
-                               </div>
-                           </div>
-                       </Link>
-                   );
-                })}
-            </nav>
-            <ScrollBar orientation="horizontal" className="invisible" />
-        </ScrollArea>
+                           </Link>
+                       );
+                    })}
+                </nav>
+                <ScrollBar orientation="horizontal" className="invisible" />
+            </ScrollArea>
+             <div className="absolute top-0 right-0 h-full flex items-center pr-2 pointer-events-none bg-gradient-to-l from-background to-transparent w-12">
+                <div className="bg-muted/50 rounded-full p-1">
+                  <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                </div>
+            </div>
+        </div>
       </footer>
     </div>
   );
