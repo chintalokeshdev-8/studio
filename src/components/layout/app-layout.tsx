@@ -61,16 +61,16 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                         return (
                            <Link href={item.href} key={item.label} className="flex-shrink-0">
                                <div className={cn(
-                                   "flex flex-col items-center justify-center gap-1 rounded-lg transition-transform duration-200 ease-in-out w-20 py-2",
+                                   "flex flex-col items-center justify-center gap-1 rounded-lg transition-transform duration-200 ease-in-out w-24 py-2",
                                    isActive ? "scale-110" : "scale-100"
                                )}>
                                    <div
-                                        className="p-2.5 rounded-full"
+                                        className="p-3 rounded-full"
                                         style={{
                                             backgroundColor: isActive ? `${item.color.replace(')', ' / 0.1)')}` : 'transparent',
                                         }}
                                     >
-                                       <item.icon className="h-5 w-5" style={{ color: item.color }} />
+                                       <item.icon className="h-7 w-7" style={{ color: item.color }} />
                                    </div>
                                    <div className="text-center leading-tight mt-1">
                                         <p className="text-xs font-semibold"
