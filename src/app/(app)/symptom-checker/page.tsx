@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { analyzeSymptoms, SymptomAnalysisOutput } from '@/ai/flows/ai-symptom-check';
 import { Loader2, Mic, Sparkles, Search, AlertTriangle } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 const commonSymptoms = [
     { english: "Fever", telugu: "జ్వరం" },
@@ -35,7 +36,6 @@ export default function SymptomCheckerPage() {
     const handleSubmit = async () => {
         const allSymptoms = selectedSymptoms.join(', ');
         if (!allSymptoms) {
-            // Optionally, show an error toast
             return;
         }
 
@@ -56,10 +56,11 @@ export default function SymptomCheckerPage() {
                 <CardContent className="p-4 flex items-start gap-4">
                     <AlertTriangle className="h-6 w-6 text-yellow-600 dark:text-yellow-400 mt-1 flex-shrink-0" />
                     <div>
-                        <h3 className="font-bold text-yellow-800 dark:text-yellow-300">For Your Awareness</h3>
-                        <p className="text-sm text-yellow-700 dark:text-yellow-400/80">
-                            <strong>This AI analysis is for informational purposes only and is not a substitute for a professional medical diagnosis. Think of it as a first-aid guide, not a doctor's prescription. Always consult a qualified healthcare provider for any health concerns.</strong>
-                        </p>
+                        <h3 className="font-bold text-yellow-800 dark:text-yellow-300">For Your Awareness (మీ అవగాహన కోసం)</h3>
+                        <div className="text-sm text-yellow-700 dark:text-yellow-400/80 space-y-2 mt-2">
+                           <p><strong>This AI analysis is for informational purposes only and is not a substitute for a professional medical diagnosis. Think of it as a first-aid guide, not a doctor's prescription. Always consult a qualified healthcare provider for any health concerns.</strong></p>
+                           <p><strong>ఈ AI విశ్లేషణ సమాచార ప్రయోజనాల కోసం మాత్రమే మరియు వృత్తిపరమైన వైద్య నిర్ధారణకు ప్రత్యామ్నాయం కాదు. దీనిని ప్రథమ చికిత్స మార్గదర్శిగా భావించండి, డాక్టర్ ప్రిస్క్రిప్షన్‌గా కాదు. ఏవైనా ఆరోగ్య సమస్యల కోసం ఎల్లప్పుడూ అర్హత కలిగిన ఆరోగ్య సంరక్షణ ప్రదాతను సంప్రదించండి.</strong></p>
+                        </div>
                     </div>
                 </CardContent>
             </Card>
@@ -120,10 +121,18 @@ export default function SymptomCheckerPage() {
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <p className="whitespace-pre-wrap leading-relaxed">{analysis.analysis}</p>
-                        <p className="text-sm text-muted-foreground italic pt-4 border-t">
-                            Disclaimer: This is an AI-generated analysis and not a substitute for professional medical advice. Please consult a doctor for an accurate diagnosis.
-                        </p>
                     </CardContent>
+                    <CardFooter className="flex-col items-start gap-4 bg-muted/40 p-4">
+                         <div>
+                            <h4 className="font-semibold">Next Steps</h4>
+                            <p className="text-sm text-muted-foreground">Based on the analysis, consider booking an appointment with a specialist.</p>
+                         </div>
+                         <Link href="/appointments" className="w-full">
+                            <Button className="w-full" style={{backgroundColor: 'hsl(var(--nav-symptoms))'}}>
+                                Book an Appointment
+                            </Button>
+                        </Link>
+                    </CardFooter>
                 </Card>
             )}
 
