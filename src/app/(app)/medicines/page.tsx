@@ -9,10 +9,10 @@ import Link from 'next/link';
 import { cn } from "@/lib/utils";
 
 const medicineSchedule = [
-    { name: "Paracetamol", teluguName: "పారాసిటమాల్", use: "For fever and pain relief", dosage: "500mg", time: "After Breakfast", taken: true, frequency: "3 times a day", alertTime: "9:00 AM" },
-    { name: "Vitamin D3", teluguName: "విటమిన్ డి3", use: "For bone health", dosage: "60000 IU", time: "After Lunch", taken: true, frequency: "Once a week", alertTime: "1:00 PM" },
-    { name: "Metformin", teluguName: "మెట్‌ఫార్మిన్", use: "To control blood sugar", dosage: "1000mg", time: "After Dinner", taken: false, frequency: "Twice a day", alertTime: "9:00 PM" },
-    { name: "Omega-3", teluguName: "ఒమేగా-3", use: "For heart health", dosage: "1 capsule", time: "After Dinner", taken: false, frequency: "Once a day", alertTime: "9:30 PM" },
+    { name: "Paracetamol", teluguName: "పారాసిటమాల్", use: "For fever and pain relief", teluguUse: "జ్వరం మరియు నొప్పి నివారణకు", dosage: "500mg", time: "After Breakfast", teluguTime: "అల్పాహారం తర్వాత", taken: true, frequency: "3 times a day", alertTime: "9:00 AM" },
+    { name: "Vitamin D3", teluguName: "విటమిన్ డి3", use: "For bone health", teluguUse: "ఎముకల ఆరోగ్యానికి", dosage: "60000 IU", time: "After Lunch", teluguTime: "భోజనం తర్వాత", taken: true, frequency: "Once a week", alertTime: "1:00 PM" },
+    { name: "Metformin", teluguName: "మెట్‌ఫార్మిన్", use: "To control blood sugar", teluguUse: "రక్తంలో చక్కెరను నియంత్రించడానికి", dosage: "1000mg", time: "After Dinner", teluguTime: "రాత్రి భోజనం తర్వాత", taken: false, frequency: "Twice a day", alertTime: "9:00 PM" },
+    { name: "Omega-3", teluguName: "ఒమేగా-3", use: "For heart health", teluguUse: "గుండె ఆరోగ్యానికి", dosage: "1 capsule", time: "After Dinner", teluguTime: "రాత్రి భోజనం తర్వాత", taken: false, frequency: "Once a day", alertTime: "9:30 PM" },
 ];
 
 const medicineAssistanceItems = [
@@ -50,8 +50,14 @@ export default function MyMedicinesPage() {
                                                     <p className="font-extrabold text-xl">{med.name}</p>
                                                     <p className="font-bold text-lg text-muted-foreground">{med.teluguName}</p>
                                                 </div>
-                                                <p className="text-sm text-muted-foreground font-semibold flex items-center gap-1.5"><Info className="h-4 w-4" />{med.use}</p>
-                                                <p className="text-sm text-muted-foreground mt-2">{med.dosage} • {med.time}</p>
+                                                <div className="font-semibold text-sm text-muted-foreground flex items-center gap-1.5 mt-1">
+                                                    <Info className="h-4 w-4" />
+                                                    <div>
+                                                        <p>{med.use}</p>
+                                                        <p className="text-sm">{med.teluguUse}</p>
+                                                    </div>
+                                                </div>
+                                                <p className="text-sm text-muted-foreground mt-2 font-semibold">{med.dosage} • {med.time} ({med.teluguTime})</p>
                                                 <div className="text-xs font-semibold mt-2 p-1 px-2.5 rounded-full inline-flex items-center gap-1.5" style={{backgroundColor: 'hsla(var(--nav-medicines)/0.1)', color: 'hsl(var(--nav-medicines))'}}>
                                                     <Bell className="h-3 w-3"/>
                                                     {med.alertTime} • {med.frequency}
