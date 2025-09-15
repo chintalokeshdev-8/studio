@@ -7,10 +7,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 const queue = [
-    { token: 19, name: "Suresh Varma", status: "Consulting" },
-    { token: 20, name: "Anjali Devi", status: "Waiting" },
-    { token: 21, name: "Ravi Teja", status: "Waiting" },
-    { token: 22, name: "Priya Sharma", status: "Waiting" },
+    { token: 19, name: "Bala Krishna", status: "Consulting" },
+    { token: 20, name: "Ashok Kumar", status: "Waiting" },
+    { token: 21, name: "Sreenu", status: "Waiting" },
+    { token: 22, name: "Sathyam", status: "Waiting" },
     { token: 23, name: "Chinta Lokesh Babu", status: "You are here" },
     { token: 24, name: "Mounika Reddy", status: "Waiting" },
 ];
@@ -30,7 +30,6 @@ const quickQuestions = [
 // Assume this is the current status from a data source
 const doctorStatus = {
     status: "Available", // Can be "Available", "In Surgery", "On Leave"
-    details: "The doctor is available for consultation."
 };
 
 const getStatusInfo = (status: string) => {
@@ -41,6 +40,9 @@ const getStatusInfo = (status: string) => {
                 color: "border-green-200",
                 textColor: "text-green-800",
                 indicator: true,
+                details: "The doctor is available for consultation.",
+                teluguStatus: "అందుబాటులో ఉన్నారు",
+                teluguDetails: "డాక్టర్ సంప్రదింపులకు అందుబాటులో ఉన్నారు."
             };
         case "In Surgery":
             return {
@@ -49,6 +51,8 @@ const getStatusInfo = (status: string) => {
                 textColor: "text-yellow-800",
                 details: "Estimated back in 2 hours",
                 indicator: false,
+                teluguStatus: "శస్త్రచికిత్సలో ఉన్నారు",
+                teluguDetails: "సుమారు 2 గంటలలో తిరిగి వస్తారు"
             };
         case "On Leave":
             return {
@@ -57,6 +61,8 @@ const getStatusInfo = (status: string) => {
                 textColor: "text-red-800",
                 details: "Doctor will be back tomorrow.",
                 indicator: false,
+                teluguStatus: "సెలవులో ఉన్నారు",
+                teluguDetails: "డాక్టర్ రేపు తిరిగి వస్తారు."
             };
         default:
             return {
@@ -64,6 +70,9 @@ const getStatusInfo = (status: string) => {
                 color: "border-muted",
                 textColor: "text-foreground",
                 indicator: false,
+                details: "Status unavailable",
+                teluguStatus: "స్థితి అందుబాటులో లేదు",
+                teluguDetails: "దయచేసి తర్వాత ప్రయత్నించండి."
             };
     }
 };
@@ -107,19 +116,20 @@ export default function OpdQueuePage() {
 
                     <Card>
                         <CardHeader>
-                            <CardTitle>Doctor Status</CardTitle>
+                            <CardTitle>Doctor Status (డాక్టర్ స్థితి)</CardTitle>
                         </CardHeader>
                         <CardContent>
-                             <div className={`flex items-center gap-4 p-4 ${currentStatusInfo.color} rounded-lg border bg-background`}>
-                                <StatusIcon className={`h-6 w-6 ${currentStatusInfo.textColor}`}/>
+                             <div className={`flex items-start gap-4 p-4 ${currentStatusInfo.color} rounded-lg border bg-background`}>
+                                <StatusIcon className={`h-6 w-6 ${currentStatusInfo.textColor} mt-1`}/>
                                 <div className="flex-1">
                                     <p className={`font-bold ${currentStatusInfo.textColor} flex items-center gap-2`}>
-                                        {doctorStatus.status}
+                                        {doctorStatus.status} ({currentStatusInfo.teluguStatus})
                                     </p>
-                                    <p className={`text-sm ${currentStatusInfo.textColor}/80`}>{doctorStatus.details}</p>
+                                    <p className={`text-sm ${currentStatusInfo.textColor}/80`}>{currentStatusInfo.details}</p>
+                                    <p className={`text-sm ${currentStatusInfo.textColor}/80`}>{currentStatusInfo.teluguDetails}</p>
                                 </div>
                                 {currentStatusInfo.indicator && (
-                                    <span className="relative flex h-4 w-4">
+                                    <span className="relative flex h-4 w-4 mt-1">
                                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
                                         <span className="relative inline-flex rounded-full h-4 w-4 bg-green-600"></span>
                                     </span>
