@@ -1,10 +1,11 @@
+
 'use client';
 
 import React, { useState, useTransition } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { analyzeSymptoms, SymptomAnalysisOutput } from '@/ai/flows/ai-symptom-check';
-import { Loader2, Mic, Sparkles, Search } from 'lucide-react';
+import { Loader2, Mic, Sparkles, Search, AlertTriangle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const commonSymptoms = [
@@ -51,6 +52,18 @@ export default function SymptomCheckerPage() {
                 <p className="text-muted-foreground mt-2">Select your symptoms to get intelligent health guidance.</p>
             </div>
             
+            <Card className="bg-yellow-50 border-yellow-200 dark:bg-yellow-900/20 dark:border-yellow-800/40">
+                <CardContent className="p-4 flex items-start gap-4">
+                    <AlertTriangle className="h-6 w-6 text-yellow-600 dark:text-yellow-400 mt-1 flex-shrink-0" />
+                    <div>
+                        <h3 className="font-bold text-yellow-800 dark:text-yellow-300">For Your Awareness</h3>
+                        <p className="text-sm text-yellow-700 dark:text-yellow-400/80">
+                            <strong>This AI analysis is for informational purposes only and is not a substitute for a professional medical diagnosis. Think of it as a first-aid guide, not a doctor's prescription. Always consult a qualified healthcare provider for any health concerns.</strong>
+                        </p>
+                    </div>
+                </CardContent>
+            </Card>
+
             <Card>
                 <CardHeader>
                     <CardTitle>Select Your Symptoms</CardTitle>
