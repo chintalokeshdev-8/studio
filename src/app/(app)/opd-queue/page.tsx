@@ -12,7 +12,7 @@ const queue = [
     { token: 21, name: "Sreenu", status: "Waiting" },
     { token: 22, name: "Sathyam", status: "Waiting" },
     { token: 23, name: "Chinta Lokesh Babu", status: "You are here" },
-    { token: 24, name: "Mounika Reddy", status: "Waiting" },
+    { token: 24, name: "s. narayana", status: "Waiting" },
 ];
 
 const messages = [
