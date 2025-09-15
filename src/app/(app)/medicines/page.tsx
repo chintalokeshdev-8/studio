@@ -95,24 +95,24 @@ export default function MyMedicinesPage() {
                 <div className="space-y-8">
                     <Card>
                         <CardHeader>
-                            <CardTitle>Diet & Recovery Plan</CardTitle>
+                            <CardTitle>Diet & Recovery Plan (ఆహారం & కోలుకునే ప్రణాళిక)</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-6">
                             <div>
-                                <Label>Recovery Probability</Label>
+                                <Label>Recovery Probability (కోలుకునే సంభావ్యత)</Label>
                                 <div className="flex items-center gap-2 mt-1">
                                     <Progress value={85} className="w-full" />
                                     <span className="font-bold" style={{color: 'hsl(var(--nav-medicines))'}}>85%</span>
                                 </div>
                             </div>
                             <div>
-                                <h3 className="font-semibold flex items-center gap-2 mb-2"><Utensils style={{color: 'hsl(var(--nav-medicines))'}}/> Recommended Diet</h3>
+                                <h3 className="font-semibold flex items-center gap-2 mb-2"><Utensils style={{color: 'hsl(var(--nav-medicines))'}}/> Recommended Diet (సిఫార్సు చేయబడిన ఆహారం)</h3>
                                 <div className="text-sm text-muted-foreground p-3 bg-muted/40 rounded-lg space-y-1">
                                     <p>• Low-carb, high-protein diet.</p>
                                     <p>• Avoid sugary drinks and processed foods.</p>
                                     <p>• Drink at least 8 glasses of water daily.</p>
                                 </div>
-                                <Button variant="link" className="p-0 h-auto mt-2 text-sm" style={{color: 'hsl(var(--nav-medicines))'}}>View Detailed Plan</Button>
+                                <Button variant="link" className="p-0 h-auto mt-2 text-sm" style={{color: 'hsl(var(--nav-medicines))'}}>View Detailed Plan (వివరణాత్మక ప్రణాళిక చూడండి)</Button>
                             </div>
                         </CardContent>
                     </Card>
