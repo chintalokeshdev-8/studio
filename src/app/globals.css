@@ -10,34 +10,34 @@
     --card-foreground: 240 5.9% 10%;
     --popover: 240 10% 99%;
     --popover-foreground: 240 5.9% 10%;
-    --primary: 220 90% 55%;
+    --primary: 150 80% 40%;
     --primary-foreground: 0 0% 100%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
+    --accent: 150 80% 95%;
+    --accent-foreground: 150 80% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
-    --ring: 220 90% 55%;
+    --ring: 150 80% 40%;
     --radius: 0.75rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --chart-1: 150 76% 61%;
+    --chart-2: 150 58% 39%;
+    --chart-3: 150 37% 24%;
+    --chart-4: 150 74% 66%;
+    --chart-5: 150 87% 67%;
 
-    --nav-home: 220 90% 55%;
-    --nav-symptoms: 340 85% 60%;
-    --nav-chat: 140 80% 45%;
-    --nav-appointments: 200 95% 50%;
-    --nav-junior-doctors: 280 85% 65%;
-    --nav-diagnostics: 25 90% 55%;
-    --nav-medicines: 310 80% 60%;
-    --nav-profile: 50 95% 55%;
+    --nav-home: 150 80% 40%;
+    --nav-symptoms: 145 85% 42%;
+    --nav-chat: 155 80% 45%;
+    --nav-appointments: 160 80% 38%;
+    --nav-junior-doctors: 140 75% 45%;
+    --nav-diagnostics: 150 85% 35%;
+    --nav-medicines: 165 70% 40%;
+    --nav-profile: 150 75% 50%;
     --nav-emergency: 0 100% 50%;
   }
 
@@ -48,8 +48,8 @@
     --card-foreground: 0 0% 98%;
     --popover: 240 5.9% 10%;
     --popover-foreground: 0 0% 98%;
-    --primary: 210 90% 55%;
-    --primary-foreground: 240 5.9% 10%;
+    --primary: 150 80% 50%;
+    --primary-foreground: 0 0% 100%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 3.7% 15.9%;
@@ -60,21 +60,21 @@
     --destructive-foreground: 0 0% 98%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 210 90% 55%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --ring: 150 80% 50%;
+    --chart-1: 150 70% 50%;
+    --chart-2: 150 60% 45%;
+    --chart-3: 150 80% 55%;
+    --chart-4: 150 65% 60%;
+    --chart-5: 150 75% 55%;
 
-    --nav-home: 210 90% 55%;
-    --nav-symptoms: 340 85% 60%;
-    --nav-chat: 140 70% 50%;
-    --nav-appointments: 200 95% 55%;
-    --nav-junior-doctors: 280 85% 70%;
-    --nav-diagnostics: 25 90% 60%;
-    --nav-medicines: 310 80% 65%;
-    --nav-profile: 50 95% 60%;
+    --nav-home: 150 80% 50%;
+    --nav-symptoms: 145 75% 52%;
+    --nav-chat: 155 70% 55%;
+    --nav-appointments: 160 70% 48%;
+    --nav-junior-doctors: 140 65% 55%;
+    --nav-diagnostics: 150 75% 45%;
+    --nav-medicines: 165 60% 50%;
+    --nav-profile: 150 65% 60%;
     --nav-emergency: 0 90% 60%;
   }
 }
