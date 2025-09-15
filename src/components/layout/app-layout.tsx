@@ -37,7 +37,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex flex-col min-h-screen bg-muted/30">
-      <header className="sticky top-0 z-20 flex items-center justify-between p-3 bg-background border-b">
+      <header className="sticky top-0 z-20 flex items-center justify-between p-3 bg-background border-b border-t-4 border-t-primary">
         <div className="flex items-center gap-2">
             <div className="p-1.5 bg-primary rounded-lg">
                 <Activity className="w-6 h-6 text-primary-foreground" />
