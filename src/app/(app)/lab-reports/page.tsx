@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { FileDown, Eye, Upload, Search, MapPin, TestTube, Sparkles, XRay, Scan } from "lucide-react";
+import { FileDown, Eye, Upload, Search, MapPin, TestTube, Sparkles, Bone, Scan } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -174,7 +174,7 @@ export default function DiagnosticsPage() {
                            <Tabs defaultValue="lab" className="w-full">
                                 <TabsList>
                                     <TabsTrigger value="lab" className="flex items-center gap-2"><TestTube className="h-4 w-4"/> Lab Reports</TabsTrigger>
-                                    <TabsTrigger value="xray" className="flex items-center gap-2"><XRay className="h-4 w-4"/> X-Rays</TabsTrigger>
+                                    <TabsTrigger value="xray" className="flex items-center gap-2"><Bone className="h-4 w-4"/> X-Rays</TabsTrigger>
                                     <TabsTrigger value="mri" className="flex items-center gap-2"><Scan className="h-4 w-4"/> MRI Scans</TabsTrigger>
                                 </TabsList>
                                 <TabsContent value="lab" className="mt-4">
