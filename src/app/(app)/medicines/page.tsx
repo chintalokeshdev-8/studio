@@ -3,16 +3,16 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Progress } from "@/components/ui/progress";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { FlaskConical, Stethoscope, Microscope, LifeBuoy, Bell, Utensils, Award, AlarmClock } from "lucide-react";
+import { FlaskConical, Stethoscope, Microscope, LifeBuoy, Bell, Utensils, Award, AlarmClock, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from 'next/link';
 import { cn } from "@/lib/utils";
 
 const medicineSchedule = [
-    { name: "Paracetamol", dosage: "500mg", time: "After Breakfast", taken: true, frequency: "3 times a day", alertTime: "9:00 AM" },
-    { name: "Vitamin D3", dosage: "60000 IU", time: "After Lunch", taken: true, frequency: "Once a week", alertTime: "1:00 PM" },
-    { name: "Metformin", dosage: "1000mg", time: "After Dinner", taken: false, frequency: "Twice a day", alertTime: "9:00 PM" },
-    { name: "Omega-3", dosage: "1 capsule", time: "After Dinner", taken: false, frequency: "Once a day", alertTime: "9:30 PM" },
+    { name: "Paracetamol", teluguName: "పారాసిటమాల్", use: "For fever and pain relief", dosage: "500mg", time: "After Breakfast", taken: true, frequency: "3 times a day", alertTime: "9:00 AM" },
+    { name: "Vitamin D3", teluguName: "విటమిన్ డి3", use: "For bone health", dosage: "60000 IU", time: "After Lunch", taken: true, frequency: "Once a week", alertTime: "1:00 PM" },
+    { name: "Metformin", teluguName: "మెట్‌ఫార్మిన్", use: "To control blood sugar", dosage: "1000mg", time: "After Dinner", taken: false, frequency: "Twice a day", alertTime: "9:00 PM" },
+    { name: "Omega-3", teluguName: "ఒమేగా-3", use: "For heart health", dosage: "1 capsule", time: "After Dinner", taken: false, frequency: "Once a day", alertTime: "9:30 PM" },
 ];
 
 const medicineAssistanceItems = [
@@ -46,8 +46,12 @@ export default function MyMedicinesPage() {
                                                 <AlarmClock className="h-5 w-5" style={{color: 'hsl(var(--nav-medicines))'}} />
                                             </div>
                                             <div>
-                                                <p className="font-bold text-lg">{med.name}</p>
-                                                <p className="text-sm text-muted-foreground">{med.dosage} • {med.time}</p>
+                                                <div className="flex items-baseline gap-2">
+                                                    <p className="font-extrabold text-xl">{med.name}</p>
+                                                    <p className="font-bold text-lg text-muted-foreground">{med.teluguName}</p>
+                                                </div>
+                                                <p className="text-sm text-muted-foreground font-semibold flex items-center gap-1.5"><Info className="h-4 w-4" />{med.use}</p>
+                                                <p className="text-sm text-muted-foreground mt-2">{med.dosage} • {med.time}</p>
                                                 <div className="text-xs font-semibold mt-2 p-1 px-2.5 rounded-full inline-flex items-center gap-1.5" style={{backgroundColor: 'hsla(var(--nav-medicines)/0.1)', color: 'hsl(var(--nav-medicines))'}}>
                                                     <Bell className="h-3 w-3"/>
                                                     {med.alertTime} • {med.frequency}
