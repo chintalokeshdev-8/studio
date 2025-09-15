@@ -1,9 +1,10 @@
 
+
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { FileDown, Eye, Upload, Search, MapPin, TestTube, Dna } from "lucide-react";
+import { FileDown, Eye, Upload, Search, MapPin, TestTube, Sparkles, XRay, Scan } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -15,6 +16,12 @@ const labReports = [
   { testName: "Urinalysis", date: "2024-07-17", doctor: "Dr. Rajesh Kumar", status: "Pending" },
   { testName: "HbA1c", date: "2024-06-20", doctor: "Dr. Rajesh Kumar", status: "Completed" },
 ];
+
+const imagingReports = [
+    { testName: "Chest X-Ray", date: "2024-07-10", doctor: "Dr. Rajesh Kumar", status: "Completed", type: "x-ray" },
+    { testName: "MRI Brain Scan", date: "2024-05-12", doctor: "Dr. Arjun Kumar", status: "Completed", type: "mri" },
+    { testName: "Abdominal Ultrasound", date: "2024-07-18", doctor: "Dr. Priya Sharma", status: "Processing", type: "x-ray" },
+]
 
 const diagnosticTests = [
     { name: "Complete Blood Picture (CBP)", lab: "Apollo Diagnostics", price: 300, category: "Blood" },
@@ -37,6 +44,52 @@ const getStatusBadgeClass = (status: string) => {
             return "";
     }
 }
+
+const ReportTable = ({ reports }: { reports: any[] }) => (
+    <Table>
+        <TableHeader>
+            <TableRow>
+                <TableHead>Test Name</TableHead>
+                <TableHead>Date</TableHead>
+                <TableHead>Ordered By</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
+            </TableRow>
+        </TableHeader>
+        <TableBody>
+            {reports.map((report, index) => (
+                <TableRow key={index}>
+                    <TableCell className="font-medium">{report.testName}</TableCell>
+                    <TableCell>{report.date}</TableCell>
+                    <TableCell>{report.doctor}</TableCell>
+                    <TableCell>
+                        <Badge variant="outline" className={getStatusBadgeClass(report.status)}>
+                            {report.status}
+                        </Badge>
+                    </TableCell>
+                    <TableCell className="text-right">
+                        {report.status === "Completed" ? (
+                            <div className="flex gap-2 justify-end">
+                                <Button variant="outline" size="icon" className="h-8 w-8">
+                                    <Eye className="h-4 w-4" />
+                                </Button>
+                                <Button variant="outline" size="icon" className="h-8 w-8">
+                                    <FileDown className="h-4 w-4" />
+                                </Button>
+                                <Button variant="outline" size="icon" className="h-8 w-8 border-primary/50 text-primary hover:text-primary hover:bg-primary/10">
+                                    <Sparkles className="h-4 w-4" />
+                                </Button>
+                            </div>
+                        ) : (
+                            <span className="text-xs text-muted-foreground">Not Available</span>
+                        )}
+                    </TableCell>
+                </TableRow>
+            ))}
+        </TableBody>
+    </Table>
+);
+
 
 export default function DiagnosticsPage() {
     return (
@@ -107,56 +160,33 @@ export default function DiagnosticsPage() {
                 </TabsContent>
                 <TabsContent value="reports" className="mt-6">
                     <Card>
-                        <CardHeader className="flex flex-row justify-between items-center">
+                        <CardHeader className="flex flex-row justify-between items-start">
                             <div>
                                 <CardTitle>My Reports</CardTitle>
-                                <CardDescription>View and download your medical test results.</CardDescription>
+                                <CardDescription>View, download, and analyze your medical test results.</CardDescription>
                             </div>
                              <Button style={{backgroundColor: 'hsl(var(--nav-diagnostics))'}}>
                                 <Upload className="mr-2 h-4 w-4" />
                                 Upload Report
                             </Button>
                         </CardHeader>
-                        <CardContent className="p-0">
-                            <Table>
-                                <TableHeader>
-                                    <TableRow>
-                                        <TableHead>Test Name</TableHead>
-                                        <TableHead>Date</TableHead>
-                                        <TableHead>Ordered By</TableHead>
-                                        <TableHead>Status</TableHead>
-                                        <TableHead className="text-right">Actions</TableHead>
-                                    </TableRow>
-                                </TableHeader>
-                                <TableBody>
-                                    {labReports.map((report, index) => (
-                                        <TableRow key={index}>
-                                            <TableCell className="font-medium">{report.testName}</TableCell>
-                                            <TableCell>{report.date}</TableCell>
-                                            <TableCell>{report.doctor}</TableCell>
-                                            <TableCell>
-                                                <Badge variant="outline" className={getStatusBadgeClass(report.status)}>
-                                                    {report.status}
-                                                </Badge>
-                                            </TableCell>
-                                            <TableCell className="text-right">
-                                                {report.status === "Completed" ? (
-                                                    <div className="flex gap-2 justify-end">
-                                                        <Button variant="outline" size="icon">
-                                                            <Eye className="h-4 w-4" />
-                                                        </Button>
-                                                        <Button variant="outline" size="icon">
-                                                            <FileDown className="h-4 w-4" />
-                                                        </Button>
-                                                    </div>
-                                                ) : (
-                                                    <span className="text-xs text-muted-foreground">Not Available</span>
-                                                )}
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
+                        <CardContent>
+                           <Tabs defaultValue="lab" className="w-full">
+                                <TabsList>
+                                    <TabsTrigger value="lab" className="flex items-center gap-2"><TestTube className="h-4 w-4"/> Lab Reports</TabsTrigger>
+                                    <TabsTrigger value="xray" className="flex items-center gap-2"><XRay className="h-4 w-4"/> X-Rays</TabsTrigger>
+                                    <TabsTrigger value="mri" className="flex items-center gap-2"><Scan className="h-4 w-4"/> MRI Scans</TabsTrigger>
+                                </TabsList>
+                                <TabsContent value="lab" className="mt-4">
+                                     <ReportTable reports={labReports} />
+                                </TabsContent>
+                                <TabsContent value="xray" className="mt-4">
+                                    <ReportTable reports={imagingReports.filter(r => r.type === 'x-ray')} />
+                                </TabsContent>
+                                <TabsContent value="mri" className="mt-4">
+                                     <ReportTable reports={imagingReports.filter(r => r.type === 'mri')} />
+                                </TabsContent>
+                            </Tabs>
                         </CardContent>
                     </Card>
                 </TabsContent>
