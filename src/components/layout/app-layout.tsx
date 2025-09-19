@@ -42,6 +42,12 @@ const menuItems = [
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const viewportRef = React.useRef<HTMLDivElement>(null);
+  const [isClient, setIsClient] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
+
 
   const handleScrollRight = () => {
     if (viewportRef.current) {
@@ -85,7 +91,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             <ScrollArea className="w-full" viewportRef={viewportRef}>
                 <nav className="flex w-max space-x-1 p-2 px-12 justify-center">
                     {menuItems.map((item) => {
-                        const isActive = pathname === item.href;
+                        const isActive = isClient && pathname === item.href;
                         return (
                            <Link href={item.href} key={item.label} className="flex-shrink-0">
                                <div className={cn(
