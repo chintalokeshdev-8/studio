@@ -438,36 +438,38 @@ export default function HealthTrackerPage() {
                 <CardHeader>
                     <CardTitle className="flex items-center justify-center gap-2"><Scale /> BMI Calculator</CardTitle>
                 </CardHeader>
-                <CardContent className="grid md:grid-cols-2 gap-6 items-center">
-                    <div className="space-y-4">
-                        <div className="space-y-2">
-                             <div className="flex justify-between items-center">
-                                <Label htmlFor="height">Height</Label>
-                                <Tabs defaultValue={heightUnit} onValueChange={setHeightUnit} className="w-auto">
-                                    <TabsList className="h-7 text-xs">
-                                        <TabsTrigger value="cm" className="h-5 px-2">cm</TabsTrigger>
-                                        <TabsTrigger value="ft" className="h-5 px-2">ft</TabsTrigger>
-                                    </TabsList>
-                                </Tabs>
+                <CardContent className="space-y-6">
+                    <div className="grid md:grid-cols-2 gap-6 items-start">
+                        <div className="space-y-4">
+                            <div className="space-y-2">
+                                <div className="flex justify-between items-center">
+                                    <Label htmlFor="height">Height</Label>
+                                    <Tabs defaultValue={heightUnit} onValueChange={setHeightUnit} className="w-auto">
+                                        <TabsList className="h-7 text-xs">
+                                            <TabsTrigger value="cm" className="h-5 px-2">cm</TabsTrigger>
+                                            <TabsTrigger value="ft" className="h-5 px-2">ft</TabsTrigger>
+                                        </TabsList>
+                                    </Tabs>
+                                </div>
+                                <Input id="height" type="number" placeholder={heightPlaceholders[heightUnit]} value={height} onChange={(e) => setHeight(e.target.value)} />
                             </div>
-                            <Input id="height" type="number" placeholder={heightPlaceholders[heightUnit]} value={height} onChange={(e) => setHeight(e.target.value)} />
-                        </div>
-                        <div className="space-y-2">
-                            <div className="flex justify-between items-center">
-                                <Label htmlFor="calc-weight">Weight</Label>
-                                <Tabs defaultValue={weightUnit} onValueChange={setWeightUnit} className="w-auto">
-                                     <TabsList className="h-7 text-xs">
-                                        <TabsTrigger value="kg" className="h-5 px-2">kg</TabsTrigger>
-                                        <TabsTrigger value="lbs" className="h-5 px-2">lbs</TabsTrigger>
-                                    </TabsList>
-                                </Tabs>
+                            <div className="space-y-2">
+                                <div className="flex justify-between items-center">
+                                    <Label htmlFor="calc-weight">Weight</Label>
+                                    <Tabs defaultValue={weightUnit} onValueChange={setWeightUnit} className="w-auto">
+                                        <TabsList className="h-7 text-xs">
+                                            <TabsTrigger value="kg" className="h-5 px-2">kg</TabsTrigger>
+                                            <TabsTrigger value="lbs" className="h-5 px-2">lbs</TabsTrigger>
+                                        </TabsList>
+                                    </Tabs>
+                                </div>
+                                <Input id="calc-weight" type="number" placeholder={weightPlaceholders[weightUnit]} value={weight} onChange={(e) => setWeight(e.target.value)} />
                             </div>
-                            <Input id="calc-weight" type="number" placeholder={weightPlaceholders[weightUnit]} value={weight} onChange={(e) => setWeight(e.target.value)} />
+                            <Button onClick={handleCalculateBmi} className="w-full" style={{backgroundColor: 'hsl(var(--nav-profile))'}} disabled={!calculatedBmi}>
+                                Calculate BMI
+                            </Button>
                         </div>
-                        <Button onClick={handleCalculateBmi} className="w-full" style={{backgroundColor: 'hsl(var(--nav-profile))'}} disabled={!calculatedBmi}>
-                            Calculate BMI
-                        </Button>
-                         <div className="p-4 bg-muted/40 rounded-lg border">
+                         <div className="p-4 bg-muted/40 rounded-lg border h-full">
                             <h4 className="font-semibold flex items-center gap-2 mb-2"><Info className="h-5 w-5 text-primary" style={{color: 'hsl(var(--nav-profile))'}}/> What is BMI?</h4>
                             <p className="text-sm text-muted-foreground">
                                 Body Mass Index (BMI) is a measure of body fat based on height and weight. It's a simple way to see if you're in a healthy weight range.
@@ -476,7 +478,7 @@ export default function HealthTrackerPage() {
                             </p>
                         </div>
                     </div>
-                    <div className="flex flex-col items-center justify-center">
+                    <div className="flex flex-col items-center justify-center pt-4">
                         <BmiGauge bmi={displayedBmi} />
                     </div>
                 </CardContent>
