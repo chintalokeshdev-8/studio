@@ -468,8 +468,8 @@ export default function HealthTrackerPage() {
                     {organHealthData.map((organ) => (
                         <Card key={organ.name} className="p-4 flex flex-col items-center text-center">
                             <CircularProgress percentage={organ.health} size={120} strokeWidth={8} color={organ.color}>
-                                <Image 
-                                    src={organ.image} 
+                                <Image
+                                    src={organ.image}
                                     alt={organ.name}
                                     width={80}
                                     height={80}
@@ -597,6 +597,7 @@ export default function HealthTrackerPage() {
     
 
     
+
 
 
 
