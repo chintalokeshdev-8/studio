@@ -1,7 +1,13 @@
+
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Phone, MapPin, ShieldAlert, PlusCircle, AlertTriangle } from "lucide-react";
+import { Phone, MapPin, ShieldAlert, PlusCircle, AlertTriangle, Droplet, User, Building } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { formatDistanceToNow } from "date-fns";
 
 const emergencyContacts = [
     { name: "Apollo Emergency Ambulance", distance: "2.5 km", available: true },
@@ -10,6 +16,16 @@ const emergencyContacts = [
     { name: "Police Emergency", distance: "1.2 km", available: true },
     { name: "Fire Department", distance: "3 km", available: true },
 ]
+
+const bloodRequests = [
+    { patientName: "lokesh chinta", bloodType: "O+", city: "guntur", contactInfo: "lokesh@email.com", postedAt: new Date(Date.now() - 1000 * 60 * 5) },
+    { patientName: "venkatesh", bloodType: "A+", city: "hyderabad", contactInfo: "venky@email.com", postedAt: new Date(Date.now() - 1000 * 60 * 30) },
+    { patientName: "surya", bloodType: "B-", city: "guntur", contactInfo: "surya@email.com", postedAt: new Date(Date.now() - 1000 * 60 * 60 * 2) },
+    { patientName: "pavan", bloodType: "AB+", city: "vijayawada", contactInfo: "pavan@email.com", postedAt: new Date(Date.now() - 1000 * 60 * 60 * 5) },
+];
+
+const bloodGroups = ["All", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
+const cities = ["All", "guntur", "hyderabad", "vijayawada", "mumbai", "bangalore"];
 
 export default function EmergencyPage() {
     return (
@@ -38,6 +54,105 @@ export default function EmergencyPage() {
                     <p><strong>Age:</strong> 27 Years</p>
                     <p><strong>Blood Group:</strong> O+ Positive</p>
                     <p><strong>Contact:</strong> +91 8008334948</p>
+                </CardContent>
+            </Card>
+
+            <Card>
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2"><Droplet className="text-destructive"/> Blood Donation</CardTitle>
+                    <CardDescription>Connect with donors or request blood in critical moments.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Tabs defaultValue="find">
+                        <TabsList className="grid w-full grid-cols-2">
+                            <TabsTrigger value="find">Find a Donor</TabsTrigger>
+                            <TabsTrigger value="request">Request Blood</TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="find" className="mt-4">
+                            <div className="space-y-4">
+                                <div className="grid sm:grid-cols-2 gap-4">
+                                    <Select>
+                                        <SelectTrigger>
+                                            <SelectValue placeholder="Filter by Blood Type" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {bloodGroups.map(bg => <SelectItem key={bg} value={bg}>{bg}</SelectItem>)}
+                                        </SelectContent>
+                                    </Select>
+                                    <Select>
+                                        <SelectTrigger>
+                                            <SelectValue placeholder="Filter by City" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {cities.map(city => <SelectItem key={city} value={city}>{city}</SelectItem>)}
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                                <div className="space-y-3 max-h-96 overflow-y-auto p-1">
+                                    {bloodRequests.map((req, index) => (
+                                        <Card key={index} className="p-4">
+                                            <div className="flex justify-between items-start">
+                                                <div>
+                                                    <p className="font-bold text-lg flex items-center gap-2">
+                                                        <User className="h-4 w-4"/> {req.patientName}
+                                                    </p>
+                                                    <div className="flex items-center gap-4 mt-2">
+                                                        <Badge variant="destructive" className="text-base">{req.bloodType}</Badge>
+                                                        <p className="text-sm text-muted-foreground flex items-center gap-2">
+                                                            <MapPin className="h-4 w-4"/> {req.city}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div className="text-right">
+                                                    <Button>Contact</Button>
+                                                    <p className="text-xs text-muted-foreground mt-2">
+                                                        {formatDistanceToNow(req.postedAt, { addSuffix: true })}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </Card>
+                                    ))}
+                                </div>
+                            </div>
+                        </TabsContent>
+                        <TabsContent value="request" className="mt-4">
+                            <form className="space-y-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="patientName">Patient Name</Label>
+                                    <Input id="patientName" placeholder="Enter patient's name" />
+                                </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="bloodType">Blood Group</Label>
+                                        <Select>
+                                            <SelectTrigger id="bloodType">
+                                                <SelectValue placeholder="Select" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {bloodGroups.slice(1).map(bg => <SelectItem key={bg} value={bg}>{bg}</SelectItem>)}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="city">City</Label>
+                                         <Select>
+                                            <SelectTrigger id="city">
+                                                <SelectValue placeholder="Select City" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {cities.slice(1).map(city => <SelectItem key={city} value={city}>{city}</SelectItem>)}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="contactInfo">Contact Info (Phone or Email)</Label>
+                                    <Input id="contactInfo" placeholder="Enter contact details" />
+                                </div>
+                                <Button type="submit" variant="destructive" className="w-full">Post Blood Request</Button>
+                            </form>
+                        </TabsContent>
+                    </Tabs>
                 </CardContent>
             </Card>
 
