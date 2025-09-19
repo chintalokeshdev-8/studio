@@ -237,14 +237,14 @@ const BmiAdvice = ({ bmi }: { bmi: number | null }) => {
     const AdviceIcon = advice.icon;
 
     return (
-        <Card>
-            <CardHeader>
+        <div className="mt-6">
+            <CardHeader className="px-0">
                 <CardTitle className={`flex items-center gap-2 ${advice.color}`}>
                     <AdviceIcon /> {advice.title}
                 </CardTitle>
                 <CardDescription>Here are some tips to help you improve or maintain your BMI.</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="px-0 pb-0">
                 <ul className="space-y-3">
                     {advice.points.map((point, index) => (
                         <li key={index} className="flex items-start gap-3">
@@ -265,7 +265,7 @@ const BmiAdvice = ({ bmi }: { bmi: number | null }) => {
                    </div>
                 </div>
             </CardContent>
-        </Card>
+        </div>
     );
 };
 
@@ -275,7 +275,6 @@ export default function HealthTrackerPage() {
     const [weight, setWeight] = useState('');
     const [heightUnit, setHeightUnit] = useState('cm');
     const [weightUnit, setWeightUnit] = useState('kg');
-    const [displayedBmi, setDisplayedBmi] = useState<number | null>(null);
 
     const calculatedBmi = useMemo(() => {
         const h = parseFloat(height);
@@ -287,7 +286,7 @@ export default function HealthTrackerPage() {
                 heightInMeters = h / 100;
             } else if (heightUnit === 'ft') {
                 heightInMeters = h * 0.3048;
-            } else {
+            } else { // m
                 heightInMeters = h;
             }
 
@@ -301,10 +300,6 @@ export default function HealthTrackerPage() {
         return null;
     }, [height, weight, heightUnit, weightUnit]);
     
-    const handleCalculateBmi = () => {
-        setDisplayedBmi(calculatedBmi);
-    };
-
     const latestBmi = 24.5;
     const bmiInfo = getBmiCategory(latestBmi);
 
@@ -439,52 +434,49 @@ export default function HealthTrackerPage() {
                     <CardTitle className="flex items-center justify-center gap-2"><Scale /> BMI Calculator</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-6 items-start">
-                        <div className="space-y-4">
-                            <div className="space-y-2">
-                                <div className="flex justify-between items-center">
-                                    <Label htmlFor="height">Height</Label>
-                                    <Tabs defaultValue={heightUnit} onValueChange={setHeightUnit} className="w-auto">
-                                        <TabsList className="h-7 text-xs">
-                                            <TabsTrigger value="cm" className="h-5 px-2">cm</TabsTrigger>
-                                            <TabsTrigger value="ft" className="h-5 px-2">ft</TabsTrigger>
-                                        </TabsList>
-                                    </Tabs>
-                                </div>
-                                <Input id="height" type="number" placeholder={heightPlaceholders[heightUnit]} value={height} onChange={(e) => setHeight(e.target.value)} />
+                    <div className="space-y-4">
+                        <div className="space-y-2">
+                            <div className="flex justify-between items-center">
+                                <Label htmlFor="height">Height</Label>
+                                <Tabs defaultValue={heightUnit} onValueChange={setHeightUnit} className="w-auto">
+                                    <TabsList className="h-7 text-xs">
+                                        <TabsTrigger value="cm" className="h-5 px-2">cm</TabsTrigger>
+                                        <TabsTrigger value="ft" className="h-5 px-2">ft</TabsTrigger>
+                                    </TabsList>
+                                </Tabs>
                             </div>
-                            <div className="space-y-2">
-                                <div className="flex justify-between items-center">
-                                    <Label htmlFor="calc-weight">Weight</Label>
-                                    <Tabs defaultValue={weightUnit} onValueChange={setWeightUnit} className="w-auto">
-                                        <TabsList className="h-7 text-xs">
-                                            <TabsTrigger value="kg" className="h-5 px-2">kg</TabsTrigger>
-                                            <TabsTrigger value="lbs" className="h-5 px-2">lbs</TabsTrigger>
-                                        </TabsList>
-                                    </Tabs>
-                                </div>
-                                <Input id="calc-weight" type="number" placeholder={weightPlaceholders[weightUnit]} value={weight} onChange={(e) => setWeight(e.target.value)} />
-                            </div>
-                            <Button onClick={handleCalculateBmi} className="w-full" style={{backgroundColor: 'hsl(var(--nav-profile))'}} disabled={!calculatedBmi}>
-                                Calculate BMI
-                            </Button>
+                            <Input id="height" type="number" placeholder={heightPlaceholders[heightUnit]} value={height} onChange={(e) => setHeight(e.target.value)} />
                         </div>
-                         <div className="p-4 bg-muted/40 rounded-lg border h-full">
-                            <h4 className="font-semibold flex items-center gap-2 mb-2"><Info className="h-5 w-5 text-primary" style={{color: 'hsl(var(--nav-profile))'}}/> What is BMI?</h4>
-                            <p className="text-sm text-muted-foreground">
-                                Body Mass Index (BMI) is a measure of body fat based on height and weight. It's a simple way to see if you're in a healthy weight range.
-                                <br/><br/>
-                                బాడీ మాస్ ఇండెక్స్ (BMI) అనేది ఎత్తు మరియు బరువు ఆధారంగా శరీర కొవ్వు యొక్క కొలత. మీరు ఆరోగ్యకరమైన బరువు పరిధిలో ఉన్నారో లేదో చూడటానికి ఇది ఒక సులభమైన మార్గం.
-                            </p>
+                        <div className="space-y-2">
+                            <div className="flex justify-between items-center">
+                                <Label htmlFor="calc-weight">Weight</Label>
+                                <Tabs defaultValue={weightUnit} onValueChange={setWeightUnit} className="w-auto">
+                                    <TabsList className="h-7 text-xs">
+                                        <TabsTrigger value="kg" className="h-5 px-2">kg</TabsTrigger>
+                                        <TabsTrigger value="lbs" className="h-5 px-2">lbs</TabsTrigger>
+                                    </TabsList>
+                                </Tabs>
+                            </div>
+                            <Input id="calc-weight" type="number" placeholder={weightPlaceholders[weightUnit]} value={weight} onChange={(e) => setWeight(e.target.value)} />
                         </div>
                     </div>
+
+                    <div className="p-4 bg-muted/40 rounded-lg border">
+                        <h4 className="font-semibold flex items-center gap-2 mb-2"><Info className="h-5 w-5 text-primary" style={{color: 'hsl(var(--nav-profile))'}}/> What is BMI?</h4>
+                        <p className="text-sm text-muted-foreground">
+                            Body Mass Index (BMI) is a measure of body fat based on height and weight. It's a simple way to see if you're in a healthy weight range.
+                            <br/><br/>
+                            బాడీ మాస్ ఇండెక్స్ (BMI) అనేది ఎత్తు మరియు బరువు ఆధారంగా శరీర కొవ్వు యొక్క కొలత. మీరు ఆరోగ్యకరమైన బరువు పరిధిలో ఉన్నారో లేదో చూడటానికి ఇది ఒక సులభమైన మార్గం.
+                        </p>
+                    </div>
+
                     <div className="flex flex-col items-center justify-center pt-4">
-                        <BmiGauge bmi={displayedBmi} />
+                        <BmiGauge bmi={calculatedBmi} />
                     </div>
+
+                    <BmiAdvice bmi={calculatedBmi} />
                 </CardContent>
             </Card>
-
-            <BmiAdvice bmi={displayedBmi} />
 
 
             <Card>
