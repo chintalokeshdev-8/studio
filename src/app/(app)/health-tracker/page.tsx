@@ -60,7 +60,7 @@ const weekDays = [
     { day: "Sun", date: 21 },
 ];
 
-const CircularProgress = ({ percentage, children, size = 120, strokeWidth = 10 } : { percentage: number, children: React.ReactNode, size?: number, strokeWidth?: number }) => {
+const CircularProgress = ({ percentage, children, size = 100, strokeWidth = 8 } : { percentage: number, children: React.ReactNode, size?: number, strokeWidth?: number }) => {
     const radius = (size - strokeWidth) / 2;
     const circumference = radius * 2 * Math.PI;
     const offset = circumference - (percentage / 100) * circumference;
@@ -96,43 +96,55 @@ const CircularProgress = ({ percentage, children, size = 120, strokeWidth = 10 }
 };
 
 const BmiGauge = ({ bmi }: { bmi: number | null }) => {
-    const getRotation = (bmiValue: number) => {
-        if (bmiValue < 15) return -90;
-        if (bmiValue > 45) return 90;
-        // Map BMI from 15-45 to -90 to 90 degrees
-        return ((bmiValue - 15) / 30) * 180 - 90;
+    const getRotation = (bmiValue: number | null) => {
+        if (bmiValue === null) return -90;
+        if (bmiValue < 15) return -80;
+        if (bmiValue > 45) return 80;
+        // Map BMI from 15-45 to -80 to 80 degrees
+        return ((bmiValue - 15) / 30) * 160 - 80;
     };
 
-    const rotation = bmi ? getRotation(bmi) : -90;
+    const rotation = getRotation(bmi);
 
     return (
-        <div className="relative w-[300px] h-[150px] mx-auto">
-            <svg viewBox="0 0 100 57" className="w-full h-full overflow-visible">
-                {/* Gauge Background Arcs */}
-                 <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" strokeWidth="12" className="stroke-muted/30" />
+        <div className="relative w-[300px] h-[190px] mx-auto">
+            <svg viewBox="0 0 100 65" className="w-full h-full overflow-visible">
+                <defs>
+                    <path id="arc-underweight" d="M 5.5 50 A 44.5 44.5 0 0 1 24 18" />
+                    <path id="arc-normal" d="M 25 17 A 45 45 0 0 1 50 10" />
+                    <path id="arc-overweight" d="M 51 10 A 45 45 0 0 1 76 17" />
+                    <path id="arc-obese" d="M 77 18 A 44.5 44.5 0 0 1 94.5 50" />
+                </defs>
 
                 {/* Colored Arcs for BMI categories */}
-                {/* Underweight (blue) < 18.5 */}
-                <path d="M 10 50 A 40 40 0 0 1 20.7 15.3" fill="none" strokeWidth="12" stroke="#3b82f6" />
-                {/* Normal (green) 18.5 - 25 */}
-                <path d="M 20.7 15.3 A 40 40 0 0 1 50 10" fill="none" strokeWidth="12" stroke="#22c55e" />
-                {/* Overweight (yellow) 25 - 30 */}
-                <path d="M 50 10 A 40 40 0 0 1 79.3 15.3" fill="none" strokeWidth="12" stroke="#facc15" />
-                {/* Obese (red) > 30 */}
-                <path d="M 79.3 15.3 A 40 40 0 0 1 90 50" fill="none" strokeWidth="12" stroke="#ef4444" />
+                <path d="M 5 50 A 45 45 0 0 1 95 50" fill="none" strokeWidth="20" className="stroke-muted/10" />
+                <path d="M 5 50 A 45 45 0 0 1 24.5 17.5" fill="none" strokeWidth="20" stroke="#3b82f6" />
+                <path d="M 24.5 17.5 A 45 45 0 0 1 50 10" fill="none" strokeWidth="20" stroke="#22c55e" />
+                <path d="M 50 10 A 45 45 0 0 1 75.5 17.5" fill="none" strokeWidth="20" stroke="#facc15" />
+                <path d="M 75.5 17.5 A 45 45 0 0 1 95 50" fill="none" strokeWidth="20" stroke="#ef4444" />
 
-                {/* Needle */}
-                <g transform={`rotate(${rotation} 50 50)`}>
-                    <polygon points="50,12 49,50 51,50" fill="hsl(var(--foreground))" />
-                    <circle cx="50" cy="50" r="3" fill="hsl(var(--foreground))" />
-                </g>
+                 {/* Needle */}
+                 {bmi !== null && (
+                    <g transform={`rotate(${rotation} 50 50)`}>
+                        <path d="M 50 10 L 48 50 L 52 50 Z" fill="hsl(var(--foreground) / 0.8)" />
+                        <circle cx="50" cy="50" r="4" fill="hsl(var(--foreground))" />
+                    </g>
+                 )}
             </svg>
-             {bmi !== null && (
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
+
+             {bmi !== null ? (
+                <div className="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
                     <p className="text-3xl font-bold" style={{color: 'hsl(var(--nav-profile))'}}>{bmi.toFixed(1)}</p>
                     <Badge className={`text-sm mt-1 ${getBmiCategory(bmi)?.className}`}>{getBmiCategory(bmi)?.category}</Badge>
                 </div>
+            ) : (
+                 <div className="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
+                    <p className="text-muted-foreground">Enter values</p>
+                 </div>
             )}
+             <div className="absolute bottom-0 w-full h-8 bg-foreground rounded-b-md flex items-center justify-center">
+                <p className="text-background font-bold text-sm tracking-wider">BODY MASS INDEX</p>
+            </div>
         </div>
     );
 };
@@ -299,7 +311,7 @@ export default function HealthTrackerPage() {
 
             <Card>
                 <CardHeader>
-                    <CardTitle className="flex items-center gap-2"><Scale /> BMI Calculator</CardTitle>
+                    <CardTitle className="flex items-center justify-center gap-2"><Scale /> BMI Calculator</CardTitle>
                 </CardHeader>
                 <CardContent className="grid md:grid-cols-2 gap-6 items-center">
                     <div className="space-y-4">
@@ -330,7 +342,6 @@ export default function HealthTrackerPage() {
                         </div>
                     </div>
                     <div className="flex flex-col items-center justify-center">
-                        <p className="text-sm font-bold text-foreground mb-2">BODY MASS INDEX</p>
                         <BmiGauge bmi={calculatedBmi} />
                     </div>
                 </CardContent>
@@ -392,7 +403,3 @@ export default function HealthTrackerPage() {
 
         </div>
     );
-
-    
-
-
