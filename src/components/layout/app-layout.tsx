@@ -92,27 +92,29 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 <nav className="flex w-max space-x-1 p-2 px-12 justify-center">
                     {menuItems.map((item) => {
                         const isActive = isClient && pathname === item.href;
+                        const isEmergency = item.label === 'Emergency';
                         return (
                            <Link href={item.href} key={item.label} className="flex-shrink-0">
                                <div className={cn(
                                    "flex flex-col items-center justify-center gap-1 rounded-lg transition-transform duration-200 ease-in-out w-24 py-1",
-                                   isActive ? "scale-105" : "scale-100"
+                                   isActive ? "scale-105" : "scale-100",
+                                   isEmergency ? 'bg-destructive/10' : ''
                                )}>
                                    <div
                                         className="p-2 rounded-full"
                                         style={{
-                                            backgroundColor: isActive ? `${item.color.replace(')', ' / 0.1)')}` : 'transparent',
+                                            backgroundColor: isActive && !isEmergency ? `${item.color.replace(')', ' / 0.1)')}` : 'transparent',
                                         }}
                                     >
                                        <item.icon className="h-6 w-6" style={{ color: item.color }} />
                                    </div>
                                    <div className="text-center leading-tight">
                                         <p className="text-xs font-bold"
-                                           style={{color: isActive ? item.color : 'hsl(var(--foreground))'}}>
+                                           style={{color: isActive || isEmergency ? item.color : 'hsl(var(--foreground))'}}>
                                            {item.label}
                                         </p>
                                         <p className="text-[10px] font-medium"
-                                           style={{color: isActive ? item.color : 'hsl(var(--muted-foreground))'}}>
+                                           style={{color: isActive || isEmergency ? item.color : 'hsl(var(--muted-foreground))'}}>
                                            {item.telugu}
                                         </p>
                                    </div>
