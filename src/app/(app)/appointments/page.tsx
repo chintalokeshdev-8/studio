@@ -3,52 +3,73 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { Search, MapPin, HeartPulse, Bone, Brain, Stethoscope as StethoscopeIcon } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { Search, MapPin, HeartPulse, Bone, Brain, Stethoscope as StethoscopeIcon, Baby, Leaf } from "lucide-react";
 
 const doctors = [
     {
-        name: "Dr. Sameer Joshi",
+        name: "Dr. Chinta Ramana",
         specialty: "Cardiologist",
-        experience: "15 years",
+        experience: "18 years",
         hospital: "Apollo Hospital, Jubilee Hills",
-        surgeries: "500+ successful cardiac surgeries",
+        surgeries: "600+ successful cardiac surgeries",
         mainDealing: "Complex angioplasty and valve replacements.",
         avatar: "https://placehold.co/100x100.png",
         dataAiHint: "male doctor portrait",
         location: "Hyderabad"
     },
     {
-        name: "Dr. Meena Reddy",
+        name: "Dr. Lakshmi Narasaiah",
         specialty: "Orthopedic Surgeon",
-        experience: "12 years",
+        experience: "14 years",
         hospital: "Care Hospital, Banjara Hills",
-        surgeries: "800+ joint replacement surgeries",
+        surgeries: "900+ joint replacement surgeries",
         mainDealing: "Knee and hip replacements.",
         avatar: "https://placehold.co/100x100.png",
         dataAiHint: "female doctor",
         location: "Hyderabad"
     },
     {
-        name: "Dr. Arjun Kumar",
+        name: "Dr. Rupa",
         specialty: "Neurologist",
-        experience: "20 years",
+        experience: "22 years",
         hospital: "Yashoda Hospital, Secunderabad",
-        surgeries: "300+ successful brain surgeries",
+        surgeries: "400+ successful brain surgeries",
         mainDealing: "Epilepsy and stroke treatment.",
         avatar: "https://placehold.co/100x100.png",
-        dataAiHint: "male doctor professional",
+        dataAiHint: "female doctor professional",
         location: "Hyderabad"
     },
     {
-        name: "Dr. Aisha Khan",
+        name: "Dr. Anjali",
         specialty: "General Physician",
-        experience: "8 years",
+        experience: "10 years",
         hospital: "MaxCure Hospital, Madhapur",
         surgeries: "N/A",
         mainDealing: "General health check-ups and infectious diseases.",
         avatar: "https://placehold.co/100x100.png",
         dataAiHint: "female doctor smile",
+        location: "Hyderabad"
+    },
+    {
+        name: "Dr. Anusha",
+        specialty: "Pediatrician",
+        experience: "9 years",
+        hospital: "Rainbow Children's Hospital, Banjara Hills",
+        surgeries: "N/A",
+        mainDealing: "Child care and vaccinations.",
+        avatar: "https://placehold.co/100x100.png",
+        dataAiHint: "female doctor glasses",
+        location: "Hyderabad"
+    },
+    {
+        name: "Dr. Sandeep",
+        specialty: "Dermatologist",
+        experience: "7 years",
+        hospital: "KIMS Hospital, Secunderabad",
+        surgeries: "100+ cosmetic procedures",
+        mainDealing: "Acne treatment and skin rejuvenation.",
+        avatar: "https://placehold.co/100x100.png",
+        dataAiHint: "male doctor professional",
         location: "Hyderabad"
     }
 ];
@@ -58,11 +79,13 @@ const departments = [
     { value: "cardiology", label: "Cardiology", icon: HeartPulse },
     { value: "orthopedics", label: "Orthopedics", icon: Bone },
     { value: "neurology", label: "Neurology", icon: Brain },
+    { value: "pediatrics", label: "Pediatrics", icon: Baby },
+    { value: "dermatology", label: "Dermatology", icon: Leaf },
     { value: "general", label: "General Physician", icon: StethoscopeIcon },
 ];
 
 const hospitals = [
-    "All Hospitals", "Apollo Hospital, Jubilee Hills", "Care Hospital, Banjara Hills", "Yashoda Hospital, Secunderabad", "MaxCure Hospital, Madhapur"
+    "All Hospitals", "Apollo Hospital, Jubilee Hills", "Care Hospital, Banjara Hills", "Yashoda Hospital, Secunderabad", "MaxCure Hospital, Madhapur", "Rainbow Children's Hospital, Banjara Hills", "KIMS Hospital, Secunderabad"
 ];
 
 export default function AppointmentsPage() {
