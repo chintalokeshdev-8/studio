@@ -59,6 +59,34 @@ export default function ProfilePage() {
             
             <div className="grid lg:grid-cols-3 gap-8 items-start">
                 <div className="lg:col-span-2 space-y-8">
+                     <section>
+                        <h2 className="text-xl font-semibold mb-4">Health Overview</h2>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {healthOverviewItems.map((item) => (
+                                 <Card key={item.label} className="p-4">
+                                    <div className="flex items-center justify-between">
+                                      <div className="flex items-center gap-3">
+                                         <div className="p-3 bg-muted/50 rounded-full">
+                                            <item.icon className="h-6 w-6" style={{color: 'hsl(var(--nav-profile))'}} />
+                                        </div>
+                                        <p className="text-lg font-bold">{item.label}</p>
+                                      </div>
+                                      <p className="text-3xl font-extrabold">{item.value}</p>
+                                    </div>
+                                </Card>
+                            ))}
+                        </div>
+                    </section>
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Health Insurance</CardTitle>
+                            <CardDescription>Star Health - Family Plan</CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-3">
+                            <div className="flex items-center gap-2 font-semibold text-lg"><Shield style={{color: 'hsl(var(--nav-profile))'}}/> Status: <Badge className="bg-green-100 text-green-800 text-base">Active</Badge></div>
+                            <Button variant="link" className="p-0 h-auto text-base" style={{color: 'hsl(var(--nav-profile))'}}>View Network Hospitals</Button>
+                        </CardContent>
+                    </Card>
                      <Card>
                         <CardHeader>
                             <CardTitle>Settings</CardTitle>
@@ -80,6 +108,9 @@ export default function ProfilePage() {
                             </div>
                         </CardContent>
                     </Card>
+                    
+                </div>
+                <div className="space-y-8">
                     <Card>
                         <CardHeader><CardTitle>Recent Visits</CardTitle></CardHeader>
                         <CardContent>
@@ -111,36 +142,6 @@ export default function ProfilePage() {
                                </li>
                              ))}
                            </ul>
-                        </CardContent>
-                    </Card>
-                </div>
-                <div className="space-y-8">
-                    <section>
-                        <h2 className="text-xl font-semibold mb-4">Health Overview</h2>
-                        <div className="grid grid-cols-1 gap-4">
-                            {healthOverviewItems.map((item) => (
-                                 <Card key={item.label} className="p-4">
-                                    <div className="flex items-center justify-between">
-                                      <div className="flex items-center gap-3">
-                                         <div className="p-2 bg-muted/50 rounded-full">
-                                            <item.icon className="h-5 w-5" style={{color: 'hsl(var(--nav-profile))'}} />
-                                        </div>
-                                        <p className="font-semibold">{item.label}</p>
-                                      </div>
-                                      <p className="text-2xl font-bold">{item.value}</p>
-                                    </div>
-                                </Card>
-                            ))}
-                        </div>
-                    </section>
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Health Insurance</CardTitle>
-                            <CardDescription>Star Health - Family Plan</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="flex items-center gap-2 font-semibold"><Shield style={{color: 'hsl(var(--nav-profile))'}}/> Status: <Badge className="bg-green-100 text-green-800">Active</Badge></div>
-                            <Button variant="link" className="p-0 h-auto mt-2" style={{color: 'hsl(var(--nav-profile))'}}>View Network Hospitals</Button>
                         </CardContent>
                     </Card>
                     <Button variant="destructive" className="w-full"><ShieldAlert className="mr-2 h-4 w-4" /> Manage Emergency Contacts</Button>
