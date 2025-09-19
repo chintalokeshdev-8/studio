@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Award, Baby, CalendarDays, Camera, FileText, Flame, HeartHand, Info, Phone, ShieldAlert, Utensils, Video } from "lucide-react";
+import { Award, Baby, CalendarDays, Camera, FileText, Flame, HeartHandshake, Info, Phone, ShieldAlert, Utensils, Video } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 
@@ -11,7 +11,7 @@ const pregnancyFeatures = [
     { title: "Diet Plan (ఆహార ప్రణాళిక)", icon: Utensils, href: "#" },
     { title: "Daily Activities (రోజువారీ కార్యకలాపాలు)", icon: Flame, href: "#" },
     { title: "Scans & Reports (స్కాన్‌లు & నివేదికలు)", icon: FileText, href: "#" },
-    { title: "Care Support (సంరక్షణ మద్దతు)", icon: HeartHand, href: "#" },
+    { title: "Care Support (సంరక్షణ మద్దతు)", icon: HeartHandshake, href: "#" },
 ]
 
 export default function PregnancyTrackerPage() {
@@ -75,7 +75,7 @@ export default function PregnancyTrackerPage() {
                              <div>
                                 <h4 className="font-semibold text-lg mb-2">Mother's Changes</h4>
                                  <div className="flex items-start gap-4">
-                                    <HeartHand className="h-8 w-8 mt-1" style={{color: 'hsl(var(--nav-appointments))'}}/>
+                                    <HeartHandshake className="h-8 w-8 mt-1" style={{color: 'hsl(var(--nav-appointments))'}}/>
                                     <p className="text-muted-foreground">
                                         You may be feeling more energetic as morning sickness subsides. Your baby bump is becoming more noticeable. It's a great time to focus on a healthy diet and gentle exercise.
                                     </p>
