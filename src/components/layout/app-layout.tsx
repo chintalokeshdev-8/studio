@@ -83,14 +83,14 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                     <ChevronLeft className="h-5 w-5 text-foreground" />
                 </Button>
             </div>
-            <ScrollArea className="w-full whitespace-nowrap" viewportRef={viewportRef}>
+            <ScrollArea className="w-full" viewportRef={viewportRef}>
                 <nav className="flex w-max space-x-2 p-2 px-12 justify-center">
                     {menuItems.map((item) => {
                         const isActive = pathname === item.href;
                         return (
                            <Link href={item.href} key={item.label} className="flex-shrink-0">
                                <div className={cn(
-                                   "flex flex-col items-center justify-center gap-1 rounded-lg transition-transform duration-200 ease-in-out w-24 py-2",
+                                   "flex flex-col items-center justify-center gap-1 rounded-lg transition-transform duration-200 ease-in-out w-28 py-2",
                                    isActive ? "scale-110" : "scale-100"
                                )}>
                                    <div
