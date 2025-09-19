@@ -11,8 +11,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'MedBridge',
-  description: 'MedBridge - Your Health Friend',
+  title: 'MedBridgee',
+  description: 'MedBridgee - Your Health Friend',
 };
 
 export default function RootLayout({
