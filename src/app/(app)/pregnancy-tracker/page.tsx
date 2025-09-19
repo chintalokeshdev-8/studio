@@ -1,9 +1,10 @@
 
+
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Award, Baby, CalendarDays, Camera, FileText, Flame, HeartHandshake, Info, Phone, ShieldAlert, Utensils, Video, File, View } from "lucide-react";
+import { Award, Baby, CalendarDays, Camera, FileText, Flame, HeartHandshake, Info, Phone, ShieldAlert, Utensils, Video, File, View, Moon, Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 
@@ -142,8 +143,8 @@ export default function PregnancyTrackerPage() {
                  </div>
             </div>
 
-            <div className="grid md:grid-cols-5 gap-8">
-                <div className="md:col-span-3 space-y-8">
+            <div className="grid md:grid-cols-2 gap-8">
+                <div className="space-y-8">
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2"><CalendarDays /> This Week's Guide</CardTitle>
@@ -184,10 +185,60 @@ export default function PregnancyTrackerPage() {
                     </Card>
                 </div>
 
-                <div className="md:col-span-2 space-y-8">
-                    
+                <div className="space-y-8">
+                    <Card className="bg-blue-50 border-blue-200 p-6 relative overflow-hidden">
+                        <div className="absolute -top-4 -left-4 w-24 h-24 bg-blue-100 rounded-full"></div>
+                        <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-blue-100 rounded-full"></div>
+                        <div className="relative z-10 space-y-4 text-blue-800">
+                           <div className="text-center space-y-2">
+                                <h3 className="text-2xl font-bold tracking-wider">BIRTH CERTIFICATE</h3>
+                                <p className="text-xs font-medium">THIS DOCUMENT ACKNOWLEDGES THAT</p>
+                           </div>
+                            <div className="text-center">
+                                <p className="text-3xl font-bold text-blue-900">Name Surname</p>
+                                <hr className="border-blue-300 my-2 w-1/2 mx-auto"/>
+                            </div>
+                            <div className="text-center text-sm">
+                                <p>WAS BORN TO</p>
+                                <div className="flex justify-center gap-8 mt-2 font-semibold">
+                                    <div>
+                                        <p>Mother's Name</p>
+                                        <hr className="border-blue-300 mt-1"/>
+                                    </div>
+                                    <div>
+                                        <p>Father's Name</p>
+                                         <hr className="border-blue-300 mt-1"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="text-center text-sm">
+                                <p>AT HOSPITAL PLACE IN CITY, COUNTRY</p>
+                                <hr className="border-blue-300 mt-1 w-3/4 mx-auto"/>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4 text-center text-sm pt-4">
+                                <div>
+                                    <p>WEIGHT: ___ LBS</p>
+                                    <hr className="border-blue-300 mt-1"/>
+                                </div>
+                                 <div>
+                                    <p>LENGTH: ___ INCH</p>
+                                    <hr className="border-blue-300 mt-1"/>
+                                </div>
+                                 <div>
+                                    <p>DATE: __/__/____</p>
+                                    <hr className="border-blue-300 mt-1"/>
+                                </div>
+                                <div>
+                                    <p>SIGNATURE</p>
+                                    <hr className="border-blue-300 mt-1"/>
+                                </div>
+                            </div>
+                        </div>
+                    </Card>
                 </div>
             </div>
         </div>
     )
 }
+
+    
