@@ -118,9 +118,9 @@ const BmiGauge = ({ bmi }: { bmi: number | null }) => {
                     <path id="arc-overweight-label" d="M 33 16 A 40 40 0 0 1 67 16" />
                     <path id="arc-obese-label" d="M 72 24 A 40 40 0 0 1 88 42" />
 
-                    <path id="arc-normal-values" d="M 16 35 A 30 30 0 0 1 29 25" />
-                    <path id="arc-overweight-values" d="M 35 19 A 30 30 0 0 1 65 19" />
-                    <path id="arc-obese-values" d="M 71 25 A 30 30 0 0 1 84 35" />
+                    <path id="arc-normal-values" d="M 18 38 A 28 28 0 0 1 31 28" />
+                    <path id="arc-overweight-values" d="M 38 19 A 30 30 0 0 1 62 19" />
+                    <path id="arc-obese-values" d="M 69 28 A 28 28 0 0 1 82 38" />
                 </defs>
 
                 {/* Colored Arcs for BMI categories */}
