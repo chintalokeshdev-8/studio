@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Heart, TrendingUp, PlusCircle, Scale, Activity, Flame, Footprints, Info, Watch, Radio, Target, Bike, PersonStanding, Dumbbell, Leaf, Check, Wind, Brain, TestTube, Droplets } from "lucide-react";
 import React, { useState, useMemo } from 'react';
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Image from 'next/image';
 
 const measurementHistory = [
     { date: "2024-07-20", weight: "75 kg", bp: "120/80 mmHg", bmi: 24.5 },
@@ -66,30 +67,40 @@ const organHealthData = [
       name: "Heart",
       health: 95,
       icon: Heart,
+      image: "https://picsum.photos/seed/heart/100/100",
+      dataAiHint: "heart organ",
       color: "hsl(var(--nav-emergency))",
     },
     {
       name: "Lungs",
       health: 88,
       icon: Wind,
+      image: "https://picsum.photos/seed/lungs/100/100",
+      dataAiHint: "lungs organ",
       color: "hsl(var(--nav-junior-doctors))",
     },
     {
       name: "Liver",
       health: 92,
       icon: Leaf,
+      image: "https://picsum.photos/seed/liver/100/100",
+      dataAiHint: "liver organ",
       color: "hsl(var(--nav-diagnostics))",
     },
     {
       name: "Kidneys",
       health: 90,
       icon: Droplets,
+      image: "https://picsum.photos/seed/kidneys/100/100",
+      dataAiHint: "kidneys organ",
       color: "hsl(var(--nav-chat))",
     },
     {
       name: "Brain",
       health: 98,
       icon: Brain,
+      image: "https://picsum.photos/seed/brain/100/100",
+      dataAiHint: "brain organ",
       color: "hsl(var(--nav-symptoms))",
     },
 ];
@@ -453,11 +464,18 @@ export default function HealthTrackerPage() {
                     <CardTitle className="flex items-center gap-2"><Heart style={{color: 'hsl(var(--nav-profile))'}}/>Organ Health Overview</CardTitle>
                     <CardDescription>A summary of your key organ health based on recent reports.</CardDescription>
                 </CardHeader>
-                <CardContent className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                <CardContent className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
                     {organHealthData.map((organ) => (
                         <Card key={organ.name} className="p-4 flex flex-col items-center text-center">
-                            <CircularProgress percentage={organ.health} size={80} strokeWidth={8} color={organ.color}>
-                                <organ.icon className="h-8 w-8" style={{color: organ.color}} />
+                            <CircularProgress percentage={organ.health} size={120} strokeWidth={8} color={organ.color}>
+                                <Image 
+                                    src={organ.image} 
+                                    alt={organ.name}
+                                    width={80}
+                                    height={80}
+                                    data-ai-hint={organ.dataAiHint}
+                                    className="rounded-full object-cover"
+                                />
                             </CircularProgress>
                             <p className="mt-4 text-lg font-bold">{organ.name}</p>
                             <p className="font-semibold text-xl" style={{color: organ.color}}>{organ.health}%</p>
@@ -579,6 +597,7 @@ export default function HealthTrackerPage() {
     
 
     
+
 
 
 
