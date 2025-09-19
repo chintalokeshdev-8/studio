@@ -515,23 +515,22 @@ export default function HealthTrackerPage() {
                                 <Input id="calc-weight" type="number" placeholder={weightPlaceholders[weightUnit]} value={weight} onChange={(e) => setWeight(e.target.value)} />
                             </div>
                         </div>
-
-                         <div className="pt-2 space-y-2">
-                            <h4 className="font-semibold flex items-center gap-2"><Info className="h-5 w-5 text-primary" style={{color: 'hsl(var(--nav-profile))'}}/> What is BMI?</h4>
-                            <p className="text-sm text-muted-foreground">
-                                Body Mass Index (BMI) is a measure of body fat based on height and weight. It's a simple way to see if you're in a healthy weight range.
-                            </p>
-                             <p className="text-sm text-muted-foreground">
-                                బాడీ మాస్ ఇండెక్స్ (BMI) అనేది ఎత్తు మరియు బరువు ఆధారంగా శరీర కొవ్వు యొక్క కొలత. మీరు ఆరోగ్యకరమైన బరువు పరిధిలో ఉన్నారో లేదో చూడటానికి ఇది ఒక సులభమైన మార్గం.
-                            </p>
+                        <div className="flex flex-col items-center justify-center pt-4 md:pt-0">
+                            <BmiGauge bmi={calculatedBmi} />
                         </div>
                     </div>
 
-                    <div className="flex flex-col items-center justify-center pt-4">
-                        <BmiGauge bmi={calculatedBmi} />
-                    </div>
-
                     <BmiAdvice bmi={calculatedBmi} />
+                    
+                    <div className="pt-6 border-t">
+                        <h4 className="font-semibold flex items-center gap-2 mb-2"><Info className="h-5 w-5 text-primary" style={{color: 'hsl(var(--nav-profile))'}}/> What is BMI?</h4>
+                        <p className="text-sm text-muted-foreground">
+                            Body Mass Index (BMI) is a measure of body fat based on height and weight. It's a simple way to see if you're in a healthy weight range.
+                        </p>
+                         <p className="text-sm text-muted-foreground">
+                            బాడీ మాస్ ఇండెక్స్ (BMI) అనేది ఎత్తు మరియు బరువు ఆధారంగా శరీర కొవ్వు యొక్క కొలత. మీరు ఆరోగ్యకరమైన బరువు పరిధిలో ఉన్నారో లేదో చూడటానికి ఇది ఒక సులభమైన మార్గం.
+                        </p>
+                    </div>
                 </CardContent>
             </Card>
 
@@ -595,6 +594,7 @@ export default function HealthTrackerPage() {
     
 
     
+
 
 
 
