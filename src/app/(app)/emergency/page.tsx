@@ -67,15 +67,15 @@ export default function EmergencyPage() {
                 </CardHeader>
                 <CardContent>
                     <Tabs defaultValue="find" className="w-full">
-                        <TabsList className="grid w-full grid-cols-3 gap-2 bg-transparent p-0">
-                            <TabsTrigger value="find" className="data-[state=active]:bg-destructive/10 data-[state=active]:text-destructive data-[state=active]:border-destructive/20 border-2 border-transparent text-base py-3">
+                        <TabsList className="grid w-full grid-cols-3 h-auto p-1">
+                            <TabsTrigger value="find" className="text-sm font-semibold h-14">
                                 Find a Donor
                             </TabsTrigger>
-                            <TabsTrigger value="request" className="data-[state=active]:bg-destructive/10 data-[state=active]:text-destructive data-[state=active]:border-destructive/20 border-2 border-transparent text-base py-3">
+                            <TabsTrigger value="request" className="text-sm font-semibold h-14 whitespace-normal text-center">
                                 Request Blood
                             </TabsTrigger>
-                            <TabsTrigger value="register" className="data-[state=active]:bg-destructive/10 data-[state=active]:text-destructive data-[state=active]:border-destructive/20 border-2 border-transparent text-base py-3 flex items-center gap-2">
-                                <UserPlus className="h-4 w-4"/>Become a Donor
+                            <TabsTrigger value="register" className="text-sm font-semibold h-14 whitespace-normal text-center flex-col gap-1">
+                                <div className='flex items-center gap-2'><UserPlus className="h-4 w-4"/>Become a Donor</div>
                             </TabsTrigger>
                         </TabsList>
                         <div className="mt-6">
@@ -272,4 +272,5 @@ export default function EmergencyPage() {
             </div>
         </div>
     )
-}
+
+    
