@@ -83,29 +83,29 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 </Button>
             </div>
             <ScrollArea className="w-full" viewportRef={viewportRef}>
-                <nav className="flex w-max space-x-2 p-2 px-12 justify-center">
+                <nav className="flex w-max space-x-1 p-2 px-12 justify-center">
                     {menuItems.map((item) => {
                         const isActive = pathname === item.href;
                         return (
                            <Link href={item.href} key={item.label} className="flex-shrink-0">
                                <div className={cn(
-                                   "flex flex-col items-center justify-center gap-1 rounded-lg transition-transform duration-200 ease-in-out w-28 py-2",
-                                   isActive ? "scale-110" : "scale-100"
+                                   "flex flex-col items-center justify-center gap-1 rounded-lg transition-transform duration-200 ease-in-out w-24 py-1",
+                                   isActive ? "scale-105" : "scale-100"
                                )}>
                                    <div
-                                        className="p-3 rounded-full"
+                                        className="p-2 rounded-full"
                                         style={{
                                             backgroundColor: isActive ? `${item.color.replace(')', ' / 0.1)')}` : 'transparent',
                                         }}
                                     >
-                                       <item.icon className="h-7 w-7" style={{ color: item.color }} />
+                                       <item.icon className="h-6 w-6" style={{ color: item.color }} />
                                    </div>
-                                   <div className="text-center leading-tight mt-1">
-                                        <p className="text-sm font-bold"
+                                   <div className="text-center leading-tight">
+                                        <p className="text-xs font-bold"
                                            style={{color: isActive ? item.color : 'hsl(var(--foreground))'}}>
                                            {item.label}
                                         </p>
-                                        <p className="text-xs font-medium"
+                                        <p className="text-[10px] font-medium"
                                            style={{color: isActive ? item.color : 'hsl(var(--muted-foreground))'}}>
                                            {item.telugu}
                                         </p>
