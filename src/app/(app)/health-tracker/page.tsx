@@ -107,42 +107,31 @@ const BmiGauge = ({ bmi }: { bmi: number | null }) => {
     const rotation = getRotation(bmi);
     const bmiCategoryInfo = getBmiCategory(bmi);
 
+    const GaugeLabel = ({ angle, label, value }: { angle: number; label: string; value: string }) => (
+        <text
+            transform={`rotate(${angle} 50 50)`}
+            className="text-[5px] font-bold fill-white"
+            textAnchor="middle"
+        >
+            <tspan x="50" y="16">{label}</tspan>
+            <tspan x="50" y="22">{value}</tspan>
+        </text>
+    );
 
     return (
         <div className="relative w-[300px] h-[190px] mx-auto font-sans">
             <svg viewBox="0 0 100 65" className="w-full h-full overflow-visible">
-                <defs>
-                    <path id="arc-underweight" d="M 5.5 50 A 44.5 44.5 0 0 1 24 18" />
-                    <path id="arc-normal" d="M 25 17 A 45 45 0 0 1 50 10" />
-                    <path id="arc-overweight" d="M 51 10 A 45 45 0 0 1 76 17" />
-                    <path id="arc-obese" d="M 77 18 A 44.5 44.5 0 0 1 94.5 50" />
-                    
-                    <path id="arc-normal-label" d="M 12 42 A 40 40 0 0 1 28 24" />
-                    <path id="arc-overweight-label" d="M 33 16 A 40 40 0 0 1 67 16" />
-                    <path id="arc-obese-label" d="M 72 24 A 40 40 0 0 1 88 42" />
-
-                    <path id="arc-normal-values" d="M 18 38 A 28 28 0 0 1 31 28" />
-                    <path id="arc-overweight-values" d="M 38 19 A 30 30 0 0 1 62 19" />
-                    <path id="arc-obese-values" d="M 69 28 A 28 28 0 0 1 82 38" />
-                </defs>
-
                 {/* Colored Arcs for BMI categories */}
                 <path d="M 5 50 A 45 45 0 0 1 95 50" fill="none" strokeWidth="20" className="stroke-muted/10" />
                 <path d="M 5 50 A 45 45 0 0 1 24.5 17.5" fill="none" strokeWidth="20" stroke="#3b82f6" />
                 <path d="M 24.5 17.5 A 45 45 0 0 1 50 10" fill="none" strokeWidth="20" stroke="#22c55e" />
                 <path d="M 50 10 A 45 45 0 0 1 75.5 17.5" fill="none" strokeWidth="20" stroke="#facc15" />
                 <path d="M 75.5 17.5 A 45 45 0 0 1 95 50" fill="none" strokeWidth="20" stroke="#ef4444" />
-
+                
                 {/* Category Labels */}
-                <text className="text-[5px] font-bold fill-white" dy="-1"><textPath href="#arc-normal-label" startOffset="50%" textAnchor="middle">Normal</textPath></text>
-                <text className="text-[5px] font-bold fill-white" dy="-1"><textPath href="#arc-overweight-label" startOffset="50%" textAnchor="middle">Overweight</textPath></text>
-                <text className="text-[5px] font-bold fill-white" dy="-1"><textPath href="#arc-obese-label" startOffset="50%" textAnchor="middle">Obese</textPath></text>
-
-                 {/* Value Labels */}
-                <text className="text-[4px] font-bold fill-white"><textPath href="#arc-normal-values" startOffset="50%" textAnchor="middle">18.5-24.9</textPath></text>
-                <text className="text-[4px] font-bold fill-white"><textPath href="#arc-overweight-values" startOffset="50%" textAnchor="middle">25-29.9</textPath></text>
-                <text className="text-[4px] font-bold fill-white"><textPath href="#arc-obese-values" startOffset="50%" textAnchor="middle">30-39.9</textPath></text>
-
+                <GaugeLabel angle={-45} label="Normal" value="18.5-24.9" />
+                <GaugeLabel angle={0} label="Overweight" value="25-29.9" />
+                <GaugeLabel angle={45} label="Obese" value="30-39.9" />
 
                  {/* Needle */}
                  {bmi !== null && (
@@ -460,11 +449,12 @@ export default function HealthTrackerPage() {
                             </div>
                         </div>
 
-                        <div className="pt-2">
-                            <h4 className="font-semibold flex items-center gap-2 mb-2"><Info className="h-5 w-5 text-primary" style={{color: 'hsl(var(--nav-profile))'}}/> What is BMI?</h4>
+                        <div className="pt-2 space-y-2">
+                            <h4 className="font-semibold flex items-center gap-2"><Info className="h-5 w-5 text-primary" style={{color: 'hsl(var(--nav-profile))'}}/> What is BMI?</h4>
                             <p className="text-sm text-muted-foreground">
                                 Body Mass Index (BMI) is a measure of body fat based on height and weight. It's a simple way to see if you're in a healthy weight range.
-                                <br/><br/>
+                            </p>
+                             <p className="text-sm text-muted-foreground">
                                 బాడీ మాస్ ఇండెక్స్ (BMI) అనేది ఎత్తు మరియు బరువు ఆధారంగా శరీర కొవ్వు యొక్క కొలత. మీరు ఆరోగ్యకరమైన బరువు పరిధిలో ఉన్నారో లేదో చూడటానికి ఇది ఒక సులభమైన మార్గం.
                             </p>
                         </div>
@@ -538,5 +528,6 @@ export default function HealthTrackerPage() {
     
 
     
+
 
 
