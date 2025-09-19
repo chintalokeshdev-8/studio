@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -272,7 +273,7 @@ const BmiAdvice = ({ bmi }: { bmi: number | null }) => {
 export default function HealthTrackerPage() {
     const [height, setHeight] = useState('');
     const [weight, setWeight] = useState('');
-    const [heightUnit, setHeightUnit] = useState('m');
+    const [heightUnit, setHeightUnit] = useState('cm');
     const [weightUnit, setWeightUnit] = useState('kg');
     const [displayedBmi, setDisplayedBmi] = useState<number | null>(null);
 
@@ -281,11 +282,13 @@ export default function HealthTrackerPage() {
         const w = parseFloat(weight);
 
         if (h > 0 && w > 0) {
-            let heightInMeters = h;
+            let heightInMeters;
             if (heightUnit === 'cm') {
                 heightInMeters = h / 100;
             } else if (heightUnit === 'ft') {
                 heightInMeters = h * 0.3048;
+            } else {
+                heightInMeters = h;
             }
 
             let weightInKg = w;
@@ -315,7 +318,6 @@ export default function HealthTrackerPage() {
     const weeklyActivityPercentage = (weeklyActivityData.completed / weeklyActivityData.goal) * 100;
 
     const heightPlaceholders: { [key: string]: string } = {
-        m: 'e.g., 1.75',
         cm: 'e.g., 175',
         ft: 'e.g., 5.9'
     };
@@ -443,7 +445,6 @@ export default function HealthTrackerPage() {
                                 <Label htmlFor="height">Height</Label>
                                 <Tabs defaultValue={heightUnit} onValueChange={setHeightUnit} className="w-auto">
                                     <TabsList className="h-7 text-xs">
-                                        <TabsTrigger value="m" className="h-5 px-2">m</TabsTrigger>
                                         <TabsTrigger value="cm" className="h-5 px-2">cm</TabsTrigger>
                                         <TabsTrigger value="ft" className="h-5 px-2">ft</TabsTrigger>
                                     </TabsList>
@@ -540,4 +541,6 @@ export default function HealthTrackerPage() {
         </div>
     );
 }
+    
+
     
