@@ -60,7 +60,7 @@ export default function EmergencyPage() {
 
             <Card>
                 <CardHeader>
-                    <CardTitle className="flex items-center gap-2"><Droplet className="text-destructive"/> Blood Donation</CardTitle>
+                    <CardTitle className="flex items-center gap-2 font-extrabold text-2xl"><Droplet className="text-destructive"/> Blood Donation</CardTitle>
                     <CardDescription>Connect with donors or request blood in critical moments.</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -92,21 +92,21 @@ export default function EmergencyPage() {
                                 </div>
                                 <div className="space-y-3 max-h-96 overflow-y-auto p-1">
                                     {bloodRequests.map((req, index) => (
-                                        <Card key={index} className="p-4">
+                                        <Card key={index} className="p-4 shadow-sm">
                                             <div className="flex justify-between items-start">
                                                 <div>
-                                                    <p className="font-bold text-lg flex items-center gap-2">
+                                                    <p className="font-extrabold text-lg flex items-center gap-2">
                                                         <User className="h-4 w-4"/> {req.patientName}
                                                     </p>
                                                     <div className="flex items-center gap-4 mt-2">
-                                                        <Badge variant="destructive" className="text-base">{req.bloodType}</Badge>
+                                                        <Badge variant="destructive" className="text-base font-bold px-3 py-1">{req.bloodType}</Badge>
                                                         <p className="text-sm text-muted-foreground flex items-center gap-2">
                                                             <MapPin className="h-4 w-4"/> {req.city}
                                                         </p>
                                                     </div>
                                                 </div>
                                                 <div className="text-right">
-                                                    <Button>Contact</Button>
+                                                    <Button style={{backgroundColor: "hsl(var(--primary))"}}>Contact</Button>
                                                     <p className="text-xs text-muted-foreground mt-2">
                                                         {formatDistanceToNow(req.postedAt, { addSuffix: true })}
                                                     </p>
@@ -263,5 +263,3 @@ export default function EmergencyPage() {
         </div>
     )
 }
-
-    
