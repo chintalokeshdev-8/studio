@@ -164,20 +164,20 @@ export default function DashboardPage() {
                     <p>మీ గత నివేదికల(Reports) ప్రకారం, మీ ముఖ్య అవయవాల ఆరోగ్య స్థితి యొక్క సారాంశం ఇది.</p>
                 </div>
           </CardHeader>
-          <CardContent className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+          <CardContent className="grid grid-cols-3 md:grid-cols-5 gap-2">
               {organHealthData.map((organ) => (
-                  <Card key={organ.name} className="p-4 flex flex-col items-center text-center">
-                      <CircularProgress percentage={organ.health} size={100} strokeWidth={8} color={organ.color}>
+                  <Card key={organ.name} className="p-2 flex flex-col items-center text-center">
+                      <CircularProgress percentage={organ.health} size={80} strokeWidth={6} color={organ.color}>
                           <Image
                               src={organ.image}
                               alt={organ.name}
-                              width={60}
-                              height={60}
+                              width={40}
+                              height={40}
                               data-ai-hint={organ.dataAiHint}
                               className="rounded-full object-cover"
                           />
                       </CircularProgress>
-                      <p className="mt-4 text-lg font-bold">{organ.name}</p>
+                      <p className="mt-2 text-lg font-bold">{organ.name}</p>
                       <p className="font-semibold text-xl" style={{color: organ.color}}>{organ.health}%</p>
                       <p className="text-xs text-muted-foreground">Healthy</p>
                   </Card>
@@ -249,3 +249,5 @@ export default function DashboardPage() {
     </div>
   );
 }
+
+    
