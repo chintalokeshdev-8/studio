@@ -142,7 +142,7 @@ export default function DashboardPage() {
           <div className="flex items-center gap-4">
             <Avatar className="h-16 w-16 border-2 border-primary-foreground/50">
               <AvatarImage src="/images/profile.jpg" />
-              <AvatarFallback>CL</AvatarFallback>
+              <AvatarFallback>CLB</AvatarFallback>
             </Avatar>
             <div>
               <h2 className="text-xl font-semibold">Chinta Lokesh Babu</h2>
@@ -158,7 +158,7 @@ export default function DashboardPage() {
 
        <Card>
           <CardHeader>
-              <CardTitle className="flex items-center gap-2"><Heart style={{color: 'hsl(var(--nav-profile))'}}/>Organ Health Overview</CardTitle>
+              <CardTitle className="flex items-center gap-2" style={{color: 'hsl(var(--nav-profile))'}}><Heart style={{color: 'hsl(var(--nav-profile))'}}/>Organ Health Overview</CardTitle>
                 <div className="font-semibold text-foreground">
                     <p>A summary of your key organ health based on recent reports.</p>
                     <p>మీ గత నివేదికల(Reports) ప్రకారం, మీ ముఖ్య అవయవాల ఆరోగ్య స్థితి యొక్క సారాంశం ఇది.</p>

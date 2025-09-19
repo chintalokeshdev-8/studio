@@ -432,7 +432,7 @@ export default function HealthTrackerPage() {
 
             <Card>
                 <CardHeader>
-                    <CardTitle className="flex items-center gap-2"><Heart style={{color: 'hsl(var(--nav-profile))'}}/>Organ Health Overview</CardTitle>
+                    <CardTitle className="flex items-center gap-2" style={{color: 'hsl(var(--nav-profile))'}}><Heart style={{color: 'hsl(var(--nav-profile))'}}/>Organ Health Overview</CardTitle>
                     <div className="font-semibold text-foreground">
                         <p>A summary of your key organ health based on recent reports.</p>
                         <p>మీ గత నివేదికల(Reports) ప్రకారం, మీ ముఖ్య అవయవాల ఆరోగ్య స్థితి యొక్క సారాంశం ఇది.</p>
@@ -615,3 +615,4 @@ export default function HealthTrackerPage() {
 
 
     
+
