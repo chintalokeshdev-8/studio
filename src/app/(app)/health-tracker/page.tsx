@@ -238,7 +238,7 @@ const BmiAdvice = ({ bmi }: { bmi: number | null }) => {
 
     return (
         <div className="mt-6">
-            <CardHeader className="px-0">
+            <CardHeader className="px-0 pt-4">
                 <CardTitle className={`flex items-center gap-2 ${advice.color}`}>
                     <AdviceIcon /> {advice.title}
                 </CardTitle>
@@ -284,10 +284,8 @@ export default function HealthTrackerPage() {
             let heightInMeters;
             if (heightUnit === 'cm') {
                 heightInMeters = h / 100;
-            } else if (heightUnit === 'ft') {
+            } else { // ft
                 heightInMeters = h * 0.3048;
-            } else { // m
-                heightInMeters = h;
             }
 
             let weightInKg = w;
@@ -434,40 +432,42 @@ export default function HealthTrackerPage() {
                     <CardTitle className="flex items-center justify-center gap-2"><Scale /> BMI Calculator</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                    <div className="space-y-4">
-                        <div className="space-y-2">
-                            <div className="flex justify-between items-center">
-                                <Label htmlFor="height">Height</Label>
-                                <Tabs defaultValue={heightUnit} onValueChange={setHeightUnit} className="w-auto">
-                                    <TabsList className="h-7 text-xs">
-                                        <TabsTrigger value="cm" className="h-5 px-2">cm</TabsTrigger>
-                                        <TabsTrigger value="ft" className="h-5 px-2">ft</TabsTrigger>
-                                    </TabsList>
-                                </Tabs>
+                    <div className="grid md:grid-cols-2 gap-x-8 gap-y-4">
+                        <div className="space-y-4">
+                            <div className="space-y-2">
+                                <div className="flex justify-between items-center">
+                                    <Label htmlFor="height">Height</Label>
+                                    <Tabs defaultValue={heightUnit} onValueChange={setHeightUnit} className="w-auto">
+                                        <TabsList className="h-7 text-xs">
+                                            <TabsTrigger value="cm" className="h-5 px-2">cm</TabsTrigger>
+                                            <TabsTrigger value="ft" className="h-5 px-2">ft</TabsTrigger>
+                                        </TabsList>
+                                    </Tabs>
+                                </div>
+                                <Input id="height" type="number" placeholder={heightPlaceholders[heightUnit]} value={height} onChange={(e) => setHeight(e.target.value)} />
                             </div>
-                            <Input id="height" type="number" placeholder={heightPlaceholders[heightUnit]} value={height} onChange={(e) => setHeight(e.target.value)} />
-                        </div>
-                        <div className="space-y-2">
-                            <div className="flex justify-between items-center">
-                                <Label htmlFor="calc-weight">Weight</Label>
-                                <Tabs defaultValue={weightUnit} onValueChange={setWeightUnit} className="w-auto">
-                                    <TabsList className="h-7 text-xs">
-                                        <TabsTrigger value="kg" className="h-5 px-2">kg</TabsTrigger>
-                                        <TabsTrigger value="lbs" className="h-5 px-2">lbs</TabsTrigger>
-                                    </TabsList>
-                                </Tabs>
+                            <div className="space-y-2">
+                                <div className="flex justify-between items-center">
+                                    <Label htmlFor="calc-weight">Weight</Label>
+                                    <Tabs defaultValue={weightUnit} onValueChange={setWeightUnit} className="w-auto">
+                                        <TabsList className="h-7 text-xs">
+                                            <TabsTrigger value="kg" className="h-5 px-2">kg</TabsTrigger>
+                                            <TabsTrigger value="lbs" className="h-5 px-2">lbs</TabsTrigger>
+                                        </TabsList>
+                                    </Tabs>
+                                </div>
+                                <Input id="calc-weight" type="number" placeholder={weightPlaceholders[weightUnit]} value={weight} onChange={(e) => setWeight(e.target.value)} />
                             </div>
-                            <Input id="calc-weight" type="number" placeholder={weightPlaceholders[weightUnit]} value={weight} onChange={(e) => setWeight(e.target.value)} />
                         </div>
-                    </div>
 
-                    <div className="p-4 bg-muted/40 rounded-lg border">
-                        <h4 className="font-semibold flex items-center gap-2 mb-2"><Info className="h-5 w-5 text-primary" style={{color: 'hsl(var(--nav-profile))'}}/> What is BMI?</h4>
-                        <p className="text-sm text-muted-foreground">
-                            Body Mass Index (BMI) is a measure of body fat based on height and weight. It's a simple way to see if you're in a healthy weight range.
-                            <br/><br/>
-                            బాడీ మాస్ ఇండెక్స్ (BMI) అనేది ఎత్తు మరియు బరువు ఆధారంగా శరీర కొవ్వు యొక్క కొలత. మీరు ఆరోగ్యకరమైన బరువు పరిధిలో ఉన్నారో లేదో చూడటానికి ఇది ఒక సులభమైన మార్గం.
-                        </p>
+                        <div className="p-4 bg-muted/40 rounded-lg border h-full flex flex-col justify-center">
+                            <h4 className="font-semibold flex items-center gap-2 mb-2"><Info className="h-5 w-5 text-primary" style={{color: 'hsl(var(--nav-profile))'}}/> What is BMI?</h4>
+                            <p className="text-sm text-muted-foreground">
+                                Body Mass Index (BMI) is a measure of body fat based on height and weight. It's a simple way to see if you're in a healthy weight range.
+                                <br/><br/>
+                                బాడీ మాస్ ఇండెక్స్ (BMI) అనేది ఎత్తు మరియు బరువు ఆధారంగా శరీర కొవ్వు యొక్క కొలత. మీరు ఆరోగ్యకరమైన బరువు పరిధిలో ఉన్నారో లేదో చూడటానికి ఇది ఒక సులభమైన మార్గం.
+                            </p>
+                        </div>
                     </div>
 
                     <div className="flex flex-col items-center justify-center pt-4">
@@ -538,3 +538,4 @@ export default function HealthTrackerPage() {
     
 
     
+
