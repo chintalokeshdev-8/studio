@@ -1,13 +1,14 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Phone, MapPin, ShieldAlert, PlusCircle, AlertTriangle, Droplet, User, Building } from "lucide-react";
+import { Phone, MapPin, ShieldAlert, PlusCircle, AlertTriangle, Droplet, User, Building, UserPlus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { formatDistanceToNow } from "date-fns";
+import { Switch } from "@/components/ui/switch";
 
 const emergencyContacts = [
     { name: "Apollo Emergency Ambulance", distance: "2.5 km", available: true },
@@ -64,9 +65,10 @@ export default function EmergencyPage() {
                 </CardHeader>
                 <CardContent>
                     <Tabs defaultValue="find">
-                        <TabsList className="grid w-full grid-cols-2">
+                        <TabsList className="grid w-full grid-cols-3">
                             <TabsTrigger value="find">Find a Donor</TabsTrigger>
                             <TabsTrigger value="request">Request Blood</TabsTrigger>
+                            <TabsTrigger value="register"><UserPlus className="mr-2 h-4 w-4"/>Become a Donor</TabsTrigger>
                         </TabsList>
                         <TabsContent value="find" className="mt-4">
                             <div className="space-y-4">
@@ -152,6 +154,53 @@ export default function EmergencyPage() {
                                 <Button type="submit" variant="destructive" className="w-full">Post Blood Request</Button>
                             </form>
                         </TabsContent>
+                        <TabsContent value="register" className="mt-4">
+                            <form className="space-y-6">
+                                <div className="space-y-2">
+                                    <Label htmlFor="donorName">Full Name</Label>
+                                    <Input id="donorName" placeholder="Enter your full name" />
+                                </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="donorBloodType">Blood Group</Label>
+                                        <Select>
+                                            <SelectTrigger id="donorBloodType">
+                                                <SelectValue placeholder="Select" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {bloodGroups.slice(1).map(bg => <SelectItem key={bg} value={bg}>{bg}</SelectItem>)}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="donorCity">City</Label>
+                                         <Select>
+                                            <SelectTrigger id="donorCity">
+                                                <SelectValue placeholder="Select City" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {cities.slice(1).map(city => <SelectItem key={city} value={city}>{city}</SelectItem>)}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="donorContact">Contact Info (Phone or Email)</Label>
+                                    <Input id="donorContact" placeholder="Enter contact details" />
+                                </div>
+                                 <div className="flex items-center space-x-4 rounded-md border p-4">
+                                    <UserPlus className="h-6 w-6"/>
+                                    <div className="flex-1 space-y-1">
+                                        <p className="text-sm font-medium leading-none">Available to Donate</p>
+                                        <p className="text-sm text-muted-foreground">
+                                            Enable this to appear in searches for nearby donation requests.
+                                        </p>
+                                    </div>
+                                    <Switch id="availability-mode" />
+                                </div>
+                                <Button type="submit" className="w-full" style={{backgroundColor: 'hsl(var(--nav-emergency))'}}>Register as a Donor</Button>
+                            </form>
+                        </TabsContent>
                     </Tabs>
                 </CardContent>
             </Card>
@@ -214,3 +263,5 @@ export default function EmergencyPage() {
         </div>
     )
 }
+
+    
