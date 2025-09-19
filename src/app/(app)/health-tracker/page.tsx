@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Heart, TrendingUp, PlusCircle, Scale, Activity, Flame, Footprints, Info, Watch, Radio, Target, Bike, PersonStanding, Dumbbell, Leaf, Check } from "lucide-react";
+import { Heart, TrendingUp, PlusCircle, Scale, Activity, Flame, Footprints, Info, Watch, Radio, Target, Bike, PersonStanding, Dumbbell, Leaf, Check, Wind, Brain, TestTube } from "lucide-react";
 import React, { useState, useMemo } from 'react';
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -61,7 +61,45 @@ const weekDays = [
     { day: "Sun", date: 21 },
 ];
 
-const CircularProgress = ({ percentage, children, size = 100, strokeWidth = 8 } : { percentage: number, children: React.ReactNode, size?: number, strokeWidth?: number }) => {
+const organHealthData = [
+    {
+      name: "Heart",
+      health: 95,
+      icon: Heart,
+      recommendations: ["ECG", "Lipid Profile"],
+      color: "hsl(var(--nav-emergency))",
+    },
+    {
+      name: "Lungs",
+      health: 88,
+      icon: Wind,
+      recommendations: ["Chest X-Ray", "Spirometry"],
+      color: "hsl(var(--nav-junior-doctors))",
+    },
+    {
+      name: "Liver",
+      health: 92,
+      icon: Leaf,
+      recommendations: ["LFT", "Ultrasound"],
+      color: "hsl(var(--nav-diagnostics))",
+    },
+    {
+      name: "Kidneys",
+      health: 90,
+      icon: Droplets,
+      recommendations: ["KFT", "Urine Test"],
+      color: "hsl(var(--nav-chat))",
+    },
+    {
+      name: "Brain",
+      health: 98,
+      icon: Brain,
+      recommendations: ["MRI", "Neurological Exam"],
+      color: "hsl(var(--nav-symptoms))",
+    },
+];
+
+const CircularProgress = ({ percentage, children, size = 100, strokeWidth = 8, color } : { percentage: number, children: React.ReactNode, size?: number, strokeWidth?: number, color?: string }) => {
     const radius = (size - strokeWidth) / 2;
     const circumference = radius * 2 * Math.PI;
     const offset = circumference - (percentage / 100) * circumference;
@@ -79,8 +117,7 @@ const CircularProgress = ({ percentage, children, size = 100, strokeWidth = 8 } 
                     cy={size/2}
                 />
                 <circle
-                    className="text-primary"
-                    stroke="currentColor"
+                    stroke={color || "hsl(var(--primary))"}
                     fill="transparent"
                     strokeWidth={strokeWidth}
                     strokeDasharray={circumference}
@@ -109,7 +146,7 @@ const BmiGauge = ({ bmi }: { bmi: number | null }) => {
 
     const GaugeLabel = ({ angle, label, value }: { angle: number; label: string; value: string }) => (
         <text
-            transform={`rotate(${angle} 50 50)`}
+            transform={`rotate(${angle} 50 50) translate(0, 5)`}
             className="text-[5px] font-bold fill-black"
             textAnchor="middle"
         >
@@ -418,6 +455,33 @@ export default function HealthTrackerPage() {
 
             <Card>
                 <CardHeader>
+                    <CardTitle className="flex items-center gap-2"><Heart style={{color: 'hsl(var(--nav-profile))'}}/>Organ Health Overview</CardTitle>
+                    <CardDescription>A summary of your key organ health based on recent reports.</CardDescription>
+                </CardHeader>
+                <CardContent className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {organHealthData.map((organ) => (
+                        <Card key={organ.name} className="p-4 flex flex-col items-center text-center">
+                            <CircularProgress percentage={organ.health} size={70} strokeWidth={6} color={organ.color}>
+                                <organ.icon className="h-6 w-6" style={{color: organ.color}} />
+                            </CircularProgress>
+                            <p className="mt-3 text-lg font-bold">{organ.name}</p>
+                            <p className="font-semibold" style={{color: organ.color}}>{organ.health}% Healthy</p>
+                             <div className="mt-4 text-left w-full">
+                                <h4 className="font-semibold text-sm flex items-center gap-1.5 mb-2">
+                                   <TestTube className="h-4 w-4" style={{color: organ.color}}/> 
+                                   Recommended Tests
+                                </h4>
+                                <div className="text-xs text-muted-foreground space-y-1">
+                                    {organ.recommendations.map(test => <p key={test}>• {test}</p>)}
+                                </div>
+                            </div>
+                        </Card>
+                    ))}
+                </CardContent>
+            </Card>
+
+            <Card>
+                <CardHeader>
                     <CardTitle className="flex items-center justify-center gap-2"><Scale /> BMI Calculator</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -449,7 +513,7 @@ export default function HealthTrackerPage() {
                             </div>
                         </div>
 
-                        <div className="pt-2 space-y-2">
+                         <div className="pt-2 space-y-2">
                             <h4 className="font-semibold flex items-center gap-2"><Info className="h-5 w-5 text-primary" style={{color: 'hsl(var(--nav-profile))'}}/> What is BMI?</h4>
                             <p className="text-sm text-muted-foreground">
                                 Body Mass Index (BMI) is a measure of body fat based on height and weight. It's a simple way to see if you're in a healthy weight range.
@@ -528,6 +592,7 @@ export default function HealthTrackerPage() {
     
 
     
+
 
 
 
