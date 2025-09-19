@@ -1,9 +1,10 @@
 
+
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { HeartPulse, MessageSquare, Siren, Users, TestTube, FlaskConical, LifeBuoy, Stethoscope, Microscope, Pill, Headset, Phone, Link2, CalendarCheck, User, Heart, Baby, Leaf, Droplets, Wind, Brain, LayoutGrid, Activity } from 'lucide-react';
+import { HeartPulse, MessageSquare, Siren, Users, TestTube, FlaskConical, LifeBuoy, Stethoscope, Microscope, Pill, Headset, Phone, Link2, CalendarCheck, User, Heart, Baby, Leaf, Droplets, Wind, Brain, LayoutGrid, Activity, FileText } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
@@ -11,6 +12,7 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import React from 'react';
 import { PregnantLadyIcon } from '@/components/icons/pregnant-lady-icon';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 const quickAccessItems = [
   { href: "/", icon: LayoutGrid, label: 'Dashboard', description: 'హోమ్', color: 'hsl(var(--nav-home))' },
@@ -43,11 +45,39 @@ const medicineAssistanceItems = [
     },
 ];
 
-const healthOverviewItems = [
-    { value: "12", label: "Total Visits", icon: Users },
-    { value: "2", label: "Active Conditions", icon: HeartPulse },
-    { value: "4", label: "Medications", icon: Pill },
-];
+const healthOverviewItems = {
+  totalVisits: {
+    value: "12",
+    label: "Total Visits",
+    icon: Users,
+    data: [
+      { date: "2024-07-15", reason: "Fever & Cold", doctor: "Dr. Shashank" },
+      { date: "2024-06-20", reason: "Regular Checkup", doctor: "Dr. Siva Parvathi" },
+      { date: "2024-03-10", reason: "Stomach Pain", doctor: "Dr. Nageswarao" },
+    ]
+  },
+  activeConditions: {
+    value: "2",
+    label: "Active Conditions",
+    icon: HeartPulse,
+    data: [
+        { condition: "Fever & Cold", since: "2024-07-15", status: "Improving" },
+        { condition: "Allergic Rhinitis", since: "2024-01-01", status: "Ongoing" },
+    ]
+  },
+  medications: {
+    value: "4",
+    label: "Medications",
+    icon: Pill,
+    data: [
+        { name: "Paracetamol", dosage: "500mg", frequency: "As needed" },
+        { name: "Cetirizine", dosage: "10mg", frequency: "Once a day" },
+        { name: "Metformin", dosage: "1000mg", frequency: "Twice a day" },
+        { name: "Vitamin D3", dosage: "60000 IU", frequency: "Once a week" },
+    ]
+  },
+};
+
 
 const StomachIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -224,19 +254,99 @@ export default function DashboardPage() {
         <section>
           <h2 className="text-xl font-semibold mb-4">Health Overview</h2>
           <div className="grid grid-cols-1 gap-4">
-              {healthOverviewItems.map((item) => (
-                   <Card key={item.label} className="p-4">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                           <div className="p-2 bg-muted/50 rounded-full">
-                              <item.icon className="h-5 w-5 text-primary" />
-                          </div>
-                          <p className="font-semibold">{item.label}</p>
+              <Dialog>
+                <DialogTrigger asChild>
+                    <Card className="p-4 cursor-pointer hover:bg-muted/50 transition-colors">
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                                <div className="p-2 bg-muted/50 rounded-full">
+                                    <Users className="h-5 w-5 text-primary" />
+                                </div>
+                                <p className="font-semibold">Total Visits</p>
+                            </div>
+                            <p className="text-2xl font-bold">{healthOverviewItems.totalVisits.value}</p>
                         </div>
-                        <p className="text-2xl font-bold">{item.value}</p>
-                      </div>
-                  </Card>
-              ))}
+                    </Card>
+                </DialogTrigger>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle className="flex items-center gap-2"><Users />Total Visits</DialogTitle>
+                        <DialogDescription>Your recent appointment history.</DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-3 max-h-96 overflow-y-auto">
+                        {healthOverviewItems.totalVisits.data.map((visit, index) => (
+                            <div key={index} className="p-3 border rounded-lg">
+                                <p className="font-semibold">{visit.reason}</p>
+                                <p className="text-sm text-muted-foreground">{visit.doctor}</p>
+                                <p className="text-xs text-muted-foreground mt-1">{visit.date}</p>
+                            </div>
+                        ))}
+                    </div>
+                </DialogContent>
+              </Dialog>
+
+              <Dialog>
+                <DialogTrigger asChild>
+                    <Card className="p-4 cursor-pointer hover:bg-muted/50 transition-colors">
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                                <div className="p-2 bg-muted/50 rounded-full">
+                                    <HeartPulse className="h-5 w-5 text-primary" />
+                                </div>
+                                <p className="font-semibold">Active Conditions</p>
+                            </div>
+                            <p className="text-2xl font-bold">{healthOverviewItems.activeConditions.value}</p>
+                        </div>
+                    </Card>
+                </DialogTrigger>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle className="flex items-center gap-2"><HeartPulse />Active Conditions</DialogTitle>
+                         <DialogDescription>Your current health conditions.</DialogDescription>
+                    </DialogHeader>
+                     <div className="space-y-3 max-h-96 overflow-y-auto">
+                        {healthOverviewItems.activeConditions.data.map((item, index) => (
+                            <div key={index} className="flex justify-between items-center p-3 border rounded-lg">
+                                <div>
+                                    <p className="font-semibold">{item.condition}</p>
+                                    <p className="text-sm text-muted-foreground">Since: {item.since}</p>
+                                </div>
+                                <Badge variant="outline">{item.status}</Badge>
+                            </div>
+                        ))}
+                    </div>
+                </DialogContent>
+              </Dialog>
+
+             <Dialog>
+                <DialogTrigger asChild>
+                    <Card className="p-4 cursor-pointer hover:bg-muted/50 transition-colors">
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                                <div className="p-2 bg-muted/50 rounded-full">
+                                    <Pill className="h-5 w-5 text-primary" />
+                                </div>
+                                <p className="font-semibold">Medications</p>
+                            </div>
+                            <p className="text-2xl font-bold">{healthOverviewItems.medications.value}</p>
+                        </div>
+                    </Card>
+                </DialogTrigger>
+                 <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle className="flex items-center gap-2"><Pill />Medications</DialogTitle>
+                        <DialogDescription>Your current medication plan.</DialogDescription>
+                    </DialogHeader>
+                     <div className="space-y-3 max-h-96 overflow-y-auto">
+                        {healthOverviewItems.medications.data.map((med, index) => (
+                            <div key={index} className="p-3 border rounded-lg">
+                                <p className="font-semibold">{med.name}</p>
+                                <p className="text-sm text-muted-foreground">{med.dosage} &bull; {med.frequency}</p>
+                            </div>
+                        ))}
+                    </div>
+                </DialogContent>
+            </Dialog>
           </div>
         </section>
 
@@ -253,6 +363,7 @@ export default function DashboardPage() {
                           <div className="flex-1">
                               <h3 className="font-semibold">{item.title}</h3>
                               <p className="text-sm text-muted-foreground">{item.description}</p>
+
                           </div>
                           <Button size="sm" variant="ghost" style={{color: 'hsl(var(--nav-medicines))'}}>{item.buttonText}</Button>
                       </CardContent>
@@ -266,5 +377,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-
-    
