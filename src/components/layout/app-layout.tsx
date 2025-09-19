@@ -102,11 +102,11 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                                        <item.icon className="h-7 w-7" style={{ color: item.color }} />
                                    </div>
                                    <div className="text-center leading-tight mt-1">
-                                        <p className="text-xs font-semibold"
+                                        <p className="text-sm font-bold"
                                            style={{color: isActive ? item.color : 'hsl(var(--foreground))'}}>
                                            {item.label}
                                         </p>
-                                        <p className="text-[10px] font-medium text-muted-foreground"
+                                        <p className="text-xs font-medium"
                                            style={{color: isActive ? item.color : 'hsl(var(--muted-foreground))'}}>
                                            {item.telugu}
                                         </p>
