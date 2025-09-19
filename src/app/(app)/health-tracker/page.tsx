@@ -66,7 +66,6 @@ const organHealthData = [
     {
       name: "Heart",
       health: 95,
-      icon: Heart,
       image: "https://picsum.photos/seed/heart/100/100",
       dataAiHint: "heart organ",
       color: "hsl(var(--nav-emergency))",
@@ -74,7 +73,6 @@ const organHealthData = [
     {
       name: "Liver",
       health: 92,
-      icon: Leaf,
       image: "https://picsum.photos/seed/liver/100/100",
       dataAiHint: "liver organ",
       color: "hsl(var(--nav-diagnostics))",
@@ -82,7 +80,6 @@ const organHealthData = [
     {
       name: "Kidneys",
       health: 90,
-      icon: Droplets,
       image: "https://picsum.photos/seed/kidneys/100/100",
       dataAiHint: "kidneys organ",
       color: "hsl(var(--nav-chat))",
@@ -90,7 +87,6 @@ const organHealthData = [
     {
       name: "Lungs",
       health: 88,
-      icon: Wind,
       image: "https://picsum.photos/seed/lungs/100/100",
       dataAiHint: "lungs organ",
       color: "hsl(var(--nav-junior-doctors))",
@@ -98,7 +94,6 @@ const organHealthData = [
     {
       name: "Brain",
       health: 98,
-      icon: Brain,
       image: "https://picsum.photos/seed/brain/100/100",
       dataAiHint: "brain organ",
       color: "hsl(var(--nav-symptoms))",
@@ -438,12 +433,10 @@ export default function HealthTrackerPage() {
             <Card>
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2"><Heart style={{color: 'hsl(var(--nav-profile))'}}/>Organ Health Overview</CardTitle>
-                    <CardDescription asChild>
-                        <div className="font-bold text-foreground">
-                            <p>A summary of your key organ health based on recent reports.</p>
-                            <p>మీ గత నివేదికల(Reports) ప్రకారం, మీ ముఖ్య అవయవాల ఆరోగ్య స్థితి యొక్క సారాంశం ఇది.</p>
-                        </div>
-                    </CardDescription>
+                    <div className="font-bold text-foreground">
+                        <p>A summary of your key organ health based on recent reports.</p>
+                        <p>మీ గత నివేదికల(Reports) ప్రకారం, మీ ముఖ్య అవయవాల ఆరోగ్య స్థితి యొక్క సారాంశం ఇది.</p>
+                    </div>
                 </CardHeader>
                 <CardContent className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
                     {organHealthData.map((organ) => (
@@ -602,6 +595,7 @@ export default function HealthTrackerPage() {
     
 
     
+
 
 
 

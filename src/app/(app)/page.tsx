@@ -158,12 +158,10 @@ export default function DashboardPage() {
        <Card>
           <CardHeader>
               <CardTitle className="flex items-center gap-2"><Heart style={{color: 'hsl(var(--nav-profile))'}}/>Organ Health Overview</CardTitle>
-                <CardDescription asChild>
-                    <div className="font-bold text-foreground">
-                        <p>A summary of your key organ health based on recent reports.</p>
-                        <p>మీ గత నివేదికల(Reports) ప్రకారం, మీ ముఖ్య అవయవాల ఆరోగ్య స్థితి యొక్క సారాంశం ఇది.</p>
-                    </div>
-              </CardDescription>
+                <div className="font-bold text-foreground">
+                    <p>A summary of your key organ health based on recent reports.</p>
+                    <p>మీ గత నివేదికల(Reports) ప్రకారం, మీ ముఖ్య అవయవాల ఆరోగ్య స్థితి యొక్క సారాంశం ఇది.</p>
+                </div>
           </CardHeader>
           <CardContent className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
               {organHealthData.map((organ) => (
