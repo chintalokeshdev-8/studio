@@ -17,6 +17,7 @@ import {
   Activity,
   ChevronRight,
   Heart,
+  ChevronLeft,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -40,9 +41,16 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const viewportRef = React.useRef<HTMLDivElement>(null);
 
-  const handleScroll = () => {
+  const handleScrollRight = () => {
     if (viewportRef.current) {
         const scrollAmount = 200;
+        viewportRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  const handleScrollLeft = () => {
+    if (viewportRef.current) {
+        const scrollAmount = -200;
         viewportRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
@@ -67,8 +75,13 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       </main>
       <footer className="sticky bottom-0 z-20 mt-auto bg-background border-t">
         <div className="relative">
+            <div className="absolute top-0 left-0 h-full flex items-center pl-2 bg-gradient-to-r from-background to-transparent w-12 z-10">
+                <Button variant="ghost" size="icon" className="bg-muted rounded-full h-8 w-8" onClick={handleScrollLeft}>
+                    <ChevronLeft className="h-5 w-5 text-foreground" />
+                </Button>
+            </div>
             <ScrollArea className="w-full whitespace-nowrap" viewportRef={viewportRef}>
-                <nav className="flex w-max space-x-2 p-2 pr-12 justify-center">
+                <nav className="flex w-max space-x-2 p-2 px-12 justify-center">
                     {menuItems.map((item) => {
                         const isActive = pathname === item.href;
                         return (
@@ -103,7 +116,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 <ScrollBar orientation="horizontal" className="invisible" />
             </ScrollArea>
              <div className="absolute top-0 right-0 h-full flex items-center pr-2 bg-gradient-to-l from-background to-transparent w-12">
-                <Button variant="ghost" size="icon" className="bg-muted rounded-full h-8 w-8" onClick={handleScroll}>
+                <Button variant="ghost" size="icon" className="bg-muted rounded-full h-8 w-8" onClick={handleScrollRight}>
                     <ChevronRight className="h-5 w-5 text-foreground" />
                 </Button>
             </div>
