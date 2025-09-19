@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { FileDown, Eye, Upload, Search, MapPin, TestTube, Sparkles, Bone, Scan } from "lucide-react";
+import { FileDown, Eye, Upload, Search, MapPin, TestTube, Sparkles, Bone, Scan, FileText } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -22,6 +22,11 @@ const imagingReports = [
     { testName: "MRI Brain Scan", date: "2024-05-12", doctor: "Dr. Arjun Kumar", status: "Completed", type: "mri" },
     { testName: "Abdominal Ultrasound", date: "2024-07-18", doctor: "Dr. Priya Sharma", status: "Processing", type: "x-ray" },
 ]
+
+const prescriptionReports = [
+    { testName: "Fever & Cold Consultation", date: "2024-07-15", doctor: "Dr. Shashank", status: "Completed" },
+    { testName: "Regular Checkup", date: "2024-06-20", doctor: "Dr. Siva Parvathi", status: "Completed" },
+];
 
 const diagnosticTests = [
     { name: "Complete Blood Picture (CBP)", lab: "Apollo Diagnostics", price: 300, category: "Blood" },
@@ -49,7 +54,7 @@ const ReportTable = ({ reports }: { reports: any[] }) => (
     <Table>
         <TableHeader>
             <TableRow>
-                <TableHead>Test Name</TableHead>
+                <TableHead>Test/Prescription Name</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead>Ordered By</TableHead>
                 <TableHead>Status</TableHead>
@@ -174,17 +179,17 @@ export default function DiagnosticsPage() {
                            <Tabs defaultValue="lab" className="w-full">
                                 <TabsList>
                                     <TabsTrigger value="lab" className="flex items-center gap-2"><TestTube className="h-4 w-4"/> Lab Reports</TabsTrigger>
-                                    <TabsTrigger value="xray" className="flex items-center gap-2"><Bone className="h-4 w-4"/> X-Rays</TabsTrigger>
-                                    <TabsTrigger value="mri" className="flex items-center gap-2"><Scan className="h-4 w-4"/> MRI Scans</TabsTrigger>
+                                    <TabsTrigger value="imaging" className="flex items-center gap-2"><Scan className="h-4 w-4"/> Imaging</TabsTrigger>
+                                    <TabsTrigger value="prescriptions" className="flex items-center gap-2"><FileText className="h-4 w-4"/> Prescriptions</TabsTrigger>
                                 </TabsList>
                                 <TabsContent value="lab" className="mt-4">
                                      <ReportTable reports={labReports} />
                                 </TabsContent>
-                                <TabsContent value="xray" className="mt-4">
-                                    <ReportTable reports={imagingReports.filter(r => r.type === 'x-ray')} />
+                                <TabsContent value="imaging" className="mt-4">
+                                    <ReportTable reports={imagingReports} />
                                 </TabsContent>
-                                <TabsContent value="mri" className="mt-4">
-                                     <ReportTable reports={imagingReports.filter(r => r.type === 'mri')} />
+                                <TabsContent value="prescriptions" className="mt-4">
+                                     <ReportTable reports={prescriptionReports} />
                                 </TabsContent>
                             </Tabs>
                         </CardContent>
