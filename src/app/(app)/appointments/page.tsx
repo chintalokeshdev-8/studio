@@ -72,6 +72,17 @@ const doctors = [
         avatar: "https://placehold.co/100x100.png",
         dataAiHint: "female doctor professional",
         location: "Hyderabad"
+    },
+    {
+        name: "Dr. Jaya Lakshmi",
+        specialty: "Gynaecologist",
+        experience: "15 years",
+        hospital: "Continental Hospitals, Gachibowli",
+        surgeries: "500+ successful deliveries",
+        mainDealing: "High-risk pregnancy and infertility.",
+        avatar: "https://placehold.co/100x100.png",
+        dataAiHint: "female doctor professional",
+        location: "Hyderabad"
     }
 ];
 
@@ -80,13 +91,14 @@ const departments = [
     { value: "cardiology", label: "Cardiology", icon: HeartPulse },
     { value: "orthopedics", label: "Orthopedics", icon: Bone },
     { value: "neurology", label: "Neurology", icon: Brain },
+    { value: "gynaecology", label: "Gynaecology", icon: Baby },
     { value: "pediatrics", label: "Pediatrics", icon: Baby },
     { value: "dermatology", label: "Dermatology", icon: Leaf },
     { value: "general", label: "General Physician", icon: StethoscopeIcon },
 ];
 
 const hospitals = [
-    "All Hospitals", "Apollo Hospital, Jubilee Hills", "Care Hospital, Banjara Hills", "Yashoda Hospital, Secunderabad", "MaxCure Hospital, Madhapur", "Rainbow Children's Hospital, Banjara Hills", "KIMS Hospital, Secunderabad"
+    "All Hospitals", "Apollo Hospital, Jubilee Hills", "Care Hospital, Banjara Hills", "Yashoda Hospital, Secunderabad", "MaxCure Hospital, Madhapur", "Rainbow Children's Hospital, Banjara Hills", "KIMS Hospital, Secunderabad", "Continental Hospitals, Gachibowli"
 ];
 
 export default function AppointmentsPage() {
