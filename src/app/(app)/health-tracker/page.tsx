@@ -72,14 +72,6 @@ const organHealthData = [
       color: "hsl(var(--nav-emergency))",
     },
     {
-      name: "Lungs",
-      health: 88,
-      icon: Wind,
-      image: "https://picsum.photos/seed/lungs/100/100",
-      dataAiHint: "lungs organ",
-      color: "hsl(var(--nav-junior-doctors))",
-    },
-    {
       name: "Liver",
       health: 92,
       icon: Leaf,
@@ -94,6 +86,14 @@ const organHealthData = [
       image: "https://picsum.photos/seed/kidneys/100/100",
       dataAiHint: "kidneys organ",
       color: "hsl(var(--nav-chat))",
+    },
+    {
+      name: "Lungs",
+      health: 88,
+      icon: Wind,
+      image: "https://picsum.photos/seed/lungs/100/100",
+      dataAiHint: "lungs organ",
+      color: "hsl(var(--nav-junior-doctors))",
     },
     {
       name: "Brain",
@@ -597,6 +597,7 @@ export default function HealthTrackerPage() {
     
 
     
+
 
 
 
