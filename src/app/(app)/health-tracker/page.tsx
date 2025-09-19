@@ -66,35 +66,30 @@ const organHealthData = [
       name: "Heart",
       health: 95,
       icon: Heart,
-      recommendations: ["ECG", "Lipid Profile"],
       color: "hsl(var(--nav-emergency))",
     },
     {
       name: "Lungs",
       health: 88,
       icon: Wind,
-      recommendations: ["Chest X-Ray", "Spirometry"],
       color: "hsl(var(--nav-junior-doctors))",
     },
     {
       name: "Liver",
       health: 92,
       icon: Leaf,
-      recommendations: ["LFT", "Ultrasound"],
       color: "hsl(var(--nav-diagnostics))",
     },
     {
       name: "Kidneys",
       health: 90,
       icon: Droplets,
-      recommendations: ["KFT", "Urine Test"],
       color: "hsl(var(--nav-chat))",
     },
     {
       name: "Brain",
       health: 98,
       icon: Brain,
-      recommendations: ["MRI", "Neurological Exam"],
       color: "hsl(var(--nav-symptoms))",
     },
 ];
@@ -458,23 +453,15 @@ export default function HealthTrackerPage() {
                     <CardTitle className="flex items-center gap-2"><Heart style={{color: 'hsl(var(--nav-profile))'}}/>Organ Health Overview</CardTitle>
                     <CardDescription>A summary of your key organ health based on recent reports.</CardDescription>
                 </CardHeader>
-                <CardContent className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <CardContent className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
                     {organHealthData.map((organ) => (
                         <Card key={organ.name} className="p-4 flex flex-col items-center text-center">
-                            <CircularProgress percentage={organ.health} size={70} strokeWidth={6} color={organ.color}>
-                                <organ.icon className="h-6 w-6" style={{color: organ.color}} />
+                            <CircularProgress percentage={organ.health} size={80} strokeWidth={8} color={organ.color}>
+                                <organ.icon className="h-8 w-8" style={{color: organ.color}} />
                             </CircularProgress>
-                            <p className="mt-3 text-lg font-bold">{organ.name}</p>
-                            <p className="font-semibold" style={{color: organ.color}}>{organ.health}% Healthy</p>
-                             <div className="mt-4 text-left w-full">
-                                <h4 className="font-semibold text-sm flex items-center gap-1.5 mb-2">
-                                   <TestTube className="h-4 w-4" style={{color: organ.color}}/> 
-                                   Recommended Tests
-                                </h4>
-                                <div className="text-xs text-muted-foreground space-y-1">
-                                    {organ.recommendations.map(test => <p key={test}>• {test}</p>)}
-                                </div>
-                            </div>
+                            <p className="mt-4 text-lg font-bold">{organ.name}</p>
+                            <p className="font-semibold text-xl" style={{color: organ.color}}>{organ.health}%</p>
+                            <p className="text-xs text-muted-foreground">Healthy</p>
                         </Card>
                     ))}
                 </CardContent>
@@ -592,6 +579,7 @@ export default function HealthTrackerPage() {
     
 
     
+
 
 
 
