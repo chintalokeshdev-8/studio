@@ -10,6 +10,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { Heart, TrendingUp, PlusCircle, Scale, Activity, Flame, Footprints, Info, Watch, Radio, Target, Bike, PersonStanding } from "lucide-react";
 import React, { useState, useMemo } from 'react';
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const measurementHistory = [
     { date: "2024-07-20", weight: "75 kg", bp: "120/80 mmHg", bmi: 24.5 },
@@ -97,15 +98,31 @@ const CircularProgress = ({ percentage, children, size = 120, strokeWidth = 10 }
 export default function HealthTrackerPage() {
     const [height, setHeight] = useState('');
     const [weight, setWeight] = useState('');
+    const [heightUnit, setHeightUnit] = useState('m');
+    const [weightUnit, setWeightUnit] = useState('kg');
+
 
     const calculatedBmi = useMemo(() => {
         const h = parseFloat(height);
         const w = parseFloat(weight);
+
         if (h > 0 && w > 0) {
-            return w / (h * h);
+            let heightInMeters = h;
+            if (heightUnit === 'cm') {
+                heightInMeters = h / 100;
+            } else if (heightUnit === 'ft') {
+                heightInMeters = h * 0.3048;
+            }
+
+            let weightInKg = w;
+            if (weightUnit === 'lbs') {
+                weightInKg = w * 0.453592;
+            }
+            
+            return weightInKg / (heightInMeters * heightInMeters);
         }
         return null;
-    }, [height, weight]);
+    }, [height, weight, heightUnit, weightUnit]);
 
     const calculatedBmiInfo = calculatedBmi ? getBmiCategory(calculatedBmi) : null;
 
@@ -120,6 +137,17 @@ export default function HealthTrackerPage() {
     const briskWalkingPercentage = 100 - slowWalkingPercentage;
 
     const weeklyActivityPercentage = (weeklyActivityData.completed / weeklyActivityData.goal) * 100;
+
+    const heightPlaceholders: { [key: string]: string } = {
+        m: 'e.g., 1.75',
+        cm: 'e.g., 175',
+        ft: 'e.g., 5.9'
+    };
+
+    const weightPlaceholders: { [key: string]: string } = {
+        kg: 'e.g., 75',
+        lbs: 'e.g., 165'
+    };
 
     return (
         <div className="space-y-8">
@@ -138,10 +166,10 @@ export default function HealthTrackerPage() {
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <div className="flex justify-center">
-                            <CircularProgress percentage={stepsPercentage}>
+                            <CircularProgress percentage={stepsPercentage} size={100} strokeWidth={8}>
                                 <div className="text-center">
-                                    <p className="text-muted-foreground text-sm">Steps</p>
-                                    <p className="text-2xl font-bold">{stepsData.steps}</p>
+                                    <p className="text-muted-foreground text-xs">Steps</p>
+                                    <p className="text-xl font-bold">{stepsData.steps}</p>
                                 </div>
                             </CircularProgress>
                         </div>
@@ -175,10 +203,10 @@ export default function HealthTrackerPage() {
                     </CardHeader>
                     <CardContent className="space-y-4">
                          <div className="flex justify-center">
-                            <CircularProgress percentage={weeklyActivityPercentage}>
+                            <CircularProgress percentage={weeklyActivityPercentage} size={100} strokeWidth={8}>
                                 <div className="text-center">
-                                    <p className="text-2xl font-bold">{weeklyActivityPercentage.toFixed(0)}<span className="text-base">%</span></p>
-                                    <p className="text-muted-foreground font-medium text-sm">{weeklyActivityData.completed} Min</p>
+                                    <p className="text-xl font-bold">{weeklyActivityPercentage.toFixed(0)}<span className="text-base">%</span></p>
+                                    <p className="text-muted-foreground font-medium text-xs">{weeklyActivityData.completed} Min</p>
                                 </div>
                             </CircularProgress>
                         </div>
@@ -235,12 +263,29 @@ export default function HealthTrackerPage() {
                 <CardContent className="grid md:grid-cols-2 gap-6 items-center">
                     <div className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="height">Height (m)</Label>
-                            <Input id="height" type="number" placeholder="e.g., 1.75" value={height} onChange={(e) => setHeight(e.target.value)} />
+                             <div className="flex justify-between items-center">
+                                <Label htmlFor="height">Height</Label>
+                                <Tabs defaultValue={heightUnit} onValueChange={setHeightUnit} className="w-auto">
+                                    <TabsList className="h-7 text-xs">
+                                        <TabsTrigger value="m" className="h-5 px-2">m</TabsTrigger>
+                                        <TabsTrigger value="cm" className="h-5 px-2">cm</TabsTrigger>
+                                        <TabsTrigger value="ft" className="h-5 px-2">ft</TabsTrigger>
+                                    </TabsList>
+                                </Tabs>
+                            </div>
+                            <Input id="height" type="number" placeholder={heightPlaceholders[heightUnit]} value={height} onChange={(e) => setHeight(e.target.value)} />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="calc-weight">Weight (kg)</Label>
-                            <Input id="calc-weight" type="number" placeholder="e.g., 75" value={weight} onChange={(e) => setWeight(e.target.value)} />
+                            <div className="flex justify-between items-center">
+                                <Label htmlFor="calc-weight">Weight</Label>
+                                <Tabs defaultValue={weightUnit} onValueChange={setWeightUnit} className="w-auto">
+                                     <TabsList className="h-7 text-xs">
+                                        <TabsTrigger value="kg" className="h-5 px-2">kg</TabsTrigger>
+                                        <TabsTrigger value="lbs" className="h-5 px-2">lbs</TabsTrigger>
+                                    </TabsList>
+                                </Tabs>
+                            </div>
+                            <Input id="calc-weight" type="number" placeholder={weightPlaceholders[weightUnit]} value={weight} onChange={(e) => setWeight(e.target.value)} />
                         </div>
                     </div>
                     <div className="flex items-center justify-center">
@@ -315,6 +360,3 @@ export default function HealthTrackerPage() {
 
         </div>
     );
-
-    
-
