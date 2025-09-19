@@ -162,7 +162,7 @@ export default function DashboardPage() {
               <CardDescription>
                 <div className="font-bold text-foreground">
                     <p>A summary of your key organ health based on recent reports.</p>
-                    <p>మీ ఇటీవలి నివేదికల ఆధారంగా మీ ముఖ్య అవయవ ఆరోగ్యం యొక్క సారాంశం.</p>
+                    <p>మీ గత నివేదికల(Reports) ప్రకారం, మీ ముఖ్య అవయవాల ఆరోగ్య స్థితి యొక్క సారాంశం ఇది.</p>
                 </div>
               </CardDescription>
           </CardHeader>
