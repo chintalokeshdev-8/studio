@@ -3,16 +3,27 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Award, Baby, CalendarDays, Camera, FileText, Flame, HeartHandshake, Info, Phone, ShieldAlert, Utensils, Video } from "lucide-react";
+import { Award, Baby, CalendarDays, Camera, FileText, Flame, HeartHandshake, Info, Phone, ShieldAlert, Utensils, Video, File, View } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 
-const pregnancyFeatures = [
-    { title: "Diet Plan (ఆహార ప్రణాళిక)", icon: Utensils, href: "#" },
-    { title: "Daily Activities (రోజువారీ కార్యకలాపాలు)", icon: Flame, href: "#" },
-    { title: "Scans & Reports (స్కాన్‌లు & నివేదికలు)", icon: FileText, href: "#" },
-    { title: "Care Support (సంరక్షణ మద్దతు)", icon: HeartHandshake, href: "#" },
-]
+const dietPlan = {
+    breakfast: ["Oats with fruits", "2 boiled eggs"],
+    lunch: ["Roti, dal, vegetable curry", "Salad"],
+    dinner: ["Light vegetable soup", "Brown rice"],
+};
+
+const dailyActivities = [
+    { activity: "Morning Walk", duration: "30 mins", icon: Flame },
+    { activity: "Prenatal Yoga", duration: "20 mins", icon: HeartHandshake },
+    { activity: "Light Stretching", duration: "15 mins", icon: Flame },
+];
+
+const scansAndReports = [
+    { name: "First Trimester Screening", date: "2024-05-10" },
+    { name: "Anomaly Scan (TIFFA)", date: "2024-07-22" },
+    { name: "Glucose Tolerance Test", date: "2024-08-15" },
+];
 
 export default function PregnancyTrackerPage() {
     const pregnancyWeek = 22;
@@ -42,17 +53,93 @@ export default function PregnancyTrackerPage() {
                 </CardContent>
             </Card>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {pregnancyFeatures.map(feature => (
-                     <Link key={feature.title} href={feature.href} passHref>
-                        <Card className="text-center p-4 hover:bg-muted/50 transition-colors cursor-pointer h-full flex flex-col items-center justify-center aspect-square">
-                           <div className="p-3 rounded-full mb-3" style={{backgroundColor: 'hsla(var(--nav-appointments)/0.1)'}}>
-                                <feature.icon className="h-10 w-10" style={{color: 'hsl(var(--nav-appointments))'}} />
+            <div className="grid lg:grid-cols-2 gap-8 items-start">
+                 <div className="space-y-8">
+                     <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2"><Utensils style={{color: 'hsl(var(--nav-appointments))'}}/> Diet Plan (ఆహార ప్రణాళిక)</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <div>
+                                <h4 className="font-semibold mb-2">Breakfast</h4>
+                                <ul className="list-disc list-inside text-muted-foreground space-y-1">
+                                    {dietPlan.breakfast.map((item, i) => <li key={i}>{item}</li>)}
+                                </ul>
                             </div>
-                            <p className="font-bold text-sm">{feature.title}</p>
-                        </Card>
-                    </Link>
-                ))}
+                            <div>
+                                <h4 className="font-semibold mb-2">Lunch</h4>
+                                <ul className="list-disc list-inside text-muted-foreground space-y-1">
+                                    {dietPlan.lunch.map((item, i) => <li key={i}>{item}</li>)}
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 className="font-semibold mb-2">Dinner</h4>
+                                <ul className="list-disc list-inside text-muted-foreground space-y-1">
+                                     {dietPlan.dinner.map((item, i) => <li key={i}>{item}</li>)}
+                                </ul>
+                            </div>
+                        </CardContent>
+                    </Card>
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2"><Flame style={{color: 'hsl(var(--nav-appointments))'}}/> Daily Activities (రోజువారీ కార్యకలాపాలు)</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-3">
+                            {dailyActivities.map((act, i) => (
+                                <div key={i} className="flex items-center justify-between p-3 bg-muted/40 rounded-lg">
+                                    <div className="flex items-center gap-3">
+                                        <act.icon className="h-5 w-5 text-primary" style={{color: 'hsl(var(--nav-appointments))'}}/>
+                                        <p className="font-semibold">{act.activity}</p>
+                                    </div>
+                                    <p className="text-sm font-medium text-muted-foreground">{act.duration}</p>
+                                </div>
+                            ))}
+                        </CardContent>
+                    </Card>
+                 </div>
+                 <div className="space-y-8">
+                     <Card>
+                        <CardHeader>
+                            <CardTitle>Doctor & Care Support</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <div className="flex items-center gap-4">
+                                <Avatar className="h-16 w-16">
+                                    <AvatarImage src="https://placehold.co/100x100.png" data-ai-hint="female doctor" />
+                                    <AvatarFallback>DR</AvatarFallback>
+                                </Avatar>
+                                <div>
+                                    <p className="font-bold">Dr. Meena Reddy</p>
+                                    <p className="text-sm text-muted-foreground">Gynecologist</p>
+                                </div>
+                            </div>
+                             <Button className="w-full justify-start gap-2" variant="outline"><Phone className="h-4 w-4"/> Call Doctor</Button>
+                             <Button className="w-full justify-start gap-2" variant="outline"><Video className="h-4 w-4"/> Video Consult</Button>
+                              <Button className="w-full justify-start gap-2 text-destructive border-destructive/50 hover:bg-destructive/10 hover:text-destructive" variant="outline">
+                                <ShieldAlert className="h-4 w-4"/> Emergency Contact
+                            </Button>
+                        </CardContent>
+                    </Card>
+
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2"><FileText style={{color: 'hsl(var(--nav-appointments))'}}/> Scans & Reports (స్కాన్‌లు & నివేదికలు)</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-3">
+                             {scansAndReports.map((report, i) => (
+                                <div key={i} className="flex items-center justify-between p-3 bg-muted/40 rounded-lg">
+                                   <div>
+                                       <p className="font-semibold">{report.name}</p>
+                                       <p className="text-sm text-muted-foreground">{report.date}</p>
+                                   </div>
+                                   <Button variant="ghost" size="icon">
+                                        <View className="h-5 w-5" style={{color: 'hsl(var(--nav-appointments))'}}/>
+                                   </Button>
+                                </div>
+                            ))}
+                        </CardContent>
+                    </Card>
+                 </div>
             </div>
 
             <div className="grid md:grid-cols-5 gap-8">
@@ -98,28 +185,7 @@ export default function PregnancyTrackerPage() {
                 </div>
 
                 <div className="md:col-span-2 space-y-8">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Doctor & Emergency</CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                            <div className="flex items-center gap-4">
-                                <Avatar className="h-16 w-16">
-                                    <AvatarImage src="https://placehold.co/100x100.png" data-ai-hint="female doctor" />
-                                    <AvatarFallback>DR</AvatarFallback>
-                                </Avatar>
-                                <div>
-                                    <p className="font-bold">Dr. Meena Reddy</p>
-                                    <p className="text-sm text-muted-foreground">Gynecologist</p>
-                                </div>
-                            </div>
-                             <Button className="w-full justify-start gap-2" variant="outline"><Phone className="h-4 w-4"/> Call Doctor</Button>
-                             <Button className="w-full justify-start gap-2" variant="outline"><Video className="h-4 w-4"/> Video Consult</Button>
-                              <Button className="w-full justify-start gap-2 text-destructive border-destructive/50 hover:bg-destructive/10 hover:text-destructive" variant="outline">
-                                <ShieldAlert className="h-4 w-4"/> Emergency Contact
-                            </Button>
-                        </CardContent>
-                    </Card>
+                    
                 </div>
             </div>
         </div>
