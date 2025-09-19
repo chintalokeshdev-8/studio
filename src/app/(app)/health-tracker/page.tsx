@@ -110,7 +110,7 @@ const BmiGauge = ({ bmi }: { bmi: number | null }) => {
     const GaugeLabel = ({ angle, label, value }: { angle: number; label: string; value: string }) => (
         <text
             transform={`rotate(${angle} 50 50)`}
-            className="text-[5px] font-bold fill-white"
+            className="text-[5px] font-bold fill-black"
             textAnchor="middle"
         >
             <tspan x="50" y="15">{label}</tspan>
@@ -528,6 +528,7 @@ export default function HealthTrackerPage() {
     
 
     
+
 
 
 
