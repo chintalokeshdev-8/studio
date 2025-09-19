@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Heart, TrendingUp, PlusCircle, Scale, Activity, Flame, Footprints, Info, Watch, Radio, Target, Bike, PersonStanding, Dumbbell, Leaf, Check, Droplets, Wind, Brain } from "lucide-react";
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from 'next/image';
 
@@ -62,6 +62,15 @@ const weekDays = [
     { day: "Sun", date: 21 },
 ];
 
+const StomachIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <path d="M8.5 2.5C5.5 2.5 4.5 5.5 4.5 8.5C4.5 11.5 5.5 13.5 8.5 13.5C11.5 13.5 12.5 11.5 12.5 8.5C12.5 5.5 11.5 2.5 8.5 2.5z" />
+        <path d="M15.5 12.5C15.5 12.5 16.5 13.5 16.5 15.5C16.5 17.5 15.5 18.5 15.5 18.5" />
+        <path d="M4.5 8.5C4.5 8.5 4.5 14.5 8.5 17.5C12.5 20.5 15.5 18.5 15.5 18.5" />
+    </svg>
+);
+
+
 const organHealthData = [
     {
       name: "Heart",
@@ -98,6 +107,14 @@ const organHealthData = [
       dataAiHint: "brain organ",
       color: "hsl(var(--nav-symptoms))",
     },
+     {
+        name: "Stomach (Gut)",
+        health: 93,
+        icon: StomachIcon,
+        image: "https://picsum.photos/seed/stomach/100/100",
+        dataAiHint: "stomach organ",
+        color: "hsl(var(--nav-medicines))",
+    }
 ];
 
 const CircularProgress = ({ percentage, children, size = 100, strokeWidth = 8, color } : { percentage: number, children: React.ReactNode, size?: number, strokeWidth?: number, color?: string }) => {
@@ -438,7 +455,7 @@ export default function HealthTrackerPage() {
                         <p>మీ గత నివేదికల(Reports) ప్రకారం, మీ ముఖ్య అవయవాల ఆరోగ్య స్థితి యొక్క సారాంశం ఇది.</p>
                     </div>
                 </CardHeader>
-                <CardContent className="grid grid-cols-3 md:grid-cols-5 gap-2">
+                <CardContent className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-6 gap-2">
                     {organHealthData.map((organ) => (
                         <Card key={organ.name} className="p-2 flex flex-col items-center text-center">
                             <CircularProgress percentage={organ.health} size={80} strokeWidth={6} color={organ.color}>
@@ -451,8 +468,8 @@ export default function HealthTrackerPage() {
                                     className="rounded-full object-cover"
                                 />
                             </CircularProgress>
-                            <p className="mt-2 text-lg font-bold">{organ.name}</p>
-                            <p className="font-semibold text-xl" style={{color: organ.color}}>{organ.health}%</p>
+                            <p className="mt-2 text-sm font-bold">{organ.name}</p>
+                            <p className="font-semibold text-base" style={{color: organ.color}}>{organ.health}%</p>
                             <p className="text-xs text-muted-foreground">Healthy</p>
                         </Card>
                     ))}
