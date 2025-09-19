@@ -14,9 +14,13 @@ export function PregnantLadyIcon(props: React.SVGProps<SVGSVGElement>) {
       strokeLinejoin="round"
       {...props}
     >
-      <path d="M12 5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-      <path d="M12 11.5c-2.5 0-4.5 2-4.5 4.5v7h9v-7c0-2.5-2-4.5-4.5-4.5Z" />
-      <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" />
+      <circle cx="12" cy="5" r="2" />
+      <path d="M12 7v1l-2 5h4l-2 -5" />
+      <path d="M14 12v8" />
+      <path d="M10 12v8" />
+      <path d="M10 15h4" />
+      <path d="M10.5 12c-2.5 0-4.5 2-4.5 4.5" />
+      <path d="M13.5 12c2.5 0 4.5 2 4.5 4.5" />
     </svg>
   );
 }
