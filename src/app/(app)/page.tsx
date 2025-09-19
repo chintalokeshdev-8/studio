@@ -1,5 +1,4 @@
 
-
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -13,7 +12,7 @@ import Image from 'next/image';
 import React from 'react';
 
 const quickAccessItems = [
-  { href: '/', icon: Stethoscope, label: 'Dashboard', description: 'హోమ్', color: 'hsl(var(--nav-home))' },
+  { href: "/", icon: Stethoscope, label: 'Dashboard', description: 'హోమ్', color: 'hsl(var(--nav-home))' },
   { href: '/symptom-checker', icon: HeartPulse, label: 'AI Symptom Check', description: 'వైద్య లక్షణాలు తనిఖీ', color: 'hsl(var(--nav-symptoms))' },
   { href: '/health-tracker', label: 'Health Tracker', description: 'ఆరోగ్య ట్రాకర్', icon: Heart, color: 'hsl(var(--nav-profile))' },
   { href: '/pregnancy-tracker', label: 'Pregnancy', description: 'గర్భం', icon: Baby, color: 'hsl(var(--nav-appointments))' },
@@ -159,11 +158,11 @@ export default function DashboardPage() {
        <Card>
           <CardHeader>
               <CardTitle className="flex items-center gap-2"><Heart style={{color: 'hsl(var(--nav-profile))'}}/>Organ Health Overview</CardTitle>
-              <CardDescription>
-                <div className="font-bold text-foreground">
-                    <p>A summary of your key organ health based on recent reports.</p>
-                    <p>మీ గత నివేదికల(Reports) ప్రకారం, మీ ముఖ్య అవయవాల ఆరోగ్య స్థితి యొక్క సారాంశం ఇది.</p>
-                </div>
+                <CardDescription asChild>
+                    <div className="font-bold text-foreground">
+                        <p>A summary of your key organ health based on recent reports.</p>
+                        <p>మీ గత నివేదికల(Reports) ప్రకారం, మీ ముఖ్య అవయవాల ఆరోగ్య స్థితి యొక్క సారాంశం ఇది.</p>
+                    </div>
               </CardDescription>
           </CardHeader>
           <CardContent className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
