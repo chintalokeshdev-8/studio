@@ -35,9 +35,9 @@ export default function EmergencyPage() {
                 </CardHeader>
                 <CardContent className="grid sm:grid-cols-2 gap-4">
                     <p><strong>Name:</strong> Chinta Lokesh Babu</p>
-                    <p><strong>Age:</strong> 28 Years</p>
-                    <p><strong>Blood Group:</strong> B+ Positive</p>
-                    <p><strong>Contact:</strong> +91 98765 43210</p>
+                    <p><strong>Age:</strong> 27 Years</p>
+                    <p><strong>Blood Group:</strong> O+ Positive</p>
+                    <p><strong>Contact:</strong> +91 8008334948</p>
                 </CardContent>
             </Card>
 

@@ -78,21 +78,21 @@ export default function ProfilePage() {
                         <div className="flex-1 text-center md:text-left">
                             <h1 className="text-3xl font-bold">Chinta Lokesh Babu</h1>
                             <div className="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-2 mt-2 text-muted-foreground">
-                                <div className="flex items-center gap-2"><User /> 28 years old</div>
+                                <div className="flex items-center gap-2"><User /> 27 years old</div>
                                 <div className="flex items-center gap-2"><Heart /> Male</div>
-                                <div className="flex items-center gap-2"><Droplets /> B+ Positive</div>
+                                <div className="flex items-center gap-2"><Droplets /> O+ Positive</div>
                             </div>
                             <div className="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-2 mt-2 text-muted-foreground">
-                                <div className="flex items-center gap-2"><MapPin /> Guntur, Guntur District</div>
+                                <div className="flex items-center gap-2"><MapPin /> Rentachintala, Palnadu District</div>
                             </div>
                         </div>
                         <Button style={{backgroundColor: 'hsl(var(--nav-profile))'}}><Pencil className="mr-2 h-4 w-4" /> Edit Profile</Button>
                     </div>
                     <Separator className="my-6" />
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                        <div className="flex items-center gap-3"><Mail style={{color: 'hsl(var(--nav-profile))'}} className="h-5 w-5"/><span>chinta.lokesh@email.com</span></div>
-                        <div className="flex items-center gap-3"><Phone style={{color: 'hsl(var(--nav-profile))'}} className="h-5 w-5"/><span>+91 98765 43210</span></div>
-                        <div className="flex items-start gap-3"><MapPin style={{color: 'hsl(var(--nav-profile))'}} className="h-5 w-5 mt-1"/><span>H.No 1-2-3, Jubilee Hills, Hyderabad, India</span></div>
+                        <div className="flex items-center gap-3"><Mail style={{color: 'hsl(var(--nav-profile))'}} className="h-5 w-5"/><span>lokeshbabu9298@gmail.com</span></div>
+                        <div className="flex items-center gap-3"><Phone style={{color: 'hsl(var(--nav-profile))'}} className="h-5 w-5"/><span>+91 8008334948</span></div>
+                        <div className="flex items-start gap-3"><MapPin style={{color: 'hsl(var(--nav-profile))'}} className="h-5 w-5 mt-1"/><span>Rentala village, Rentachintala mandal, Palnadu district, India</span></div>
                     </div>
                 </CardContent>
             </Card>
