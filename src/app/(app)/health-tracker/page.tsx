@@ -441,12 +441,12 @@ export default function HealthTrackerPage() {
                 <CardContent className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
                     {organHealthData.map((organ) => (
                         <Card key={organ.name} className="p-4 flex flex-col items-center text-center">
-                            <CircularProgress percentage={organ.health} size={120} strokeWidth={8} color={organ.color}>
+                            <CircularProgress percentage={organ.health} size={100} strokeWidth={8} color={organ.color}>
                                 <Image
                                     src={organ.image}
                                     alt={organ.name}
-                                    width={80}
-                                    height={80}
+                                    width={60}
+                                    height={60}
                                     data-ai-hint={organ.dataAiHint}
                                     className="rounded-full object-cover"
                                 />
@@ -615,5 +615,6 @@ export default function HealthTrackerPage() {
 
 
     
+
 
 
