@@ -27,7 +27,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Button } from "../ui/button";
 
 const menuItems = [
-  { href: "/", label: "Home", telugu: "హోమ్", icon: Stethoscope, color: "hsl(var(--nav-home))" },
+  { href: "/", label: "Home", telugu: "హోమ్", icon: LayoutGrid, color: "hsl(var(--nav-home))" },
   { href: "/health-tracker", label: "Health Tracker", telugu: "ఆరోగ్య ట్రాకర్", icon: Heart, color: "hsl(var(--nav-profile))" },
   { href: "/symptom-checker", label: "AI Symptom Checker", telugu: "లక్షణాలు", icon: HeartPulse, color: "hsl(var(--nav-symptoms))" },
   { href: "/pregnancy-tracker", label: "Pregnancy Care", telugu: "గర్భం", icon: Baby, color: "hsl(var(--nav-appointments))" },
@@ -66,7 +66,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             <div className="p-1.5 bg-primary rounded-lg">
                 <Activity className="w-6 h-6 text-primary-foreground" />
             </div>
-            <h1 className="text-xl font-bold">MedBridge</h1>
+            <h1 className="text-xl font-bold">AarogyaAI</h1>
         </div>
         <Avatar className="h-8 w-8">
             <AvatarImage src="/images/profile.jpg" />
