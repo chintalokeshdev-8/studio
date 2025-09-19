@@ -358,6 +358,12 @@ export default function HealthTrackerPage() {
                             </div>
                             <Input id="calc-weight" type="number" placeholder={weightPlaceholders[weightUnit]} value={weight} onChange={(e) => setWeight(e.target.value)} />
                         </div>
+                         <div className="p-4 bg-muted/40 rounded-lg border">
+                            <h4 className="font-semibold flex items-center gap-2 mb-2"><Info className="h-5 w-5 text-primary" style={{color: 'hsl(var(--nav-profile))'}}/> What is BMI?</h4>
+                            <p className="text-sm text-muted-foreground">
+                                One of the most important aspects of the human health is the body mass index (BMI). Being able to calculate your BMI enables you to determine your total body fat at any given time. Whether you’re a man, woman or teen, you can learn how to calculate your BMI using the BMI calculator or manually.
+                            </p>
+                        </div>
                     </div>
                     <div className="flex flex-col items-center justify-center">
                         <BmiGauge bmi={calculatedBmi} />
