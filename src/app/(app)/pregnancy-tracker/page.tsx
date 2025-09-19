@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Award, Baby, CalendarDays, Camera, FileText, Flame, HeartHandshake, Info, Phone, ShieldAlert, Utensils, Video, File, View, Moon, Star, AlertTriangle } from "lucide-react";
+import { Award, Baby, CalendarDays, Camera, FileText, Flame, HeartHandshake, Info, Phone, ShieldAlert, Utensils, Video, File, View, Moon, Star, AlertTriangle, Pencil, Upload } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -40,9 +40,9 @@ export default function PregnancyTrackerPage() {
 
             <Alert variant="destructive" className="bg-yellow-50 border-yellow-200 text-yellow-800 [&>svg]:text-yellow-600">
                 <AlertTriangle className="h-4 w-4" />
-                <AlertTitle className="font-bold">Important Disclaimer</AlertTitle>
+                <AlertTitle className="font-bold">Doctor-Prescribed Plans</AlertTitle>
                 <AlertDescription>
-                All diet plans and activities suggested here are for informational purposes only and should be followed under the supervision of your doctor. This app does not provide medical advice.
+                The diet and activity plans shown here are based on your doctor's recommendations that you have uploaded. This app helps you track them but does not provide medical advice.
                 </AlertDescription>
             </Alert>
 
@@ -67,8 +67,9 @@ export default function PregnancyTrackerPage() {
             <div className="grid lg:grid-cols-2 gap-8 items-start">
                  <div className="space-y-8">
                      <Card>
-                        <CardHeader>
+                        <CardHeader className="flex flex-row items-center justify-between">
                             <CardTitle className="flex items-center gap-2"><Utensils style={{color: 'hsl(var(--nav-appointments))'}}/> Diet Plan (ఆహార ప్రణాళిక)</CardTitle>
+                            <Button variant="outline" size="sm"><Pencil className="mr-2 h-4 w-4" /> Edit</Button>
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <div>
@@ -92,8 +93,9 @@ export default function PregnancyTrackerPage() {
                         </CardContent>
                     </Card>
                     <Card>
-                        <CardHeader>
+                        <CardHeader className="flex flex-row items-center justify-between">
                             <CardTitle className="flex items-center gap-2"><Flame style={{color: 'hsl(var(--nav-appointments))'}}/> Daily Activities (రోజువారీ కార్యకలాపాలు)</CardTitle>
+                            <Button variant="outline" size="sm"><Pencil className="mr-2 h-4 w-4" /> Edit</Button>
                         </CardHeader>
                         <CardContent className="space-y-3">
                             {dailyActivities.map((act, i) => (
@@ -133,8 +135,9 @@ export default function PregnancyTrackerPage() {
                     </Card>
 
                     <Card>
-                        <CardHeader>
+                        <CardHeader className="flex flex-row items-center justify-between">
                             <CardTitle className="flex items-center gap-2"><FileText style={{color: 'hsl(var(--nav-appointments))'}}/> Scans & Reports (స్కాన్‌లు & నివేదికలు)</CardTitle>
+                            <Button style={{backgroundColor: 'hsl(var(--nav-appointments))'}} size="sm"><Upload className="mr-2 h-4 w-4"/> Upload</Button>
                         </CardHeader>
                         <CardContent className="space-y-3">
                              {scansAndReports.map((report, i) => (
@@ -249,3 +252,5 @@ export default function PregnancyTrackerPage() {
         </div>
     )
 }
+
+    
