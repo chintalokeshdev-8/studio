@@ -71,11 +71,11 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             <div className="p-1.5 bg-primary rounded-lg">
                 <Activity className="w-6 h-6 text-primary-foreground" />
             </div>
-            <h1 className="text-xl font-bold">MedBridgee</h1>
+            <h1 className="text-xl font-bold">MedBridge</h1>
         </div>
         <Avatar className="h-8 w-8">
             <AvatarImage src="/images/profile.jpg" />
-            <AvatarFallback>CL</AvatarFallback>
+            <AvatarFallback>CLB</AvatarFallback>
         </Avatar>
       </header>
       <main className="flex-1 p-4 sm:p-6 lg:p-8 pb-24">
