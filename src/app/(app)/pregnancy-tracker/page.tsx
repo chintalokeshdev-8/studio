@@ -8,6 +8,7 @@ import { Award, Baby, CalendarDays, Camera, FileText, Flame, HeartHandshake, Inf
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Separator } from "@/components/ui/separator";
 
 const dietPlan = {
     breakfast: ["Oats with fruits", "2 boiled eggs"],
@@ -60,6 +61,28 @@ export default function PregnancyTrackerPage() {
                     <div className="flex justify-between text-xs font-medium text-muted-foreground">
                         <span>Week 1</span>
                         <span>Week 40</span>
+                    </div>
+                    <Separator className="my-6" />
+                    <div className="space-y-6">
+                        <h3 className="text-xl font-semibold text-center">This Week's Guide</h3>
+                        <div>
+                            <h4 className="font-semibold text-lg mb-2">Baby's Development</h4>
+                            <div className="flex items-start gap-4">
+                                 <Baby className="h-8 w-8 mt-1" style={{color: 'hsl(var(--nav-appointments))'}}/>
+                                 <p className="text-muted-foreground">
+                                    Your baby is now about the size of a small doll, and their senses are developing rapidly. They can hear your voice, and you might start to feel their first movements, known as "quickening."
+                                </p>
+                            </div>
+                        </div>
+                         <div>
+                            <h4 className="font-semibold text-lg mb-2">Mother's Changes</h4>
+                             <div className="flex items-start gap-4">
+                                <HeartHandshake className="h-8 w-8 mt-1" style={{color: 'hsl(var(--nav-appointments))'}}/>
+                                <p className="text-muted-foreground">
+                                    You may be feeling more energetic as morning sickness subsides. Your baby bump is becoming more noticeable. It's a great time to focus on a healthy diet and gentle exercise.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </CardContent>
             </Card>
@@ -157,100 +180,68 @@ export default function PregnancyTrackerPage() {
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
-                <div className="space-y-8">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle className="flex items-center gap-2"><CalendarDays /> This Week's Guide</CardTitle>
-                            <CardDescription>What to expect in Week {pregnancyWeek}</CardDescription>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                            <div>
-                                <h4 className="font-semibold text-lg mb-2">Baby's Development</h4>
-                                <div className="flex items-start gap-4">
-                                     <Baby className="h-8 w-8 mt-1" style={{color: 'hsl(var(--nav-appointments))'}}/>
-                                     <p className="text-muted-foreground">
-                                        Your baby is now about the size of a small doll, and their senses are developing rapidly. They can hear your voice, and you might start to feel their first movements, known as "quickening."
-                                    </p>
-                                </div>
-                            </div>
-                             <div>
-                                <h4 className="font-semibold text-lg mb-2">Mother's Changes</h4>
-                                 <div className="flex items-start gap-4">
-                                    <HeartHandshake className="h-8 w-8 mt-1" style={{color: 'hsl(var(--nav-appointments))'}}/>
-                                    <p className="text-muted-foreground">
-                                        You may be feeling more energetic as morning sickness subsides. Your baby bump is becoming more noticeable. It's a great time to focus on a healthy diet and gentle exercise.
-                                    </p>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-                </div>
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2"><Award/> Congratulations!</CardTitle>
+                         <CardDescription>This will be your certificate after delivery.</CardDescription>
+                    </CardHeader>
+                    <CardContent className="text-center p-8 bg-muted/40 rounded-lg space-y-4">
+                        <Camera className="mx-auto h-16 w-16 text-muted-foreground"/>
+                        <p className="font-semibold text-muted-foreground">Awaiting the big day!</p>
+                         <p className="text-sm text-muted-foreground">After delivery, you'll find a beautiful certificate here with your and your baby's photo.</p>
+                    </CardContent>
+                </Card>
 
-                <div className="grid grid-cols-1 gap-8 items-start">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle className="flex items-center gap-2"><Award/> Congratulations!</CardTitle>
-                             <CardDescription>This will be your certificate after delivery.</CardDescription>
-                        </CardHeader>
-                        <CardContent className="text-center p-8 bg-muted/40 rounded-lg space-y-4">
-                            <Camera className="mx-auto h-16 w-16 text-muted-foreground"/>
-                            <p className="font-semibold text-muted-foreground">Awaiting the big day!</p>
-                             <p className="text-sm text-muted-foreground">After delivery, you'll find a beautiful certificate here with your and your baby's photo.</p>
-                        </CardContent>
-                    </Card>
-                     <Card className="bg-blue-50 border-blue-200 p-6 relative overflow-hidden">
-                        <div className="absolute -top-4 -left-4 w-24 h-24 bg-blue-100 rounded-full"></div>
-                        <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-blue-100 rounded-full"></div>
-                        <div className="relative z-10 space-y-4 text-blue-800">
-                           <div className="text-center space-y-2">
-                                <h3 className="text-2xl font-bold tracking-wider">BIRTH CERTIFICATE</h3>
-                                <p className="text-xs font-medium">THIS DOCUMENT ACKNOWLEDGES THAT</p>
-                           </div>
-                            <div className="text-center">
-                                <p className="text-3xl font-bold text-blue-900">Name Surname</p>
-                                <hr className="border-blue-300 my-2 w-1/2 mx-auto"/>
-                            </div>
-                            <div className="text-center text-sm">
-                                <p>WAS BORN TO</p>
-                                <div className="flex justify-center gap-8 mt-2 font-semibold">
-                                    <div>
-                                        <p>Mother's Name</p>
-                                        <hr className="border-blue-300 mt-1"/>
-                                    </div>
-                                    <div>
-                                        <p>Father's Name</p>
-                                         <hr className="border-blue-300 mt-1"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="text-center text-sm">
-                                <p>AT HOSPITAL PLACE IN CITY, COUNTRY</p>
-                                <hr className="border-blue-300 mt-1 w-3/4 mx-auto"/>
-                            </div>
-                            <div className="grid grid-cols-2 gap-4 text-center text-sm pt-4">
+                <Card className="bg-blue-50 border-blue-200 p-6 relative overflow-hidden">
+                    <div className="absolute -top-4 -left-4 w-24 h-24 bg-blue-100 rounded-full"></div>
+                    <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-blue-100 rounded-full"></div>
+                    <div className="relative z-10 space-y-4 text-blue-800">
+                       <div className="text-center space-y-2">
+                            <h3 className="text-2xl font-bold tracking-wider">BIRTH CERTIFICATE</h3>
+                            <p className="text-xs font-medium">THIS DOCUMENT ACKNOWLEDGES THAT</p>
+                       </div>
+                        <div className="text-center">
+                            <p className="text-3xl font-bold text-blue-900">Name Surname</p>
+                            <hr className="border-blue-300 my-2 w-1/2 mx-auto"/>
+                        </div>
+                        <div className="text-center text-sm">
+                            <p>WAS BORN TO</p>
+                            <div className="flex justify-center gap-8 mt-2 font-semibold">
                                 <div>
-                                    <p>WEIGHT: ___ LBS</p>
-                                    <hr className="border-blue-300 mt-1"/>
-                                </div>
-                                 <div>
-                                    <p>LENGTH: ___ INCH</p>
-                                    <hr className="border-blue-300 mt-1"/>
-                                </div>
-                                 <div>
-                                    <p>DATE: __/__/____</p>
+                                    <p>Mother's Name</p>
                                     <hr className="border-blue-300 mt-1"/>
                                 </div>
                                 <div>
-                                    <p>SIGNATURE</p>
-                                    <hr className="border-blue-300 mt-1"/>
+                                    <p>Father's Name</p>
+                                     <hr className="border-blue-300 mt-1"/>
                                 </div>
                             </div>
                         </div>
-                    </Card>
-                </div>
+                        <div className="text-center text-sm">
+                            <p>AT HOSPITAL PLACE IN CITY, COUNTRY</p>
+                            <hr className="border-blue-300 mt-1 w-3/4 mx-auto"/>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4 text-center text-sm pt-4">
+                            <div>
+                                <p>WEIGHT: ___ LBS</p>
+                                <hr className="border-blue-300 mt-1"/>
+                            </div>
+                             <div>
+                                <p>LENGTH: ___ INCH</p>
+                                <hr className="border-blue-300 mt-1"/>
+                            </div>
+                             <div>
+                                <p>DATE: __/__/____</p>
+                                <hr className="border-blue-300 mt-1"/>
+                            </div>
+                            <div>
+                                <p>SIGNATURE</p>
+                                <hr className="border-blue-300 mt-1"/>
+                            </div>
+                        </div>
+                    </div>
+                </Card>
             </div>
         </div>
     )
 }
-
-    
