@@ -97,44 +97,39 @@ const CircularProgress = ({ percentage, children, size = 120, strokeWidth = 10 }
 
 const BmiGauge = ({ bmi }: { bmi: number | null }) => {
     const getRotation = (bmiValue: number) => {
-        if (bmiValue < 15) return 0;
-        if (bmiValue > 45) return 180;
-        // Map BMI from 15-45 to 0-180 degrees
-        return ((bmiValue - 15) / 30) * 180;
+        if (bmiValue < 15) return -90;
+        if (bmiValue > 45) return 90;
+        // Map BMI from 15-45 to -90 to 90 degrees
+        return ((bmiValue - 15) / 30) * 180 - 90;
     };
 
-    const rotation = bmi ? getRotation(bmi) : 0;
+    const rotation = bmi ? getRotation(bmi) : -90;
 
     return (
-        <div className="relative w-[320px] h-[180px] mx-auto">
-            <svg viewBox="0 0 100 57" className="w-full h-full">
+        <div className="relative w-[300px] h-[170px] mx-auto">
+            <svg viewBox="0 0 100 57" className="w-full h-full overflow-visible">
                 {/* Gauge Background Arcs */}
-                <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" strokeWidth="12" className="stroke-[#0096FF]" /> {/* Normal */}
-                <path d="M 10 50 A 40 40 0 0 1 50 10" fill="none" strokeWidth="12" className="stroke-[#0096FF]" /> {/* Normal */}
-                <path d="M 20.7 15.3 A 40 40 0 0 1 90 50" fill="none" strokeWidth="12" className="stroke-transparent" style={{ transform: 'rotate(0deg)', transformOrigin: '50px 50px' }} />
-                <path d="M 50 10 A 40 40 0 0 1 79.3 15.3" fill="none" strokeWidth="12" className="stroke-[#22C55E]" /> {/* Overweight */}
-                <path d="M 79.3 15.3 A 40 40 0 0 1 90 50 L 50 50" fill="none" strokeWidth="12" className="stroke-transparent" />
-                <path d="M 90 50 A 40 40 0 0 1 50 90" fill="none" strokeWidth="12" className="stroke-transparent" />
-                <path d="M 10 50 A 40 40 0 0 1 20.7 15.3" fill="none" strokeWidth="12" stroke="#0096FF" />
-                <path d="M 20.7 15.3 A 40 40 0 0 1 50 10" fill="none" strokeWidth="12" stroke="#22C55E" />
-                <path d="M 50 10 A 40 40 0 0 1 79.3 15.3" fill="none" strokeWidth="12" stroke="#FBBF24" />
-                <path d="M 79.3 15.3 A 40 40 0 0 1 90 50" fill="none" strokeWidth="12" stroke="#F44336" />
+                 <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" strokeWidth="12" className="stroke-muted/30" />
 
-                {/* Text Labels */}
-                <text x="18" y="38" className="text-[6px] font-bold fill-white" transform="rotate(-60 18 38)">Normal</text>
-                <text x="35" y="16" className="text-[6px] font-bold fill-white" transform="rotate(-25 35 16)">Overweight</text>
-                <text x="60" y="16" className="text-[6px] font-bold fill-white" transform="rotate(25 60 16)">Obese</text>
-                <text x="78" y="38" className="text-[6px] font-bold fill-white" transform="rotate(60 78 38)">Morbidly</text>
+                {/* Colored Arcs for BMI categories */}
+                {/* Underweight (blue) < 18.5 */}
+                <path d="M 10 50 A 40 40 0 0 1 20.7 15.3" fill="none" strokeWidth="12" stroke="#3b82f6" />
+                {/* Normal (green) 18.5 - 25 */}
+                <path d="M 20.7 15.3 A 40 40 0 0 1 50 10" fill="none" strokeWidth="12" stroke="#22c55e" />
+                {/* Overweight (yellow) 25 - 30 */}
+                <path d="M 50 10 A 40 40 0 0 1 79.3 15.3" fill="none" strokeWidth="12" stroke="#facc15" />
+                {/* Obese (red) > 30 */}
+                <path d="M 79.3 15.3 A 40 40 0 0 1 90 50" fill="none" strokeWidth="12" stroke="#ef4444" />
 
                 {/* Needle */}
                 <g transform={`rotate(${rotation} 50 50)`}>
-                    <polygon points="50,15 48,50 52,50" fill="hsl(var(--foreground))" />
-                    <circle cx="50" cy="50" r="4" fill="hsl(var(--foreground))" />
+                    <polygon points="50,12 49,50 51,50" fill="hsl(var(--foreground))" />
+                    <circle cx="50" cy="50" r="3" fill="hsl(var(--foreground))" />
                 </g>
                 <text x="50" y="55" textAnchor="middle" className="text-sm font-bold fill-foreground">BODY MASS INDEX</text>
             </svg>
              {bmi !== null && (
-                <div className="absolute bottom-5 left-1/2 -translate-x-1/2 text-center">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center mt-2">
                     <p className="text-3xl font-bold" style={{color: 'hsl(var(--nav-profile))'}}>{bmi.toFixed(1)}</p>
                     <Badge className={`text-sm mt-1 ${getBmiCategory(bmi)?.className}`}>{getBmiCategory(bmi)?.category}</Badge>
                 </div>
@@ -399,3 +394,4 @@ export default function HealthTrackerPage() {
     );
 
     
+
