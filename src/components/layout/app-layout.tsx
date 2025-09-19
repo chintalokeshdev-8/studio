@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -20,6 +21,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Button } from "../ui/button";
 
 const menuItems = [
   { href: "/", label: "Home", telugu: "హోమ్", icon: LayoutGrid, color: "hsl(var(--nav-home))" },
@@ -36,6 +38,15 @@ const menuItems = [
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const scrollContainerRef = React.useRef<HTMLDivElement>(null);
+
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+        const scrollAmount = 200;
+        scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
 
   return (
     <div className="flex flex-col min-h-screen bg-muted/30">
@@ -56,7 +67,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       </main>
       <footer className="sticky bottom-0 z-20 mt-auto bg-background border-t">
         <div className="relative">
-            <ScrollArea className="w-full whitespace-nowrap">
+            <ScrollArea ref={scrollContainerRef} className="w-full whitespace-nowrap">
                 <nav className="flex w-max space-x-2 p-2 pr-12 justify-center">
                     {menuItems.map((item) => {
                         const isActive = pathname === item.href;
@@ -91,10 +102,10 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 </nav>
                 <ScrollBar orientation="horizontal" className="invisible" />
             </ScrollArea>
-             <div className="absolute top-0 right-0 h-full flex items-center pr-2 pointer-events-none bg-gradient-to-l from-background to-transparent w-12">
-                <div className="bg-muted rounded-full p-1">
-                  <ChevronRight className="h-5 w-5 text-foreground" />
-                </div>
+             <div className="absolute top-0 right-0 h-full flex items-center pr-2 bg-gradient-to-l from-background to-transparent w-12">
+                <Button variant="ghost" size="icon" className="bg-muted rounded-full h-8 w-8" onClick={handleScroll}>
+                    <ChevronRight className="h-5 w-5 text-foreground" />
+                </Button>
             </div>
         </div>
       </footer>
