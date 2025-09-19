@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -7,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Heart, TrendingUp, PlusCircle, Scale, Activity, Flame, Footprints, Info, Watch, Radio, Target, Bike, PersonStanding, Dumbbell, Leaf, Check, Wind, Brain, TestTube, Droplets } from "lucide-react";
+import { Heart, TrendingUp, PlusCircle, Scale, Activity, Flame, Footprints, Info, Watch, Radio, Target, Bike, PersonStanding, Dumbbell, Leaf, Check } from "lucide-react";
 import React, { useState, useMemo } from 'react';
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from 'next/image';
@@ -59,49 +60,6 @@ const weekDays = [
     { day: "Fri", date: 19, active: true },
     { day: "Sat", date: 20 },
     { day: "Sun", date: 21 },
-];
-
-const organHealthData = [
-    {
-      name: "Heart",
-      health: 95,
-      icon: Heart,
-      image: "https://picsum.photos/seed/heart/100/100",
-      dataAiHint: "heart organ",
-      color: "hsl(var(--nav-emergency))",
-    },
-    {
-      name: "Liver",
-      health: 92,
-      icon: Leaf,
-      image: "https://picsum.photos/seed/liver/100/100",
-      dataAiHint: "liver organ",
-      color: "hsl(var(--nav-diagnostics))",
-    },
-    {
-      name: "Kidneys",
-      health: 90,
-      icon: Droplets,
-      image: "https://picsum.photos/seed/kidneys/100/100",
-      dataAiHint: "kidneys organ",
-      color: "hsl(var(--nav-chat))",
-    },
-    {
-      name: "Lungs",
-      health: 88,
-      icon: Wind,
-      image: "https://picsum.photos/seed/lungs/100/100",
-      dataAiHint: "lungs organ",
-      color: "hsl(var(--nav-junior-doctors))",
-    },
-    {
-      name: "Brain",
-      health: 98,
-      icon: Brain,
-      image: "https://picsum.photos/seed/brain/100/100",
-      dataAiHint: "brain organ",
-      color: "hsl(var(--nav-symptoms))",
-    },
 ];
 
 const CircularProgress = ({ percentage, children, size = 100, strokeWidth = 8, color } : { percentage: number, children: React.ReactNode, size?: number, strokeWidth?: number, color?: string }) => {
@@ -460,32 +418,6 @@ export default function HealthTrackerPage() {
 
             <Card>
                 <CardHeader>
-                    <CardTitle className="flex items-center gap-2"><Heart style={{color: 'hsl(var(--nav-profile))'}}/>Organ Health Overview</CardTitle>
-                    <CardDescription>A summary of your key organ health based on recent reports.</CardDescription>
-                </CardHeader>
-                <CardContent className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-                    {organHealthData.map((organ) => (
-                        <Card key={organ.name} className="p-4 flex flex-col items-center text-center">
-                            <CircularProgress percentage={organ.health} size={120} strokeWidth={8} color={organ.color}>
-                                <Image
-                                    src={organ.image}
-                                    alt={organ.name}
-                                    width={80}
-                                    height={80}
-                                    data-ai-hint={organ.dataAiHint}
-                                    className="rounded-full object-cover"
-                                />
-                            </CircularProgress>
-                            <p className="mt-4 text-lg font-bold">{organ.name}</p>
-                            <p className="font-semibold text-xl" style={{color: organ.color}}>{organ.health}%</p>
-                            <p className="text-xs text-muted-foreground">Healthy</p>
-                        </Card>
-                    ))}
-                </CardContent>
-            </Card>
-
-            <Card>
-                <CardHeader>
                     <CardTitle className="flex items-center justify-center gap-2"><Scale /> BMI Calculator</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -596,6 +528,7 @@ export default function HealthTrackerPage() {
     
 
     
+
 
 
 

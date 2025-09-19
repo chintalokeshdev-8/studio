@@ -1,13 +1,16 @@
 
+
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { HeartPulse, MessageSquare, Siren, Users, TestTube, FlaskConical, LifeBuoy, Stethoscope, Microscope, Pill, Headset, Phone, Link2, CalendarCheck, User, Heart, Baby } from 'lucide-react';
+import { HeartPulse, MessageSquare, Siren, Users, TestTube, FlaskConical, LifeBuoy, Stethoscope, Microscope, Pill, Headset, Phone, Link2, CalendarCheck, User, Heart, Baby, Leaf, Droplets, Wind, Brain } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
+import React from 'react';
 
 const quickAccessItems = [
   { href: '/', icon: Stethoscope, label: 'Dashboard', description: 'హోమ్', color: 'hsl(var(--nav-home))' },
@@ -46,6 +49,84 @@ const healthOverviewItems = [
     { value: "4", label: "Medications", icon: Pill },
 ];
 
+const organHealthData = [
+    {
+      name: "Heart",
+      health: 95,
+      icon: Heart,
+      image: "https://picsum.photos/seed/heart/100/100",
+      dataAiHint: "heart organ",
+      color: "hsl(var(--nav-emergency))",
+    },
+    {
+      name: "Liver",
+      health: 92,
+      icon: Leaf,
+      image: "https://picsum.photos/seed/liver/100/100",
+      dataAiHint: "liver organ",
+      color: "hsl(var(--nav-diagnostics))",
+    },
+    {
+      name: "Kidneys",
+      health: 90,
+      icon: Droplets,
+      image: "https://picsum.photos/seed/kidneys/100/100",
+      dataAiHint: "kidneys organ",
+      color: "hsl(var(--nav-chat))",
+    },
+    {
+      name: "Lungs",
+      health: 88,
+      icon: Wind,
+      image: "https://picsum.photos/seed/lungs/100/100",
+      dataAiHint: "lungs organ",
+      color: "hsl(var(--nav-junior-doctors))",
+    },
+    {
+      name: "Brain",
+      health: 98,
+      icon: Brain,
+      image: "https://picsum.photos/seed/brain/100/100",
+      dataAiHint: "brain organ",
+      color: "hsl(var(--nav-symptoms))",
+    },
+];
+
+const CircularProgress = ({ percentage, children, size = 100, strokeWidth = 8, color } : { percentage: number, children: React.ReactNode, size?: number, strokeWidth?: number, color?: string }) => {
+    const radius = (size - strokeWidth) / 2;
+    const circumference = radius * 2 * Math.PI;
+    const offset = circumference - (percentage / 100) * circumference;
+
+    return (
+        <div className="relative flex items-center justify-center" style={{width: size, height: size}}>
+            <svg width={size} height={size} className="transform -rotate-90">
+                <circle
+                    className="text-muted/30"
+                    stroke="currentColor"
+                    fill="transparent"
+                    strokeWidth={strokeWidth}
+                    r={radius}
+                    cx={size/2}
+                    cy={size/2}
+                />
+                <circle
+                    stroke={color || "hsl(var(--primary))"}
+                    fill="transparent"
+                    strokeWidth={strokeWidth}
+                    strokeDasharray={circumference}
+                    strokeDashoffset={offset}
+                    strokeLinecap="round"
+                    r={radius}
+                    cx={size/2}
+                    cy={size/2}
+                />
+            </svg>
+            <div className="absolute">{children}</div>
+        </div>
+    );
+};
+
+
 export default function DashboardPage() {
   return (
     <div className="space-y-8">
@@ -73,6 +154,32 @@ export default function DashboardPage() {
               <p className="text-sm opacity-80">Blood Group</p>
           </div>
         </CardContent>
+      </Card>
+
+       <Card>
+          <CardHeader>
+              <CardTitle className="flex items-center gap-2"><Heart style={{color: 'hsl(var(--nav-profile))'}}/>Organ Health Overview</CardTitle>
+              <CardDescription>A summary of your key organ health based on recent reports.</CardDescription>
+          </CardHeader>
+          <CardContent className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+              {organHealthData.map((organ) => (
+                  <Card key={organ.name} className="p-4 flex flex-col items-center text-center">
+                      <CircularProgress percentage={organ.health} size={120} strokeWidth={8} color={organ.color}>
+                          <Image
+                              src={organ.image}
+                              alt={organ.name}
+                              width={80}
+                              height={80}
+                              data-ai-hint={organ.dataAiHint}
+                              className="rounded-full object-cover"
+                          />
+                      </CircularProgress>
+                      <p className="mt-4 text-lg font-bold">{organ.name}</p>
+                      <p className="font-semibold text-xl" style={{color: organ.color}}>{organ.health}%</p>
+                      <p className="text-xs text-muted-foreground">Healthy</p>
+                  </Card>
+              ))}
+          </CardContent>
       </Card>
 
 
