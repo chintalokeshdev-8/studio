@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -56,7 +57,7 @@ const weekDays = [
     { day: "Sun", date: 21 },
 ];
 
-const CircularProgress = ({ percentage, children, size = 200, strokeWidth = 15 } : { percentage: number, children: React.ReactNode, size?: number, strokeWidth?: number }) => {
+const CircularProgress = ({ percentage, children, size = 180, strokeWidth = 12 } : { percentage: number, children: React.ReactNode, size?: number, strokeWidth?: number }) => {
     const radius = (size - strokeWidth) / 2;
     const circumference = radius * 2 * Math.PI;
     const offset = circumference - (percentage / 100) * circumference;
@@ -125,7 +126,7 @@ export default function HealthTrackerPage() {
                             <CircularProgress percentage={stepsPercentage}>
                                 <div className="text-center">
                                     <p className="text-muted-foreground">Steps</p>
-                                    <p className="text-4xl font-bold">{stepsData.steps}</p>
+                                    <p className="text-3xl font-bold">{stepsData.steps}</p>
                                 </div>
                             </CircularProgress>
                         </div>
@@ -142,11 +143,11 @@ export default function HealthTrackerPage() {
                         <div className="grid grid-cols-2 gap-4 text-center">
                             <div>
                                 <p className="text-sm text-muted-foreground">Distance</p>
-                                <p className="text-2xl font-bold">{stepsData.distance} <span className="text-lg">km</span></p>
+                                <p className="text-xl font-bold">{stepsData.distance} <span className="text-base">km</span></p>
                             </div>
                             <div>
                                 <p className="text-sm text-muted-foreground">Calories</p>
-                                <p className="text-2xl font-bold">{stepsData.calories} <span className="text-lg">kcal</span></p>
+                                <p className="text-xl font-bold">{stepsData.calories} <span className="text-base">kcal</span></p>
                             </div>
                         </div>
                         <div className="flex justify-around rounded-lg bg-muted/30 p-2">
@@ -169,13 +170,13 @@ export default function HealthTrackerPage() {
                          <div className="flex justify-center">
                             <CircularProgress percentage={weeklyActivityPercentage}>
                                 <div className="text-center">
-                                    <p className="text-4xl font-bold">{weeklyActivityPercentage.toFixed(0)}<span className="text-2xl">%</span></p>
+                                    <p className="text-3xl font-bold">{weeklyActivityPercentage.toFixed(0)}<span className="text-xl">%</span></p>
                                     <p className="text-muted-foreground font-medium">{weeklyActivityData.completed} Min</p>
                                 </div>
                             </CircularProgress>
                         </div>
 
-                        <div className="space-y-4 text-center">
+                        <div className="space-y-4 text-center pt-4">
                             <div className="flex justify-around">
                                 <div className="text-center">
                                     <p className="text-muted-foreground text-sm">Brisk Walking</p>
