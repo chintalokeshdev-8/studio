@@ -66,19 +66,19 @@ export default function EmergencyPage() {
                     <CardDescription>Connect with donors or request blood in critical moments.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Tabs defaultValue="find" className="sm:flex sm:gap-6">
-                        <TabsList className="flex flex-col h-auto w-full sm:w-1/3 bg-transparent p-0 border-b sm:border-b-0 sm:border-r">
-                            <TabsTrigger value="find" className="w-full justify-start rounded-none border-b py-4 data-[state=active]:bg-muted/50 data-[state=active]:border-r-2 data-[state=active]:border-r-primary data-[state=active]:shadow-none">
+                    <Tabs defaultValue="find" className="w-full">
+                        <TabsList className="grid w-full grid-cols-3 gap-2 bg-transparent p-0">
+                            <TabsTrigger value="find" className="data-[state=active]:bg-destructive/10 data-[state=active]:text-destructive data-[state=active]:border-destructive/20 border-2 border-transparent text-base py-3">
                                 Find a Donor
                             </TabsTrigger>
-                            <TabsTrigger value="request" className="w-full justify-start rounded-none border-b py-4 data-[state=active]:bg-muted/50 data-[state=active]:border-r-2 data-[state=active]:border-r-primary data-[state=active]:shadow-none">
+                            <TabsTrigger value="request" className="data-[state=active]:bg-destructive/10 data-[state=active]:text-destructive data-[state=active]:border-destructive/20 border-2 border-transparent text-base py-3">
                                 Request Blood
                             </TabsTrigger>
-                            <TabsTrigger value="register" className="w-full justify-start rounded-none py-4 data-[state=active]:bg-muted/50 data-[state=active]:border-r-2 data-[state=active]:border-r-primary data-[state=active]:shadow-none">
-                                <UserPlus className="mr-2 h-4 w-4"/>Become a Donor
+                            <TabsTrigger value="register" className="data-[state=active]:bg-destructive/10 data-[state=active]:text-destructive data-[state=active]:border-destructive/20 border-2 border-transparent text-base py-3 flex items-center gap-2">
+                                <UserPlus className="h-4 w-4"/>Become a Donor
                             </TabsTrigger>
                         </TabsList>
-                        <div className="w-full sm:w-2/3 mt-6 sm:mt-0">
+                        <div className="mt-6">
                             <TabsContent value="find" className="mt-0">
                                 <div className="space-y-4">
                                     <div className="grid sm:grid-cols-2 gap-4">
@@ -273,5 +273,3 @@ export default function EmergencyPage() {
         </div>
     )
 }
-
-    
