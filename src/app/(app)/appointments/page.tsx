@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -62,14 +63,14 @@ const doctors = [
         location: "Hyderabad"
     },
     {
-        name: "Dr. Sandeep",
+        name: "Dr. Subbamma",
         specialty: "Dermatologist",
         experience: "7 years",
         hospital: "KIMS Hospital, Secunderabad",
         surgeries: "100+ cosmetic procedures",
         mainDealing: "Acne treatment and skin rejuvenation.",
         avatar: "https://placehold.co/100x100.png",
-        dataAiHint: "male doctor professional",
+        dataAiHint: "female doctor professional",
         location: "Hyderabad"
     }
 ];
