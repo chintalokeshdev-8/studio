@@ -142,10 +142,10 @@ export default function PregnancyTrackerPage() {
                             <div className="flex items-center gap-4">
                                 <Avatar className="h-16 w-16">
                                     <AvatarImage src="https://placehold.co/100x100.png" data-ai-hint="female doctor" />
-                                    <AvatarFallback>DR</AvatarFallback>
+                                    <AvatarFallback>SP</AvatarFallback>
                                 </Avatar>
                                 <div>
-                                    <p className="font-bold">Dr. Meena Reddy</p>
+                                    <p className="font-bold">Dr. Siva Parvathi</p>
                                     <p className="text-sm text-muted-foreground">Gynecologist</p>
                                 </div>
                             </div>
