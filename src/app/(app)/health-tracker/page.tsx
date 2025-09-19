@@ -113,8 +113,8 @@ const BmiGauge = ({ bmi }: { bmi: number | null }) => {
             className="text-[5px] font-bold fill-white"
             textAnchor="middle"
         >
-            <tspan x="50" y="16">{label}</tspan>
-            <tspan x="50" y="22">{value}</tspan>
+            <tspan x="50" y="15">{label}</tspan>
+            <tspan x="50" y="21">{value}</tspan>
         </text>
     );
 
@@ -528,6 +528,7 @@ export default function HealthTrackerPage() {
     
 
     
+
 
 
 
