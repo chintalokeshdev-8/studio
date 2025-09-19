@@ -460,7 +460,7 @@ export default function HealthTrackerPage() {
                             </div>
                         </div>
 
-                        <div className="p-4 bg-muted/40 rounded-lg border h-full flex flex-col justify-center">
+                        <div className="pt-2">
                             <h4 className="font-semibold flex items-center gap-2 mb-2"><Info className="h-5 w-5 text-primary" style={{color: 'hsl(var(--nav-profile))'}}/> What is BMI?</h4>
                             <p className="text-sm text-muted-foreground">
                                 Body Mass Index (BMI) is a measure of body fat based on height and weight. It's a simple way to see if you're in a healthy weight range.
@@ -538,4 +538,5 @@ export default function HealthTrackerPage() {
     
 
     
+
 
