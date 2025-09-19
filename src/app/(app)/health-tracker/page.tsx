@@ -100,20 +100,27 @@ const BmiGauge = ({ bmi }: { bmi: number | null }) => {
         if (bmiValue === null) return -90;
         if (bmiValue < 15) return -80;
         if (bmiValue > 45) return 80;
-        // Map BMI from 15-45 to -80 to 80 degrees
         return ((bmiValue - 15) / 30) * 160 - 80;
     };
 
     const rotation = getRotation(bmi);
 
     return (
-        <div className="relative w-[300px] h-[190px] mx-auto">
+        <div className="relative w-[300px] h-[190px] mx-auto font-sans">
             <svg viewBox="0 0 100 65" className="w-full h-full overflow-visible">
                 <defs>
                     <path id="arc-underweight" d="M 5.5 50 A 44.5 44.5 0 0 1 24 18" />
                     <path id="arc-normal" d="M 25 17 A 45 45 0 0 1 50 10" />
                     <path id="arc-overweight" d="M 51 10 A 45 45 0 0 1 76 17" />
                     <path id="arc-obese" d="M 77 18 A 44.5 44.5 0 0 1 94.5 50" />
+                    
+                    <path id="arc-normal-label" d="M 12 42 A 40 40 0 0 1 28 24" />
+                    <path id="arc-overweight-label" d="M 33 16 A 40 40 0 0 1 67 16" />
+                    <path id="arc-obese-label" d="M 72 24 A 40 40 0 0 1 88 42" />
+
+                    <path id="arc-normal-values" d="M 16 35 A 30 30 0 0 1 29 25" />
+                    <path id="arc-overweight-values" d="M 35 19 A 30 30 0 0 1 65 19" />
+                    <path id="arc-obese-values" d="M 71 25 A 30 30 0 0 1 84 35" />
                 </defs>
 
                 {/* Colored Arcs for BMI categories */}
@@ -122,6 +129,17 @@ const BmiGauge = ({ bmi }: { bmi: number | null }) => {
                 <path d="M 24.5 17.5 A 45 45 0 0 1 50 10" fill="none" strokeWidth="20" stroke="#22c55e" />
                 <path d="M 50 10 A 45 45 0 0 1 75.5 17.5" fill="none" strokeWidth="20" stroke="#facc15" />
                 <path d="M 75.5 17.5 A 45 45 0 0 1 95 50" fill="none" strokeWidth="20" stroke="#ef4444" />
+
+                {/* Category Labels */}
+                <text className="text-[5px] font-bold fill-white" dy="-1"><textPath href="#arc-normal-label" startOffset="50%" textAnchor="middle">Normal</textPath></text>
+                <text className="text-[5px] font-bold fill-white" dy="-1"><textPath href="#arc-overweight-label" startOffset="50%" textAnchor="middle">Overweight</textPath></text>
+                <text className="text-[5px] font-bold fill-white" dy="-1"><textPath href="#arc-obese-label" startOffset="50%" textAnchor="middle">Obese</textPath></text>
+
+                 {/* Value Labels */}
+                <text className="text-[4px] font-bold fill-white"><textPath href="#arc-normal-values" startOffset="50%" textAnchor="middle">18.5-24.9</textPath></text>
+                <text className="text-[4px] font-bold fill-white"><textPath href="#arc-overweight-values" startOffset="50%" textAnchor="middle">25-29.9</textPath></text>
+                <text className="text-[4px] font-bold fill-white"><textPath href="#arc-obese-values" startOffset="50%" textAnchor="middle">30-39.9</textPath></text>
+
 
                  {/* Needle */}
                  {bmi !== null && (
