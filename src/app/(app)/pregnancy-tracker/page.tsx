@@ -4,9 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Award, Baby, CalendarDays, Camera, FileText, Flame, HeartHandshake, Info, Phone, ShieldAlert, Utensils, Video, File, View, Moon, Star } from "lucide-react";
+import { Award, Baby, CalendarDays, Camera, FileText, Flame, HeartHandshake, Info, Phone, ShieldAlert, Utensils, Video, File, View, Moon, Star, AlertTriangle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const dietPlan = {
     breakfast: ["Oats with fruits", "2 boiled eggs"],
@@ -36,6 +37,15 @@ export default function PregnancyTrackerPage() {
                 <h1 className="text-3xl font-bold" style={{color: 'hsl(var(--nav-appointments))'}}>Pregnancy Tracker</h1>
                 <p className="text-muted-foreground mt-2">Your journey to motherhood, week by week.</p>
             </div>
+
+            <Alert variant="destructive" className="bg-yellow-50 border-yellow-200 text-yellow-800 [&>svg]:text-yellow-600">
+                <AlertTriangle className="h-4 w-4" />
+                <AlertTitle className="font-bold">Important Disclaimer</AlertTitle>
+                <AlertDescription>
+                All diet plans and activities suggested here are for informational purposes only and should be followed under the supervision of your doctor. This app does not provide medical advice.
+                </AlertDescription>
+            </Alert>
+
 
             <Card>
                 <CardHeader>
