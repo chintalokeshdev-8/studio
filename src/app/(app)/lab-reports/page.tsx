@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { FileDown, Eye, Upload, Search, MapPin, TestTube, Sparkles, Bone, Scan, FileText, Loader2 } from "lucide-react";
+import { FileDown, Eye, Upload, Search, MapPin, TestTube, Sparkles, Bone, Scan, FileText, Loader2, User, Calendar, Stethoscope as StethoscopeIcon, FlaskConical } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -118,6 +118,86 @@ const ReportTable = ({ reports, onAnalyze, onView }: { reports: any[], onAnalyze
     </Table>
 );
 
+const ReportViewer = ({ content }: { content: string }) => {
+    const lines = content.trim().split('\n');
+    const patientInfo: { [key: string]: string } = {};
+    const testResults: any[] = [];
+    let isParsingResults = false;
+
+    lines.forEach(line => {
+        if (line.trim() === '') {
+            isParsingResults = true;
+            return;
+        }
+
+        if (!isParsingResults) {
+            const [key, ...valueParts] = line.split(':');
+            if (key && valueParts.length > 0) {
+                patientInfo[key.trim()] = valueParts.join(':').trim();
+            }
+        } else {
+            const resultMatch = line.match(/(.*?):\s*(.*?)\s*\((.*?)\)(.*)/);
+            if (resultMatch) {
+                const [, test, value, normalRange, remark] = resultMatch;
+                const isAbnormal = remark && (remark.toLowerCase().includes('high') || remark.toLowerCase().includes('low'));
+                testResults.push({
+                    test: test.trim(),
+                    value: value.trim(),
+                    normalRange: `(${normalRange.trim()})`,
+                    remark: remark.trim(),
+                    isAbnormal
+                });
+            } else {
+                 const simpleResultMatch = line.match(/(.*?):\s*(.*)/);
+                 if(simpleResultMatch){
+                    const [, test, value] = simpleResultMatch;
+                    testResults.push({ test: test.trim(), value: value.trim(), normalRange: '', remark: '', isAbnormal: false });
+                 }
+            }
+        }
+    });
+
+    return (
+        <div className="font-sans">
+            <Card className="mb-6">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2"><FlaskConical className="h-5 w-5 text-primary" style={{color: 'hsl(var(--nav-diagnostics))'}} /> {patientInfo['Test'] || 'Report Details'}</CardTitle>
+                </CardHeader>
+                <CardContent className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+                    <div className="flex items-center gap-2">
+                        <User className="h-4 w-4 text-muted-foreground" />
+                        <strong>Patient:</strong> {patientInfo['Patient Name']}
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Calendar className="h-4 w-4 text-muted-foreground" />
+                        <strong>Date:</strong> {patientInfo['Date']}
+                    </div>
+                </CardContent>
+            </Card>
+
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>Test</TableHead>
+                        <TableHead>Result</TableHead>
+                        <TableHead>Normal Range</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {testResults.map((result, index) => (
+                        <TableRow key={index} className={result.isAbnormal ? 'bg-red-50 dark:bg-red-900/20' : ''}>
+                            <TableCell className="font-semibold">{result.test}</TableCell>
+                            <TableCell className={`font-bold ${result.isAbnormal ? 'text-red-600' : ''}`}>
+                                {result.value} {result.remark && <span className="text-xs font-normal"> - {result.remark.replace('-','').trim()}</span>}
+                            </TableCell>
+                            <TableCell className="text-muted-foreground">{result.normalRange}</TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </div>
+    );
+};
 
 export default function DiagnosticsPage() {
     const [isAnalyzeOpen, setAnalyzeOpen] = useState(false);
@@ -313,7 +393,7 @@ export default function DiagnosticsPage() {
                         <DialogDescription>Date: {selectedReport?.date} | Ordered by: {selectedReport?.doctor}</DialogDescription>
                     </DialogHeader>
                     <div className="max-h-[60vh] overflow-y-auto p-1">
-                        <pre className="text-sm bg-muted p-4 rounded-lg whitespace-pre-wrap font-sans">{reportContent}</pre>
+                        <ReportViewer content={reportContent} />
                     </div>
                 </DialogContent>
             </Dialog>
