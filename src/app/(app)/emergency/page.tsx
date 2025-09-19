@@ -9,6 +9,8 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { formatDistanceToNow } from "date-fns";
 import { Switch } from "@/components/ui/switch";
+import { cn } from "@/lib/utils";
+
 
 const emergencyContacts = [
     { name: "Apollo Emergency Ambulance", distance: "2.5 km", available: true },
@@ -64,143 +66,151 @@ export default function EmergencyPage() {
                     <CardDescription>Connect with donors or request blood in critical moments.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Tabs defaultValue="find">
-                        <TabsList className="grid w-full grid-cols-3">
-                            <TabsTrigger value="find">Find a Donor</TabsTrigger>
-                            <TabsTrigger value="request">Request Blood</TabsTrigger>
-                            <TabsTrigger value="register"><UserPlus className="mr-2 h-4 w-4"/>Become a Donor</TabsTrigger>
+                    <Tabs defaultValue="find" className="sm:flex sm:gap-6">
+                        <TabsList className="flex flex-col h-auto w-full sm:w-1/3 bg-transparent p-0 border-b sm:border-b-0 sm:border-r">
+                            <TabsTrigger value="find" className="w-full justify-start rounded-none border-b py-4 data-[state=active]:bg-muted/50 data-[state=active]:border-r-2 data-[state=active]:border-r-primary data-[state=active]:shadow-none">
+                                Find a Donor
+                            </TabsTrigger>
+                            <TabsTrigger value="request" className="w-full justify-start rounded-none border-b py-4 data-[state=active]:bg-muted/50 data-[state=active]:border-r-2 data-[state=active]:border-r-primary data-[state=active]:shadow-none">
+                                Request Blood
+                            </TabsTrigger>
+                            <TabsTrigger value="register" className="w-full justify-start rounded-none py-4 data-[state=active]:bg-muted/50 data-[state=active]:border-r-2 data-[state=active]:border-r-primary data-[state=active]:shadow-none">
+                                <UserPlus className="mr-2 h-4 w-4"/>Become a Donor
+                            </TabsTrigger>
                         </TabsList>
-                        <TabsContent value="find" className="mt-4">
-                            <div className="space-y-4">
-                                <div className="grid sm:grid-cols-2 gap-4">
-                                    <Select>
-                                        <SelectTrigger>
-                                            <SelectValue placeholder="Filter by Blood Type" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            {bloodGroups.map(bg => <SelectItem key={bg} value={bg}>{bg}</SelectItem>)}
-                                        </SelectContent>
-                                    </Select>
-                                    <Select>
-                                        <SelectTrigger>
-                                            <SelectValue placeholder="Filter by City" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            {cities.map(city => <SelectItem key={city} value={city}>{city}</SelectItem>)}
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                                <div className="space-y-3 max-h-96 overflow-y-auto p-1">
-                                    {bloodRequests.map((req, index) => (
-                                        <Card key={index} className="p-4 shadow-sm">
-                                            <div className="flex justify-between items-start">
-                                                <div>
-                                                    <p className="font-extrabold text-lg flex items-center gap-2">
-                                                        <User className="h-4 w-4"/> {req.patientName}
-                                                    </p>
-                                                    <div className="flex items-center gap-4 mt-2">
-                                                        <Badge variant="destructive" className="text-base font-bold px-3 py-1">{req.bloodType}</Badge>
-                                                        <p className="text-sm text-muted-foreground flex items-center gap-2">
-                                                            <MapPin className="h-4 w-4"/> {req.city}
+                        <div className="w-full sm:w-2/3 mt-6 sm:mt-0">
+                            <TabsContent value="find" className="mt-0">
+                                <div className="space-y-4">
+                                    <div className="grid sm:grid-cols-2 gap-4">
+                                        <Select>
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Filter by Blood Type" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {bloodGroups.map(bg => <SelectItem key={bg} value={bg}>{bg}</SelectItem>)}
+                                            </SelectContent>
+                                        </Select>
+                                        <Select>
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Filter by City" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {cities.map(city => <SelectItem key={city} value={city}>{city}</SelectItem>)}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    <div className="space-y-3 max-h-96 overflow-y-auto p-1">
+                                        {bloodRequests.map((req, index) => (
+                                            <Card key={index} className="p-4 shadow-sm">
+                                                <div className="flex justify-between items-start">
+                                                    <div>
+                                                        <p className="font-extrabold text-lg flex items-center gap-2">
+                                                            <User className="h-4 w-4"/> {req.patientName}
+                                                        </p>
+                                                        <div className="flex items-center gap-4 mt-2">
+                                                            <Badge variant="destructive" className="text-base font-bold px-3 py-1">{req.bloodType}</Badge>
+                                                            <p className="text-sm text-muted-foreground flex items-center gap-2">
+                                                                <MapPin className="h-4 w-4"/> {req.city}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="text-right">
+                                                        <Button style={{backgroundColor: "hsl(var(--primary))"}}>Contact</Button>
+                                                        <p className="text-xs text-muted-foreground mt-2">
+                                                            {formatDistanceToNow(req.postedAt, { addSuffix: true })}
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <div className="text-right">
-                                                    <Button style={{backgroundColor: "hsl(var(--primary))"}}>Contact</Button>
-                                                    <p className="text-xs text-muted-foreground mt-2">
-                                                        {formatDistanceToNow(req.postedAt, { addSuffix: true })}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </Card>
-                                    ))}
-                                </div>
-                            </div>
-                        </TabsContent>
-                        <TabsContent value="request" className="mt-4">
-                            <form className="space-y-4">
-                                <div className="space-y-2">
-                                    <Label htmlFor="patientName">Patient Name</Label>
-                                    <Input id="patientName" placeholder="Enter patient's name" />
-                                </div>
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <Label htmlFor="bloodType">Blood Group</Label>
-                                        <Select>
-                                            <SelectTrigger id="bloodType">
-                                                <SelectValue placeholder="Select" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                {bloodGroups.slice(1).map(bg => <SelectItem key={bg} value={bg}>{bg}</SelectItem>)}
-                                            </SelectContent>
-                                        </Select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="city">City</Label>
-                                         <Select>
-                                            <SelectTrigger id="city">
-                                                <SelectValue placeholder="Select City" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                {cities.slice(1).map(city => <SelectItem key={city} value={city}>{city}</SelectItem>)}
-                                            </SelectContent>
-                                        </Select>
+                                            </Card>
+                                        ))}
                                     </div>
                                 </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="contactInfo">Contact Info (Phone or Email)</Label>
-                                    <Input id="contactInfo" placeholder="Enter contact details" />
-                                </div>
-                                <Button type="submit" variant="destructive" className="w-full">Post Blood Request</Button>
-                            </form>
-                        </TabsContent>
-                        <TabsContent value="register" className="mt-4">
-                            <form className="space-y-6">
-                                <div className="space-y-2">
-                                    <Label htmlFor="donorName">Full Name</Label>
-                                    <Input id="donorName" placeholder="Enter your full name" />
-                                </div>
-                                <div className="grid grid-cols-2 gap-4">
+                            </TabsContent>
+                            <TabsContent value="request" className="mt-0">
+                                <form className="space-y-4">
                                     <div className="space-y-2">
-                                        <Label htmlFor="donorBloodType">Blood Group</Label>
-                                        <Select>
-                                            <SelectTrigger id="donorBloodType">
-                                                <SelectValue placeholder="Select" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                {bloodGroups.slice(1).map(bg => <SelectItem key={bg} value={bg}>{bg}</SelectItem>)}
-                                            </SelectContent>
-                                        </Select>
+                                        <Label htmlFor="patientName">Patient Name</Label>
+                                        <Input id="patientName" placeholder="Enter patient's name" />
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className="space-y-2">
+                                            <Label htmlFor="bloodType">Blood Group</Label>
+                                            <Select>
+                                                <SelectTrigger id="bloodType">
+                                                    <SelectValue placeholder="Select" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    {bloodGroups.slice(1).map(bg => <SelectItem key={bg} value={bg}>{bg}</SelectItem>)}
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="city">City</Label>
+                                             <Select>
+                                                <SelectTrigger id="city">
+                                                    <SelectValue placeholder="Select City" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    {cities.slice(1).map(city => <SelectItem key={city} value={city}>{city}</SelectItem>)}
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="donorCity">City</Label>
-                                         <Select>
-                                            <SelectTrigger id="donorCity">
-                                                <SelectValue placeholder="Select City" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                {cities.slice(1).map(city => <SelectItem key={city} value={city}>{city}</SelectItem>)}
-                                            </SelectContent>
-                                        </Select>
+                                        <Label htmlFor="contactInfo">Contact Info (Phone or Email)</Label>
+                                        <Input id="contactInfo" placeholder="Enter contact details" />
                                     </div>
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="donorContact">Contact Info (Phone or Email)</Label>
-                                    <Input id="donorContact" placeholder="Enter contact details" />
-                                </div>
-                                 <div className="flex items-center space-x-4 rounded-md border p-4">
-                                    <UserPlus className="h-6 w-6"/>
-                                    <div className="flex-1 space-y-1">
-                                        <p className="text-sm font-medium leading-none">Available to Donate</p>
-                                        <p className="text-sm text-muted-foreground">
-                                            Enable this to appear in searches for nearby donation requests.
-                                        </p>
+                                    <Button type="submit" variant="destructive" className="w-full">Post Blood Request</Button>
+                                </form>
+                            </TabsContent>
+                            <TabsContent value="register" className="mt-0">
+                                <form className="space-y-6">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="donorName">Full Name</Label>
+                                        <Input id="donorName" placeholder="Enter your full name" />
                                     </div>
-                                    <Switch id="availability-mode" />
-                                </div>
-                                <Button type="submit" className="w-full" style={{backgroundColor: 'hsl(var(--nav-emergency))'}}>Register as a Donor</Button>
-                            </form>
-                        </TabsContent>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className="space-y-2">
+                                            <Label htmlFor="donorBloodType">Blood Group</Label>
+                                            <Select>
+                                                <SelectTrigger id="donorBloodType">
+                                                    <SelectValue placeholder="Select" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    {bloodGroups.slice(1).map(bg => <SelectItem key={bg} value={bg}>{bg}</SelectItem>)}
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="donorCity">City</Label>
+                                             <Select>
+                                                <SelectTrigger id="donorCity">
+                                                    <SelectValue placeholder="Select City" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    {cities.slice(1).map(city => <SelectItem key={city} value={city}>{city}</SelectItem>)}
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="donorContact">Contact Info (Phone or Email)</Label>
+                                        <Input id="donorContact" placeholder="Enter contact details" />
+                                    </div>
+                                     <div className="flex items-center space-x-4 rounded-md border p-4">
+                                        <UserPlus className="h-6 w-6"/>
+                                        <div className="flex-1 space-y-1">
+                                            <p className="text-sm font-medium leading-none">Available to Donate</p>
+                                            <p className="text-sm text-muted-foreground">
+                                                Enable this to appear in searches for nearby donation requests.
+                                            </p>
+                                        </div>
+                                        <Switch id="availability-mode" />
+                                    </div>
+                                    <Button type="submit" className="w-full" style={{backgroundColor: 'hsl(var(--nav-emergency))'}}>Register as a Donor</Button>
+                                </form>
+                            </TabsContent>
+                        </div>
                     </Tabs>
                 </CardContent>
             </Card>
@@ -219,7 +229,7 @@ export default function EmergencyPage() {
                                         <p className="text-sm text-muted-foreground">{contact.distance}</p>
                                     </div>
                                     <div className="flex items-center gap-4">
-                                        <Badge variant={contact.available ? 'default' : 'destructive'} className={contact.available ? 'bg-green-500' : ''}>
+                                        <Badge variant={contact.available ? 'default' : 'destructive'} className={cn('font-bold', contact.available ? 'bg-green-500' : '')}>
                                             {contact.available ? 'Available' : 'Unavailable'}
                                         </Badge>
                                         <Button size="icon" variant="outline"><Phone className="h-4 w-4"/></Button>
@@ -263,3 +273,5 @@ export default function EmergencyPage() {
         </div>
     )
 }
+
+    
