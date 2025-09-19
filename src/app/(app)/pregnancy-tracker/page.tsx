@@ -171,8 +171,10 @@ export default function PregnancyTrackerPage() {
                             </div>
                         </CardContent>
                     </Card>
+                </div>
 
-                     <Card>
+                <div className="grid grid-cols-1 gap-8 items-start">
+                    <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2"><Award/> Congratulations!</CardTitle>
                              <CardDescription>This will be your certificate after delivery.</CardDescription>
@@ -183,10 +185,7 @@ export default function PregnancyTrackerPage() {
                              <p className="text-sm text-muted-foreground">After delivery, you'll find a beautiful certificate here with your and your baby's photo.</p>
                         </CardContent>
                     </Card>
-                </div>
-
-                <div className="space-y-8">
-                    <Card className="bg-blue-50 border-blue-200 p-6 relative overflow-hidden">
+                     <Card className="bg-blue-50 border-blue-200 p-6 relative overflow-hidden">
                         <div className="absolute -top-4 -left-4 w-24 h-24 bg-blue-100 rounded-full"></div>
                         <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-blue-100 rounded-full"></div>
                         <div className="relative z-10 space-y-4 text-blue-800">
@@ -240,5 +239,3 @@ export default function PregnancyTrackerPage() {
         </div>
     )
 }
-
-    
