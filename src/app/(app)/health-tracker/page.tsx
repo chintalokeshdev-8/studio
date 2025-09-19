@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Heart, TrendingUp, PlusCircle, Scale, Activity, Flame, Footprints, Info, Watch, Radio, Target, Bike, PersonStanding, Dumbbell, Leaf, Check, Droplets, Wind, Brain } from "lucide-react";
-import React, { useState, useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from 'next/image';
 
@@ -523,7 +523,7 @@ export default function HealthTrackerPage() {
                     <BmiAdvice bmi={calculatedBmi} />
                     
                     <div className="pt-6 border-t">
-                        <h4 className="font-semibold flex items-center gap-2 mb-2"><Info className="h-5 w-5 text-primary" style={{color: 'hsl(var(--nav-profile))'}}/> What is BMI?</h4>
+                        <h4 className="font-semibold flex items-center gap-2"><Info className="h-5 w-5 text-primary" style={{color: 'hsl(var(--nav-profile))'}}/> What is BMI?</h4>
                         <p className="text-sm text-muted-foreground">
                             Body Mass Index (BMI) is a measure of body fat based on height and weight. It's a simple way to see if you're in a healthy weight range.
                         </p>
@@ -612,3 +612,6 @@ export default function HealthTrackerPage() {
 
 
 
+
+
+    
