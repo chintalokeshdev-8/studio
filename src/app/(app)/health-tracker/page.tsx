@@ -106,7 +106,7 @@ const BmiGauge = ({ bmi }: { bmi: number | null }) => {
     const rotation = bmi ? getRotation(bmi) : -90;
 
     return (
-        <div className="relative w-[300px] h-[170px] mx-auto">
+        <div className="relative w-[300px] h-[150px] mx-auto">
             <svg viewBox="0 0 100 57" className="w-full h-full overflow-visible">
                 {/* Gauge Background Arcs */}
                  <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" strokeWidth="12" className="stroke-muted/30" />
@@ -126,10 +126,9 @@ const BmiGauge = ({ bmi }: { bmi: number | null }) => {
                     <polygon points="50,12 49,50 51,50" fill="hsl(var(--foreground))" />
                     <circle cx="50" cy="50" r="3" fill="hsl(var(--foreground))" />
                 </g>
-                <text x="50" y="55" textAnchor="middle" className="text-sm font-bold fill-foreground">BODY MASS INDEX</text>
             </svg>
              {bmi !== null && (
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center mt-2">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
                     <p className="text-3xl font-bold" style={{color: 'hsl(var(--nav-profile))'}}>{bmi.toFixed(1)}</p>
                     <Badge className={`text-sm mt-1 ${getBmiCategory(bmi)?.className}`}>{getBmiCategory(bmi)?.category}</Badge>
                 </div>
@@ -330,7 +329,8 @@ export default function HealthTrackerPage() {
                             <Input id="calc-weight" type="number" placeholder={weightPlaceholders[weightUnit]} value={weight} onChange={(e) => setWeight(e.target.value)} />
                         </div>
                     </div>
-                    <div className="flex items-center justify-center">
+                    <div className="flex flex-col items-center justify-center">
+                        <p className="text-sm font-bold text-foreground mb-2">BODY MASS INDEX</p>
                         <BmiGauge bmi={calculatedBmi} />
                     </div>
                 </CardContent>
@@ -394,4 +394,5 @@ export default function HealthTrackerPage() {
     );
 
     
+
 
