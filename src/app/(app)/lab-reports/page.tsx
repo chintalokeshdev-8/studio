@@ -1,13 +1,19 @@
 
+'use client';
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import React, { useState, useTransition } from 'react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { FileDown, Eye, Upload, Search, MapPin, TestTube, Sparkles, Bone, Scan, FileText } from "lucide-react";
+import { FileDown, Eye, Upload, Search, MapPin, TestTube, Sparkles, Bone, Scan, FileText, Loader2 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from "@/components/ui/dialog";
+import { analyzeReport, ReportAnalysisInput, ReportAnalysisOutput } from '@/ai/flows/ai-report-analysis';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 
 const labReports = [
   { testName: "Complete Blood Count", date: "2024-07-15", doctor: "Dr. Rajesh Kumar", status: "Completed" },
@@ -17,6 +23,7 @@ const labReports = [
   { testName: "Urinalysis", date: "2024-07-17", doctor: "Dr. Rajesh Kumar", status: "Pending" },
   { testName: "HbA1c", date: "2024-06-20", doctor: "Dr. Rajesh Kumar", status: "Completed" },
   { testName: "Complete Blood Count", date: "2024-04-10", doctor: "Dr. Rajesh Kumar", status: "Completed" },
+  { testName: "Liver Function Test", date: "2024-01-05", doctor: "Dr. Priya Sharma", status: "Completed" },
 ];
 
 const imagingReports = [
@@ -27,9 +34,9 @@ const imagingReports = [
 ]
 
 const prescriptionReports = [
+    { testName: "Fever & Cold Consultation", date: "2024-07-22", doctor: "Dr. Shashank", status: "Completed" },
     { testName: "Fever & Cold Consultation", date: "2024-07-15", doctor: "Dr. Shashank", status: "Completed" },
     { testName: "Regular Checkup", date: "2024-06-20", doctor: "Dr. Siva Parvathi", status: "Completed" },
-    { testName: "Fever & Cold Consultation", date: "2024-07-22", doctor: "Dr. Shashank", status: "Completed" },
     { testName: "Allergy Follow-up", date: "2024-07-18", doctor: "Dr. Ananya Sharma", status: "Completed" },
 ];
 
@@ -41,6 +48,17 @@ const diagnosticTests = [
     { name: "Full Body Checkup", lab: "Apollo Diagnostics", price: 2500, category: "Packages" },
     { name: "Vitamin D Test", lab: "Vijaya Diagnostics", price: 800, category: "Blood" },
 ];
+
+const dummyReportContent = `
+Patient Name: Chinta Lokesh Babu
+Date: 2024-07-15
+Test: Complete Blood Count (CBC)
+
+Hemoglobin: 13.5 g/dL (Normal: 13.0-17.0)
+WBC Count: 11,500 /mcL (Normal: 4,000-11,000) - Slightly High
+Platelet Count: 250,000 /mcL (Normal: 150,000-450,000)
+RBC Count: 4.8 million/mcL (Normal: 4.5-5.5)
+`;
 
 const getStatusBadgeClass = (status: string) => {
     switch (status) {
@@ -55,7 +73,7 @@ const getStatusBadgeClass = (status: string) => {
     }
 }
 
-const ReportTable = ({ reports }: { reports: any[] }) => (
+const ReportTable = ({ reports, onAnalyze, onView }: { reports: any[], onAnalyze: (report: any) => void, onView: (report: any) => void }) => (
     <Table>
         <TableHeader>
             <TableRow>
@@ -80,13 +98,13 @@ const ReportTable = ({ reports }: { reports: any[] }) => (
                     <TableCell className="text-right">
                         {report.status === "Completed" ? (
                             <div className="flex gap-2 justify-end">
-                                <Button variant="outline" size="icon" className="h-8 w-8">
+                                <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => onView(report)}>
                                     <Eye className="h-4 w-4" />
                                 </Button>
                                 <Button variant="outline" size="icon" className="h-8 w-8">
                                     <FileDown className="h-4 w-4" />
                                 </Button>
-                                <Button variant="outline" size="icon" className="h-8 w-8 border-primary/50 text-primary hover:text-primary hover:bg-primary/10">
+                                <Button variant="outline" size="icon" className="h-8 w-8 border-primary/50 text-primary hover:text-primary hover:bg-primary/10" onClick={() => onAnalyze(report)}>
                                     <Sparkles className="h-4 w-4" />
                                 </Button>
                             </div>
@@ -102,6 +120,45 @@ const ReportTable = ({ reports }: { reports: any[] }) => (
 
 
 export default function DiagnosticsPage() {
+    const [isAnalyzeOpen, setAnalyzeOpen] = useState(false);
+    const [isViewOpen, setViewOpen] = useState(false);
+    const [selectedReport, setSelectedReport] = useState<any | null>(null);
+    const [analysisResult, setAnalysisResult] = useState<ReportAnalysisOutput | null>(null);
+    const [isPending, startTransition] = useTransition();
+    const [reportContent, setReportContent] = useState('');
+    const [fileName, setFileName] = useState('');
+
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files && event.target.files.length > 0) {
+            setFileName(event.target.files[0].name);
+        } else {
+            setFileName('');
+        }
+    };
+
+
+    const handleView = (report: any) => {
+        setSelectedReport(report);
+        setReportContent(dummyReportContent);
+        setViewOpen(true);
+    };
+
+    const handleAnalyze = (report: any) => {
+        setSelectedReport(report);
+        setReportContent(dummyReportContent);
+        setAnalysisResult(null);
+        setAnalyzeOpen(true);
+    };
+
+    const handleRunAnalysis = () => {
+        if (!reportContent) return;
+
+        startTransition(async () => {
+            const result = await analyzeReport({ reportContent });
+            setAnalysisResult(result);
+        });
+    };
+
     return (
         <div className="space-y-8">
              <div>
@@ -175,10 +232,57 @@ export default function DiagnosticsPage() {
                                 <CardTitle>My Reports</CardTitle>
                                 <CardDescription>View, download, and analyze your medical test results.</CardDescription>
                             </div>
-                             <Button style={{backgroundColor: 'hsl(var(--nav-diagnostics))'}}>
-                                <Upload className="mr-2 h-4 w-4" />
-                                Upload Report
-                            </Button>
+                            <Dialog>
+                                <DialogTrigger asChild>
+                                    <Button style={{backgroundColor: 'hsl(var(--nav-diagnostics))'}}>
+                                        <Upload className="mr-2 h-4 w-4" />
+                                        Upload Report
+                                    </Button>
+                                </DialogTrigger>
+                                <DialogContent className="sm:max-w-[425px]">
+                                    <DialogHeader>
+                                        <DialogTitle>Upload New Report</DialogTitle>
+                                        <DialogDescription>
+                                            Add a new medical document to your records. You can upload an image or PDF file.
+                                        </DialogDescription>
+                                    </DialogHeader>
+                                    <div className="grid gap-4 py-4">
+                                        <div className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="report-type" className="text-right">Type</Label>
+                                            <Select>
+                                                <SelectTrigger id="report-type" className="col-span-3">
+                                                    <SelectValue placeholder="Select report type" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="lab">Lab Report</SelectItem>
+                                                    <SelectItem value="imaging">Imaging</SelectItem>
+                                                    <SelectItem value="prescription">Prescription</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                        <div className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="report-name" className="text-right">Name</Label>
+                                            <Input id="report-name" placeholder="e.g., Complete Blood Count" className="col-span-3" />
+                                        </div>
+                                        <div className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="report-file" className="text-right">File</Label>
+                                            <div className="col-span-3">
+                                                <Button asChild variant="outline">
+                                                    <label htmlFor="file-upload" className="cursor-pointer w-full">
+                                                        <Upload className="mr-2 h-4 w-4" />
+                                                        {fileName || 'Choose File'}
+                                                    </label>
+                                                </Button>
+                                                <input id="file-upload" type="file" className="hidden" onChange={handleFileChange} accept="image/*,.pdf" />
+                                                {fileName && <p className="text-xs text-muted-foreground mt-2">{fileName}</p>}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <CardFooter className="p-0 pt-4">
+                                        <Button type="submit" className="w-full" style={{backgroundColor: 'hsl(var(--nav-diagnostics))'}}>Save Report</Button>
+                                    </CardFooter>
+                                </DialogContent>
+                            </Dialog>
                         </CardHeader>
                         <CardContent>
                            <Tabs defaultValue="lab" className="w-full">
@@ -188,19 +292,105 @@ export default function DiagnosticsPage() {
                                     <TabsTrigger value="prescriptions" className="flex items-center gap-2"><FileText className="h-4 w-4"/> Prescriptions</TabsTrigger>
                                 </TabsList>
                                 <TabsContent value="lab" className="mt-4">
-                                     <ReportTable reports={labReports} />
+                                     <ReportTable reports={labReports} onAnalyze={handleAnalyze} onView={handleView} />
                                 </TabsContent>
                                 <TabsContent value="imaging" className="mt-4">
-                                    <ReportTable reports={imagingReports} />
+                                    <ReportTable reports={imagingReports} onAnalyze={handleAnalyze} onView={handleView} />
                                 </TabsContent>
                                 <TabsContent value="prescriptions" className="mt-4">
-                                     <ReportTable reports={prescriptionReports} />
+                                     <ReportTable reports={prescriptionReports} onAnalyze={handleAnalyze} onView={handleView} />
                                 </TabsContent>
                             </Tabs>
                         </CardContent>
                     </Card>
                 </TabsContent>
             </Tabs>
+            
+            <Dialog open={isViewOpen} onOpenChange={setViewOpen}>
+                <DialogContent className="sm:max-w-2xl">
+                    <DialogHeader>
+                        <DialogTitle>View Report: {selectedReport?.testName}</DialogTitle>
+                        <DialogDescription>Date: {selectedReport?.date} | Ordered by: {selectedReport?.doctor}</DialogDescription>
+                    </DialogHeader>
+                    <div className="max-h-[60vh] overflow-y-auto p-1">
+                        <pre className="text-sm bg-muted p-4 rounded-lg whitespace-pre-wrap font-sans">{reportContent}</pre>
+                    </div>
+                </DialogContent>
+            </Dialog>
+
+            <Dialog open={isAnalyzeOpen} onOpenChange={setAnalyzeOpen}>
+                <DialogContent className="sm:max-w-4xl">
+                    <DialogHeader>
+                        <DialogTitle className="flex items-center gap-2 text-primary" style={{color: 'hsl(var(--nav-diagnostics))'}}><Sparkles /> AI Report Analysis</DialogTitle>
+                        <DialogDescription>Analyzing: {selectedReport?.testName} from {selectedReport?.date}</DialogDescription>
+                    </DialogHeader>
+                    <div className="grid md:grid-cols-2 gap-6 max-h-[70vh] overflow-y-auto">
+                        <div className="space-y-4">
+                            <h3 className="font-semibold">Original Report Content</h3>
+                            <Textarea 
+                                className="h-96 font-mono text-xs" 
+                                value={reportContent} 
+                                onChange={(e) => setReportContent(e.target.value)}
+                            />
+                            <Button onClick={handleRunAnalysis} disabled={isPending || !reportContent} className="w-full" style={{backgroundColor: 'hsl(var(--nav-diagnostics))'}}>
+                                {isPending ? (
+                                    <>
+                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                        Analyzing...
+                                    </>
+                                ) : "Run AI Analysis"}
+                            </Button>
+                        </div>
+                        <div className="space-y-4">
+                             <h3 className="font-semibold">AI Summary & Findings</h3>
+                            {isPending && !analysisResult && (
+                                <div className="flex flex-col items-center justify-center h-96 rounded-lg bg-muted/50">
+                                    <Loader2 className="h-10 w-10 animate-spin text-primary" style={{color: 'hsl(var(--nav-diagnostics))'}}/>
+                                    <p className="mt-4 text-muted-foreground">The AI is analyzing your report...</p>
+                                </div>
+                            )}
+                            {analysisResult && (
+                                <div className="space-y-4">
+                                    <Card>
+                                        <CardHeader className="pb-2">
+                                            <CardTitle className="text-lg">Summary</CardTitle>
+                                        </CardHeader>
+                                        <CardContent>
+                                            <p className="text-sm text-muted-foreground">{analysisResult.summary}</p>
+                                        </CardContent>
+                                    </Card>
+                                    {analysisResult.abnormalities.length > 0 ? (
+                                        <Card>
+                                            <CardHeader className="pb-2">
+                                                <CardTitle className="text-lg">Abnormal Findings</CardTitle>
+                                            </CardHeader>
+                                            <CardContent className="space-y-3">
+                                                {analysisResult.abnormalities.map((item, index) => (
+                                                    <div key={index} className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/50 rounded-lg">
+                                                        <div className="flex justify-between font-bold">
+                                                            <p>{item.item}</p>
+                                                            <p>{item.result}</p>
+                                                        </div>
+                                                         <p className="text-xs text-muted-foreground">Normal Range: {item.normalRange}</p>
+                                                        <p className="text-sm mt-2">{item.explanation}</p>
+                                                    </div>
+                                                ))}
+                                            </CardContent>
+                                        </Card>
+                                    ) : (
+                                        <Card>
+                                            <CardContent className="p-4 text-center">
+                                                <p className="font-semibold text-green-600">No major abnormalities were found in this report.</p>
+                                            </CardContent>
+                                        </Card>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </DialogContent>
+            </Dialog>
         </div>
     )
-}
+
+    
