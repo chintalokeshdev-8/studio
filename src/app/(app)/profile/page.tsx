@@ -13,9 +13,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "@/components/ui/input";
 
 const recentVisits = [
-  { date: "2024-07-15", reason: "Fever & Cold", doctor: "Dr. Rajesh Kumar" },
-  { date: "2024-06-20", reason: "Regular Checkup", doctor: "Dr. Rajesh Kumar" },
-  { date: "2024-03-10", reason: "Stomach Pain", doctor: "Dr. Priya Sharma" },
+  { date: "2024-07-15", reason: "Fever & Cold", doctor: "Dr. Shashank" },
+  { date: "2024-06-20", reason: "Regular Checkup", doctor: "Dr. Siva Parvathi" },
+  { date: "2024-03-10", reason: "Stomach Pain", doctor: "Dr. Nageswarao" },
 ];
 
 const medicalReports = [
