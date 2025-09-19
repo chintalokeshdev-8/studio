@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
+import { PregnantLadyIcon } from "@/components/icons/pregnant-lady-icon";
 
 const dietPlan = {
     breakfast: ["Oats with fruits", "2 boiled eggs"],
@@ -68,7 +69,7 @@ export default function PregnancyTrackerPage() {
                         <div>
                             <h4 className="font-semibold text-lg mb-2">Baby's Development</h4>
                             <div className="flex items-start gap-4">
-                                 <Baby className="h-8 w-8 mt-1" style={{color: 'hsl(var(--nav-appointments))'}}/>
+                                 <PregnantLadyIcon className="h-8 w-8 mt-1" style={{color: 'hsl(var(--nav-appointments))'}}/>
                                  <p className="text-muted-foreground">
                                     Your baby is now about the size of a small doll, and their senses are developing rapidly. They can hear your voice, and you might start to feel their first movements, known as "quickening."
                                 </p>
