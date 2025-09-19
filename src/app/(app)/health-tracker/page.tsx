@@ -464,21 +464,21 @@ export default function HealthTrackerPage() {
                     <CardTitle className="flex items-center gap-2"><Activity /> Vital Signs</CardTitle>
                 </CardHeader>
                 <CardContent>
-                     <div className="grid md:grid-cols-2 gap-6">
-                        <Card className="p-4">
-                             <CardTitle className="flex items-center gap-2 text-lg mb-4"><Scale /> Last BMI Reading</CardTitle>
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-4">
+                             <div className="flex items-center gap-2 text-sm font-semibold mb-2 text-muted-foreground"><Scale className="h-4 w-4" />Last BMI Reading</div>
                              <div className="text-center">
-                                <p className="text-5xl font-bold">{latestBmi}</p>
-                                <Badge className={`mt-2 text-sm ${bmiInfo.className}`}>{bmiInfo.category}</Badge>
+                                <p className="text-3xl font-bold">{latestBmi}</p>
+                                <Badge className={`mt-2 text-xs ${bmiInfo.className}`}>{bmiInfo.category}</Badge>
                             </div>
-                        </Card>
-                        <Card className="p-4">
-                             <CardTitle className="flex items-center gap-2 text-lg mb-4"><Heart /> Last Blood Pressure</CardTitle>
+                        </div>
+                        <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-4">
+                             <div className="flex items-center gap-2 text-sm font-semibold mb-2 text-muted-foreground"><Heart className="h-4 w-4" />Last Blood Pressure</div>
                             <div className="text-center">
-                                <p className="text-5xl font-bold">{latestBp.systolic}/{latestBp.diastolic} <span className="text-2xl text-muted-foreground">mmHg</span></p>
-                                <Badge className={`mt-2 text-sm ${bpInfo.className}`}>{bpInfo.category}</Badge>
+                                <p className="text-3xl font-bold">{latestBp.systolic}/{latestBp.diastolic} <span className="text-lg text-muted-foreground">mmHg</span></p>
+                                <Badge className={`mt-2 text-xs ${bpInfo.className}`}>{bpInfo.category}</Badge>
                             </div>
-                        </Card>
+                        </div>
                     </div>
                 </CardContent>
             </Card>
@@ -595,6 +595,7 @@ export default function HealthTrackerPage() {
     
 
     
+
 
 
 
