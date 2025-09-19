@@ -38,12 +38,12 @@ const menuItems = [
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const scrollContainerRef = React.useRef<HTMLDivElement>(null);
+  const viewportRef = React.useRef<HTMLDivElement>(null);
 
   const handleScroll = () => {
-    if (scrollContainerRef.current) {
+    if (viewportRef.current) {
         const scrollAmount = 200;
-        scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        viewportRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
 
@@ -67,7 +67,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       </main>
       <footer className="sticky bottom-0 z-20 mt-auto bg-background border-t">
         <div className="relative">
-            <ScrollArea ref={scrollContainerRef} className="w-full whitespace-nowrap">
+            <ScrollArea className="w-full whitespace-nowrap" viewportRef={viewportRef}>
                 <nav className="flex w-max space-x-2 p-2 pr-12 justify-center">
                     {menuItems.map((item) => {
                         const isActive = pathname === item.href;
