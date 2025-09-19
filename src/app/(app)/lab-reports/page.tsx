@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import React, { useState, useTransition } from 'react';
@@ -14,6 +15,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { analyzeReport, ReportAnalysisInput, ReportAnalysisOutput } from '@/ai/flows/ai-report-analysis';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import Image from 'next/image';
 
 const labReports = [
   { testName: "Complete Blood Count", date: "2024-07-15", doctor: "Dr. Rajesh Kumar", status: "Completed" },
@@ -49,7 +51,9 @@ const diagnosticTests = [
     { name: "Vitamin D Test", lab: "Vijaya Diagnostics", price: 800, category: "Blood" },
 ];
 
-const dummyReportContent = `
+const dummyReportData: Record<string, { content: string, image?: string, dataAiHint?: string }> = {
+    "Complete Blood Count-2024-07-15": {
+        content: `
 Patient Name: Chinta Lokesh Babu
 Date: 2024-07-15
 Test: Complete Blood Count (CBC)
@@ -58,7 +62,91 @@ Hemoglobin: 13.5 g/dL (Normal: 13.0-17.0)
 WBC Count: 11,500 /mcL (Normal: 4,000-11,000) - Slightly High
 Platelet Count: 250,000 /mcL (Normal: 150,000-450,000)
 RBC Count: 4.8 million/mcL (Normal: 4.5-5.5)
-`;
+`
+    },
+    "Chest X-Ray-2024-07-10": {
+        image: "https://picsum.photos/seed/xray/600/400",
+        dataAiHint: "chest xray",
+        content: `
+Patient Name: Chinta Lokesh Babu
+Date: 2024-07-10
+Test: Chest X-Ray (PA view)
+
+TECHNIQUE:
+Single postero-anterior view of the chest was obtained.
+
+FINDINGS:
+Lungs: The lungs are well-aerated. No focal consolidation, mass, or pneumothorax is seen.
+Heart: The cardiomediastinal silhouette is within normal limits.
+Pleura: No pleural effusion or thickening.
+Bones: The visualized bony structures appear unremarkable.
+
+IMPRESSION:
+Normal chest X-ray.
+`
+    },
+    "MRI Brain Scan-2024-05-12": {
+        content: `
+Patient Name: Chinta Lokesh Babu
+Date: 2024-05-12
+Test: MRI Brain Scan
+
+TECHNIQUE:
+Multi-planar, multi-sequential MRI of the brain was performed without intravenous contrast.
+
+FINDINGS:
+Brain Parenchyma: No evidence of acute infarction, hemorrhage, or mass lesion. The gray-white matter differentiation is preserved.
+Ventricles: The ventricular system is normal in size and configuration.
+Cerebellum and Brainstem: Unremarkable.
+Major Vascular Structures: Normal flow voids are seen.
+
+IMPRESSION:
+Unremarkable MRI of the brain.
+`
+    },
+    "CT Scan Abdomen-2024-02-25": {
+        content: `
+Patient Name: Chinta Lokesh Babu
+Date: 2024-02-25
+Test: CT Scan Abdomen (with contrast)
+
+TECHNIQUE:
+Axial CT images of the abdomen were obtained following the administration of oral and intravenous contrast.
+
+FINDINGS:
+Liver: Normal in size and attenuation. No focal lesions.
+Gallbladder: Unremarkable. No stones or wall thickening.
+Spleen, Pancreas, Kidneys, Adrenal Glands: All appear normal.
+Bowel: No evidence of obstruction or inflammatory changes.
+Aorta and IVC: Normal caliber.
+
+IMPRESSION:
+Normal CT scan of the abdomen.
+`
+    },
+     "Fever & Cold Consultation-2024-07-22": {
+        content: `
+Patient Name: Chinta Lokesh Babu
+Date: 2024-07-22
+Doctor: Dr. Shashank
+Chief Complaint: Fever, cough, and running nose for 3 days.
+
+DIAGNOSIS:
+Viral Upper Respiratory Tract Infection
+
+PRESCRIPTION:
+1. Paracetamol 500mg - one tablet SOS for fever
+2. Cetirizine 10mg - one tablet at night
+3. Steam inhalation twice a day
+
+ADVICE:
+- Take adequate rest
+- Stay hydrated
+- Follow-up if symptoms persist after 3 days
+`
+    }
+};
+
 
 const getStatusBadgeClass = (status: string) => {
     switch (status) {
@@ -122,20 +210,35 @@ const ReportViewer = ({ content }: { content: string }) => {
     const lines = content.trim().split('\n');
     const patientInfo: { [key: string]: string } = {};
     const testResults: any[] = [];
+    const otherSections: {title: string, content: string[]}[] = [];
+    let currentSection: {title: string, content: string[]} | null = null;
     let isParsingResults = false;
+    let isParsingOtherSections = false;
 
     lines.forEach(line => {
         if (line.trim() === '') {
-            isParsingResults = true;
+            if(!isParsingOtherSections && Object.keys(patientInfo).length > 0){
+                isParsingResults = true;
+            }
             return;
         }
 
-        if (!isParsingResults) {
+        const sectionTitleMatch = line.match(/^([A-Z\s]+):$/);
+         if (sectionTitleMatch && !line.includes(': ')) {
+             isParsingResults = false;
+             isParsingOtherSections = true;
+            if(currentSection){
+                otherSections.push(currentSection);
+            }
+            currentSection = { title: sectionTitleMatch[1].trim(), content: [] };
+        } else if (currentSection && isParsingOtherSections) {
+             currentSection.content.push(line.trim());
+        } else if (!isParsingResults && !isParsingOtherSections) {
             const [key, ...valueParts] = line.split(':');
             if (key && valueParts.length > 0) {
                 patientInfo[key.trim()] = valueParts.join(':').trim();
             }
-        } else {
+        } else if(isParsingResults) {
             const resultMatch = line.match(/(.*?):\s*(.*?)\s*\((.*?)\)(.*)/);
             if (resultMatch) {
                 const [, test, value, normalRange, remark] = resultMatch;
@@ -157,9 +260,13 @@ const ReportViewer = ({ content }: { content: string }) => {
         }
     });
 
+    if(currentSection) {
+        otherSections.push(currentSection);
+    }
+
     return (
-        <div className="font-sans">
-            <Card className="mb-6">
+        <div className="font-sans space-y-6">
+            <Card>
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2"><FlaskConical className="h-5 w-5 text-primary" style={{color: 'hsl(var(--nav-diagnostics))'}} /> {patientInfo['Test'] || 'Report Details'}</CardTitle>
                 </CardHeader>
@@ -172,29 +279,46 @@ const ReportViewer = ({ content }: { content: string }) => {
                         <Calendar className="h-4 w-4 text-muted-foreground" />
                         <strong>Date:</strong> {patientInfo['Date']}
                     </div>
+                    {patientInfo['Doctor'] && (
+                         <div className="flex items-center gap-2 col-span-2">
+                            <StethoscopeIcon className="h-4 w-4 text-muted-foreground" />
+                            <strong>Doctor:</strong> {patientInfo['Doctor']}
+                        </div>
+                    )}
                 </CardContent>
             </Card>
 
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>Test</TableHead>
-                        <TableHead>Result</TableHead>
-                        <TableHead>Normal Range</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {testResults.map((result, index) => (
-                        <TableRow key={index} className={result.isAbnormal ? 'bg-red-50 dark:bg-red-900/20' : ''}>
-                            <TableCell className="font-semibold">{result.test}</TableCell>
-                            <TableCell className={`font-bold ${result.isAbnormal ? 'text-red-600' : ''}`}>
-                                {result.value} {result.remark && <span className="text-xs font-normal"> - {result.remark.replace('-','').trim()}</span>}
-                            </TableCell>
-                            <TableCell className="text-muted-foreground">{result.normalRange}</TableCell>
+            {testResults.length > 0 && (
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>Test</TableHead>
+                            <TableHead>Result</TableHead>
+                            <TableHead>Normal Range</TableHead>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+                    </TableHeader>
+                    <TableBody>
+                        {testResults.map((result, index) => (
+                            <TableRow key={index} className={result.isAbnormal ? 'bg-red-50 dark:bg-red-900/20' : ''}>
+                                <TableCell className="font-semibold">{result.test}</TableCell>
+                                <TableCell className={`font-bold ${result.isAbnormal ? 'text-red-600' : ''}`}>
+                                    {result.value} {result.remark && <span className="text-xs font-normal"> - {result.remark.replace('-','').trim()}</span>}
+                                </TableCell>
+                                <TableCell className="text-muted-foreground">{result.normalRange}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            )}
+            
+            {otherSections.map((section, index) => (
+                <div key={index}>
+                    <h3 className="font-bold text-lg mb-2">{section.title}</h3>
+                    <div className="text-muted-foreground space-y-1 text-sm">
+                        {section.content.map((line, i) => <p key={i}>{line}</p>)}
+                    </div>
+                </div>
+            ))}
         </div>
     );
 };
@@ -206,6 +330,8 @@ export default function DiagnosticsPage() {
     const [analysisResult, setAnalysisResult] = useState<ReportAnalysisOutput | null>(null);
     const [isPending, startTransition] = useTransition();
     const [reportContent, setReportContent] = useState('');
+    const [reportImage, setReportImage] = useState<string | undefined>(undefined);
+    const [reportImageHint, setReportImageHint] = useState<string | undefined>(undefined);
     const [fileName, setFileName] = useState('');
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -216,16 +342,23 @@ export default function DiagnosticsPage() {
         }
     };
 
-
     const handleView = (report: any) => {
+        const reportKey = `${report.testName}-${report.date}`;
+        const data = dummyReportData[reportKey] || { content: "Report details not found." };
+        
         setSelectedReport(report);
-        setReportContent(dummyReportContent);
+        setReportContent(data.content);
+        setReportImage(data.image);
+        setReportImageHint(data.dataAiHint);
         setViewOpen(true);
     };
 
     const handleAnalyze = (report: any) => {
+        const reportKey = `${report.testName}-${report.date}`;
+        const data = dummyReportData[reportKey] || { content: "No content to analyze." };
+
         setSelectedReport(report);
-        setReportContent(dummyReportContent);
+        setReportContent(data.content);
         setAnalysisResult(null);
         setAnalyzeOpen(true);
     };
@@ -392,7 +525,19 @@ export default function DiagnosticsPage() {
                         <DialogTitle>View Report: {selectedReport?.testName}</DialogTitle>
                         <DialogDescription>Date: {selectedReport?.date} | Ordered by: {selectedReport?.doctor}</DialogDescription>
                     </DialogHeader>
-                    <div className="max-h-[60vh] overflow-y-auto p-1">
+                    <div className="max-h-[70vh] overflow-y-auto p-1 space-y-4">
+                        {reportImage && (
+                            <div className="mb-6">
+                                <Image 
+                                    src={reportImage} 
+                                    alt="Report Image" 
+                                    width={600} 
+                                    height={400} 
+                                    className="rounded-lg border"
+                                    data-ai-hint={reportImageHint || ''}
+                                />
+                            </div>
+                        )}
                         <ReportViewer content={reportContent} />
                     </div>
                 </DialogContent>
@@ -472,5 +617,8 @@ export default function DiagnosticsPage() {
             </Dialog>
         </div>
     )
+
+    
+
 
     
