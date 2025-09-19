@@ -48,7 +48,7 @@ export default function SymptomCheckerPage() {
     return (
         <div className="space-y-8">
             <div className="text-center">
-                <h1 className="text-3xl font-bold" style={{color: 'hsl(var(--nav-symptoms))'}}>Symptoms</h1>
+                <h1 className="text-3xl font-bold" style={{color: 'hsl(var(--nav-symptoms))'}}>AI Symptom Checker</h1>
                 <p className="text-muted-foreground mt-2">Select your symptoms to get intelligent health guidance.</p>
             </div>
             

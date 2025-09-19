@@ -15,7 +15,7 @@ const quickAccessItems = [
   { href: "/", icon: Stethoscope, label: 'Dashboard', description: 'హోమ్', color: 'hsl(var(--nav-home))' },
   { href: '/symptom-checker', icon: HeartPulse, label: 'AI Symptom Check', description: 'వైద్య లక్షణాలు తనిఖీ', color: 'hsl(var(--nav-symptoms))' },
   { href: '/health-tracker', label: 'Health Tracker', description: 'ఆరోగ్య ట్రాకర్', icon: Heart, color: 'hsl(var(--nav-profile))' },
-  { href: '/pregnancy-tracker', label: 'Pregnancy', description: 'గర్భం', icon: Baby, color: 'hsl(var(--nav-appointments))' },
+  { href: '/pregnancy-tracker', label: 'Pregnancy Care', description: 'గర్భం', icon: Baby, color: 'hsl(var(--nav-appointments))' },
   { href: '/appointments', icon: CalendarCheck, label: 'Appointments', description: 'సమయం నమోదు చేసుకోండి', color: 'hsl(var(--nav-appointments))' },
   { href: '/opd-queue', icon: MessageSquare, label: 'Chat & Queue', description: 'మీ వంతు & చాట్', color: 'hsl(var(--nav-chat))' },
   { href: '/junior-doctors', icon: Headset, label: '24/7 Jr. Doctors', description: 'ఉచిత సలహా', color: 'hsl(var(--nav-junior-doctors))' },

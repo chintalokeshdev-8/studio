@@ -29,8 +29,8 @@ import { Button } from "../ui/button";
 const menuItems = [
   { href: "/", label: "Home", telugu: "హోమ్", icon: Stethoscope, color: "hsl(var(--nav-home))" },
   { href: "/health-tracker", label: "Health Tracker", telugu: "ఆరోగ్య ట్రాకర్", icon: Heart, color: "hsl(var(--nav-profile))" },
-  { href: "/symptom-checker", label: "Symptoms", telugu: "లక్షణాలు", icon: HeartPulse, color: "hsl(var(--nav-symptoms))" },
-  { href: "/pregnancy-tracker", label: "Pregnancy", telugu: "గర్భం", icon: Baby, color: "hsl(var(--nav-appointments))" },
+  { href: "/symptom-checker", label: "AI Symptom Checker", telugu: "లక్షణాలు", icon: HeartPulse, color: "hsl(var(--nav-symptoms))" },
+  { href: "/pregnancy-tracker", label: "Pregnancy Care", telugu: "గర్భం", icon: Baby, color: "hsl(var(--nav-appointments))" },
   { href: "/appointments", label: "Appointments", telugu: "నమోదులు", icon: CalendarCheck, color: "hsl(var(--nav-appointments))" },
   { href: "/opd-queue", label: "Chat & Queue", telugu: "మీ వంతు & చాట్", icon: MessageSquare, color: "hsl(var(--nav-chat))" },
   { href: "/junior-doctors", label: "Jr. Doctors", telugu: "డాక్టర్లు", icon: Headset, color: "hsl(var(--nav-junior-doctors))" },

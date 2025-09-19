@@ -35,7 +35,7 @@ export default function PregnancyTrackerPage() {
     return (
         <div className="space-y-8">
             <div className="text-center">
-                <h1 className="text-3xl font-bold" style={{color: 'hsl(var(--nav-appointments))'}}>Pregnancy Tracker</h1>
+                <h1 className="text-3xl font-bold" style={{color: 'hsl(var(--nav-appointments))'}}>Pregnancy Care</h1>
                 <p className="text-muted-foreground mt-2">Your journey to motherhood, week by week.</p>
             </div>
 
