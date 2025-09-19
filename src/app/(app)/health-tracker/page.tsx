@@ -22,7 +22,8 @@ const getBmiCategory = (bmi: number) => {
     if (bmi < 18.5) return { category: "Underweight", className: "bg-blue-100 text-blue-800" };
     if (bmi >= 18.5 && bmi < 25) return { category: "Normal", className: "bg-green-100 text-green-800" };
     if (bmi >= 25 && bmi < 30) return { category: "Overweight", className: "bg-yellow-100 text-yellow-800" };
-    return { category: "Obese", className: "bg-red-100 text-red-800" };
+    if (bmi >= 30 && bmi < 40) return { category: "Obese", className: "bg-red-100 text-red-800" };
+    return { category: "Morbidly Obese", className: "bg-red-200 text-red-900" };
 };
 
 const getBpCategory = (systolic: number, diastolic: number) => {
@@ -94,6 +95,54 @@ const CircularProgress = ({ percentage, children, size = 120, strokeWidth = 10 }
     );
 };
 
+const BmiGauge = ({ bmi }: { bmi: number | null }) => {
+    const getRotation = (bmiValue: number) => {
+        if (bmiValue < 15) return 0;
+        if (bmiValue > 45) return 180;
+        // Map BMI from 15-45 to 0-180 degrees
+        return ((bmiValue - 15) / 30) * 180;
+    };
+
+    const rotation = bmi ? getRotation(bmi) : 0;
+
+    return (
+        <div className="relative w-[320px] h-[180px] mx-auto">
+            <svg viewBox="0 0 100 57" className="w-full h-full">
+                {/* Gauge Background Arcs */}
+                <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" strokeWidth="12" className="stroke-[#0096FF]" /> {/* Normal */}
+                <path d="M 10 50 A 40 40 0 0 1 50 10" fill="none" strokeWidth="12" className="stroke-[#0096FF]" /> {/* Normal */}
+                <path d="M 20.7 15.3 A 40 40 0 0 1 90 50" fill="none" strokeWidth="12" className="stroke-transparent" style={{ transform: 'rotate(0deg)', transformOrigin: '50px 50px' }} />
+                <path d="M 50 10 A 40 40 0 0 1 79.3 15.3" fill="none" strokeWidth="12" className="stroke-[#22C55E]" /> {/* Overweight */}
+                <path d="M 79.3 15.3 A 40 40 0 0 1 90 50 L 50 50" fill="none" strokeWidth="12" className="stroke-transparent" />
+                <path d="M 90 50 A 40 40 0 0 1 50 90" fill="none" strokeWidth="12" className="stroke-transparent" />
+                <path d="M 10 50 A 40 40 0 0 1 20.7 15.3" fill="none" strokeWidth="12" stroke="#0096FF" />
+                <path d="M 20.7 15.3 A 40 40 0 0 1 50 10" fill="none" strokeWidth="12" stroke="#22C55E" />
+                <path d="M 50 10 A 40 40 0 0 1 79.3 15.3" fill="none" strokeWidth="12" stroke="#FBBF24" />
+                <path d="M 79.3 15.3 A 40 40 0 0 1 90 50" fill="none" strokeWidth="12" stroke="#F44336" />
+
+                {/* Text Labels */}
+                <text x="18" y="38" className="text-[6px] font-bold fill-white" transform="rotate(-60 18 38)">Normal</text>
+                <text x="35" y="16" className="text-[6px] font-bold fill-white" transform="rotate(-25 35 16)">Overweight</text>
+                <text x="60" y="16" className="text-[6px] font-bold fill-white" transform="rotate(25 60 16)">Obese</text>
+                <text x="78" y="38" className="text-[6px] font-bold fill-white" transform="rotate(60 78 38)">Morbidly</text>
+
+                {/* Needle */}
+                <g transform={`rotate(${rotation} 50 50)`}>
+                    <polygon points="50,15 48,50 52,50" fill="hsl(var(--foreground))" />
+                    <circle cx="50" cy="50" r="4" fill="hsl(var(--foreground))" />
+                </g>
+                <text x="50" y="55" textAnchor="middle" className="text-sm font-bold fill-foreground">BODY MASS INDEX</text>
+            </svg>
+             {bmi !== null && (
+                <div className="absolute bottom-5 left-1/2 -translate-x-1/2 text-center">
+                    <p className="text-3xl font-bold" style={{color: 'hsl(var(--nav-profile))'}}>{bmi.toFixed(1)}</p>
+                    <Badge className={`text-sm mt-1 ${getBmiCategory(bmi)?.className}`}>{getBmiCategory(bmi)?.category}</Badge>
+                </div>
+            )}
+        </div>
+    );
+};
+
 
 export default function HealthTrackerPage() {
     const [height, setHeight] = useState('');
@@ -123,8 +172,6 @@ export default function HealthTrackerPage() {
         }
         return null;
     }, [height, weight, heightUnit, weightUnit]);
-
-    const calculatedBmiInfo = calculatedBmi ? getBmiCategory(calculatedBmi) : null;
 
     const latestBmi = 24.5;
     const bmiInfo = getBmiCategory(latestBmi);
@@ -289,17 +336,7 @@ export default function HealthTrackerPage() {
                         </div>
                     </div>
                     <div className="flex items-center justify-center">
-                        <div className="text-center p-6 rounded-lg bg-muted/40 w-full">
-                            <p className="text-sm font-medium text-muted-foreground">Your BMI</p>
-                            {calculatedBmi !== null ? (
-                                <>
-                                    <p className="text-6xl font-bold my-2" style={{color: 'hsl(var(--nav-profile))'}}>{calculatedBmi.toFixed(1)}</p>
-                                    <Badge className={`text-base ${calculatedBmiInfo?.className}`}>{calculatedBmiInfo?.category}</Badge>
-                                </>
-                            ) : (
-                                <p className="text-3xl font-bold my-4 text-muted-foreground">-</p>
-                            )}
-                        </div>
+                        <BmiGauge bmi={calculatedBmi} />
                     </div>
                 </CardContent>
             </Card>
@@ -360,3 +397,5 @@ export default function HealthTrackerPage() {
 
         </div>
     );
+
+    
