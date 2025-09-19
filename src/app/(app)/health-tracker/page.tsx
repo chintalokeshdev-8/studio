@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Heart, TrendingUp, PlusCircle, Scale, Activity, Flame, Footprints, Info, Watch, Radio, Target, Bike, PersonStanding, Dumbbell, Leaf, Check, Wind, Brain, TestTube } from "lucide-react";
+import { Heart, TrendingUp, PlusCircle, Scale, Activity, Flame, Footprints, Info, Watch, Radio, Target, Bike, PersonStanding, Dumbbell, Leaf, Check, Wind, Brain, TestTube, Droplets } from "lucide-react";
 import React, { useState, useMemo } from 'react';
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -592,6 +592,7 @@ export default function HealthTrackerPage() {
     
 
     
+
 
 
 
