@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -8,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Heart, TrendingUp, PlusCircle, Scale, Activity, Flame, Footprints, Info, Watch, Radio, Target, Bike, PersonStanding } from "lucide-react";
+import { Heart, TrendingUp, PlusCircle, Scale, Activity, Flame, Footprints, Info, Watch, Radio, Target, Bike, PersonStanding, Dumbbell, Leaf } from "lucide-react";
 import React, { useState, useMemo } from 'react';
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -18,7 +17,8 @@ const measurementHistory = [
     { date: "2024-07-06", weight: "76 kg", bp: "125/85 mmHg", bmi: 24.8 },
 ];
 
-const getBmiCategory = (bmi: number) => {
+const getBmiCategory = (bmi: number | null) => {
+    if (bmi === null) return { category: "N/A", className: "" };
     if (bmi < 18.5) return { category: "Underweight", className: "bg-blue-100 text-blue-800" };
     if (bmi >= 18.5 && bmi < 25) return { category: "Normal", className: "bg-green-100 text-green-800" };
     if (bmi >= 25 && bmi < 30) return { category: "Overweight", className: "bg-yellow-100 text-yellow-800" };
@@ -104,6 +104,8 @@ const BmiGauge = ({ bmi }: { bmi: number | null }) => {
     };
 
     const rotation = getRotation(bmi);
+    const bmiCategoryInfo = getBmiCategory(bmi);
+
 
     return (
         <div className="relative w-[300px] h-[190px] mx-auto font-sans">
@@ -153,7 +155,7 @@ const BmiGauge = ({ bmi }: { bmi: number | null }) => {
              {bmi !== null ? (
                 <div className="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
                     <p className="text-3xl font-bold" style={{color: 'hsl(var(--nav-profile))'}}>{bmi.toFixed(1)}</p>
-                    <Badge className={`text-sm mt-1 ${getBmiCategory(bmi)?.className}`}>{getBmiCategory(bmi)?.category}</Badge>
+                    <Badge className={`text-sm mt-1 ${bmiCategoryInfo?.className}`}>{bmiCategoryInfo?.category}</Badge>
                 </div>
             ) : (
                  <div className="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
@@ -167,13 +169,112 @@ const BmiGauge = ({ bmi }: { bmi: number | null }) => {
     );
 };
 
+const BmiAdvice = ({ bmi }: { bmi: number | null }) => {
+    if (bmi === null) return null;
+
+    const { category } = getBmiCategory(bmi);
+    let advice = { title: "", points: [], icon: Leaf, color: "text-primary" };
+
+    switch (category) {
+        case "Underweight":
+            advice = {
+                title: "Advice for Healthy Weight Gain",
+                points: [
+                    "Eat more frequent, nutrient-rich meals.",
+                    "Incorporate protein shakes or smoothies.",
+                    "Choose foods with healthy fats like avocados and nuts.",
+                    "Engage in strength training to build muscle mass.",
+                ],
+                icon: Dumbbell,
+                color: "text-blue-500"
+            };
+            break;
+        case "Normal":
+            advice = {
+                title: "You're Doing Great! Keep it Up!",
+                points: [
+                    "Maintain your balanced diet and regular physical activity.",
+                    "Continue monitoring your health to stay in this healthy range.",
+                    "Ensure you get adequate sleep and manage stress.",
+                    "Stay hydrated by drinking plenty of water.",
+                ],
+                icon: Target,
+                color: "text-green-500"
+            };
+            break;
+        case "Overweight":
+            advice = {
+                title: "Tips for a Healthier BMI",
+                points: [
+                    "Focus on a balanced diet with more fruits and vegetables.",
+                    "Incorporate at least 30 minutes of moderate exercise daily.",
+                    "Reduce intake of sugary drinks and processed foods.",
+                    "Practice mindful eating and portion control.",
+                ],
+                icon: Leaf,
+                color: "text-yellow-500"
+            };
+            break;
+        case "Obese":
+        case "Morbidly Obese":
+            advice = {
+                title: "Guidance for Significant Weight Management",
+                points: [
+                    "Consult a doctor or dietitian for a personalized plan.",
+                    "Aim for gradual, sustainable weight loss.",
+                    "Increase daily physical activity, starting with walking.",
+                    "Join a support group or work with a health coach.",
+                ],
+                icon: Heart,
+                color: "text-red-500"
+            };
+            break;
+        default:
+            return null;
+    }
+
+    const AdviceIcon = advice.icon;
+
+    return (
+        <Card>
+            <CardHeader>
+                <CardTitle className={`flex items-center gap-2 ${advice.color}`}>
+                    <AdviceIcon /> {advice.title}
+                </CardTitle>
+                <CardDescription>Here are some tips to help you improve or maintain your BMI.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <ul className="space-y-3">
+                    {advice.points.map((point, index) => (
+                        <li key={index} className="flex items-start gap-3">
+                            <Check className="h-5 w-5 mt-1 text-primary flex-shrink-0" style={{color: 'hsl(var(--nav-profile))'}}/>
+                            <span className="text-muted-foreground">{point}</span>
+                        </li>
+                    ))}
+                </ul>
+                 <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-6">
+                   <div className="flex items-start gap-3">
+                        <Info className="h-5 w-5 text-yellow-700 mt-1 flex-shrink-0"/>
+                        <div>
+                            <h4 className="font-semibold text-yellow-800">Disclaimer</h4>
+                            <p className="text-sm text-yellow-700">
+                                This advice is for informational purposes only. Always consult with a healthcare professional before making significant changes to your diet or exercise routine.
+                            </p>
+                        </div>
+                   </div>
+                </div>
+            </CardContent>
+        </Card>
+    );
+};
+
 
 export default function HealthTrackerPage() {
     const [height, setHeight] = useState('');
     const [weight, setWeight] = useState('');
     const [heightUnit, setHeightUnit] = useState('m');
     const [weightUnit, setWeightUnit] = useState('kg');
-
+    const [displayedBmi, setDisplayedBmi] = useState<number | null>(null);
 
     const calculatedBmi = useMemo(() => {
         const h = parseFloat(height);
@@ -196,6 +297,10 @@ export default function HealthTrackerPage() {
         }
         return null;
     }, [height, weight, heightUnit, weightUnit]);
+    
+    const handleCalculateBmi = () => {
+        setDisplayedBmi(calculatedBmi);
+    };
 
     const latestBmi = 24.5;
     const bmiInfo = getBmiCategory(latestBmi);
@@ -237,10 +342,10 @@ export default function HealthTrackerPage() {
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <div className="flex justify-center">
-                            <CircularProgress percentage={stepsPercentage} size={100} strokeWidth={8}>
+                            <CircularProgress percentage={stepsPercentage} size={80} strokeWidth={6}>
                                 <div className="text-center">
                                     <p className="text-muted-foreground text-xs">Steps</p>
-                                    <p className="text-xl font-bold">{stepsData.steps}</p>
+                                    <p className="text-lg font-bold">{stepsData.steps}</p>
                                 </div>
                             </CircularProgress>
                         </div>
@@ -274,7 +379,7 @@ export default function HealthTrackerPage() {
                     </CardHeader>
                     <CardContent className="space-y-4">
                          <div className="flex justify-center">
-                            <CircularProgress percentage={weeklyActivityPercentage} size={100} strokeWidth={8}>
+                            <CircularProgress percentage={weeklyActivityPercentage} size={80} strokeWidth={6}>
                                 <div className="text-center">
                                     <p className="text-xl font-bold">{weeklyActivityPercentage.toFixed(0)}<span className="text-base">%</span></p>
                                     <p className="text-muted-foreground font-medium text-xs">{weeklyActivityData.completed} Min</p>
@@ -358,18 +463,23 @@ export default function HealthTrackerPage() {
                             </div>
                             <Input id="calc-weight" type="number" placeholder={weightPlaceholders[weightUnit]} value={weight} onChange={(e) => setWeight(e.target.value)} />
                         </div>
+                        <Button onClick={handleCalculateBmi} className="w-full" style={{backgroundColor: 'hsl(var(--nav-profile))'}} disabled={!calculatedBmi}>
+                            Calculate BMI
+                        </Button>
                          <div className="p-4 bg-muted/40 rounded-lg border">
                             <h4 className="font-semibold flex items-center gap-2 mb-2"><Info className="h-5 w-5 text-primary" style={{color: 'hsl(var(--nav-profile))'}}/> What is BMI?</h4>
                             <p className="text-sm text-muted-foreground">
-                                One of the most important aspects of the human health is the body mass index (BMI). Being able to calculate your BMI enables you to determine your total body fat at any given time. Whether you’re a man, woman or teen, you can learn how to calculate your BMI using the BMI calculator or manually.
+                                Body Mass Index (BMI) is a measure of body fat based on height and weight. It's a simple way to see if you're in a healthy weight range.
                             </p>
                         </div>
                     </div>
                     <div className="flex flex-col items-center justify-center">
-                        <BmiGauge bmi={calculatedBmi} />
+                        <BmiGauge bmi={displayedBmi} />
                     </div>
                 </CardContent>
             </Card>
+
+            <BmiAdvice bmi={displayedBmi} />
 
 
             <Card>
@@ -427,3 +537,5 @@ export default function HealthTrackerPage() {
 
         </div>
     );
+}
+    
