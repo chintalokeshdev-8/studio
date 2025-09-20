@@ -118,10 +118,10 @@ export default function SymptomCheckerPage() {
                 <CardContent className="p-4 flex items-start gap-4">
                     <AlertTriangle className="h-6 w-6 text-yellow-600 dark:text-yellow-400 mt-1 flex-shrink-0" />
                     <div>
-                        <h3 className="font-bold text-yellow-800 dark:text-yellow-300">Disclaimer (గమనిక)</h3>
+                        <h3 className="font-bold text-yellow-800 dark:text-yellow-300">For Your Awareness (మీ అవగాహన కోసం)</h3>
                         <div className="text-sm text-yellow-700 dark:text-yellow-400/80 space-y-1 mt-1">
-                           <p>This AI tool is for informational purposes only and is not a medical diagnosis. Always consult a doctor for health concerns.</p>
-                           <p>ఈ AI సాధనం సమాచార ప్రయోజనాల కోసం మాత్రమే, వైద్య నిర్ధారణ కాదు. ఆరోగ్య సమస్యల కోసం ఎల్లప్పుడూ వైద్యుడిని సంప్రదించండి.</p>
+                           <p>This AI tool provides first-aid guidance only. It is not a medical diagnosis. Always consult a qualified doctor for health concerns.</p>
+                           <p>ఈ AI సాధనం ప్రథమ చికిత్స మార్గదర్శకత్వం మాత్రమే అందిస్తుంది. ఇది వైద్య నిర్ధారణ కాదు. ఆరోగ్య సమస్యల కోసం ఎల్లప్పుడూ అర్హత కలిగిన వైద్యుడిని సంప్రదించండి.</p>
                         </div>
                     </div>
                 </CardContent>
@@ -208,7 +208,9 @@ export default function SymptomCheckerPage() {
                     <CardFooter className="flex-col items-start gap-4 bg-muted/40 p-4">
                          <div>
                             <h4 className="font-semibold">Next Steps</h4>
-                            <p className="text-sm text-muted-foreground">Based on the analysis, consider booking an appointment with a specialist.</p>
+                            <p className="text-sm text-muted-foreground">
+                                Based on the analysis, consider booking an appointment with a <span className="font-bold" style={{color: 'hsl(var(--nav-symptoms))'}}>{analysis.recommendedSpecialist}</span>.
+                            </p>
                          </div>
                          <Link href="/appointments" className="w-full">
                             <Button className="w-full" style={{backgroundColor: 'hsl(var(--nav-symptoms))'}}>

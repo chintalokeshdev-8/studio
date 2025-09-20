@@ -42,6 +42,7 @@ const SymptomAnalysisOutputSchema = z.object({
   })).describe(
         'An AI-powered analysis of the symptoms. Provide a structured response with titles like "Initial Analysis", "Suggested First Aid", "Recommended Diet Plan", "Recommended Tests", and "Disclaimer".'
       ),
+  recommendedSpecialist: z.string().describe("Based on the symptoms, recommend a single, appropriate specialist type to consult (e.g., 'General Physician', 'Cardiologist', 'Dermatologist')."),
 });
 
 /**
@@ -74,6 +75,8 @@ Analyze the user's symptoms and provide a structured response, with each section
 3.  **Recommended Diet Plan**: Suggest a top-level diet plan (e.g., "focus on liquids and easily digestible foods"). (2-3 points)
 4.  **Recommended Tests**: Recommend 1-2 relevant diagnostic tests for discussion with a doctor.
 5.  **Disclaimer**: Conclude with a strong, clear disclaimer emphasizing that this is not a medical diagnosis and that the user must consult a qualified doctor for any health concerns.
+
+Based on the symptoms, also provide a recommendation for the single most appropriate specialist to consult.
 
 User Symptoms: {{{symptoms}}}
 `,
