@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview This file defines a Genkit flow for AI-powered symptom analysis.
@@ -22,7 +23,7 @@ const SymptomAnalysisInputSchema = z.object({
   symptoms:
     z.string()
       .describe(
-        'A description of the symptoms experienced by the user, which can be in Telugu or English.'
+        'A description of the symptoms experienced by the user, which can be in English or Telugu. It can be a comma-separated list or a free-form text.'
       ),
 });
 
@@ -38,7 +39,7 @@ const SymptomAnalysisOutputSchema = z.object({
   analysis:
     z.string()
       .describe(
-        'An AI-powered analysis of the symptoms, providing potential health concerns and recommendations in about 10 simple, easy-to-understand lines. It should include natural first-aid advice and recommend relevant tests.'
+        'An AI-powered analysis of the symptoms. Provide a structured response: 1. **Initial Analysis**: A brief, non-alarming analysis of the symptoms. 2. **Suggested First Aid**: Simple, natural first-aid or home care advice. 3. **Recommended Diet Plan**: A top-level diet plan (e.g., "focus on liquids and easily digestible foods"). 4. **Recommended Tests**: Suggest relevant diagnostic tests. 5. **Disclaimer**: A strong, clear disclaimer to consult a doctor for a proper diagnosis.'
       ),
 });
 
@@ -63,13 +64,15 @@ const symptomAnalysisPrompt = ai.definePrompt({
   name: 'symptomAnalysisPrompt',
   input: {schema: SymptomAnalysisInputSchema},
   output: {schema: SymptomAnalysisOutputSchema},
-  prompt: `You are an AI-powered health assistant. Analyze the user's symptoms and provide a simple, easy-to-understand analysis of about 10 lines.
+  prompt: `You are an AI-powered health assistant. Your goal is to provide a helpful, preliminary analysis of a user's symptoms. The user can provide symptoms in English or Telugu. Respond in simple, easy-to-understand language.
 
-Your response should include:
-- A potential, non-alarming reason for the symptoms.
-- Simple, natural first-aid advice.
-- Recommended diagnostic tests.
-- A clear disclaimer to consult a doctor.
+Analyze the user's symptoms and provide a structured response in about 10-12 lines total, covering the following points:
+
+1.  **Initial Analysis**: Start with a brief, non-alarming potential reason for the symptoms.
+2.  **Suggested First Aid**: Provide 2-3 simple, natural first-aid or home care tips.
+3.  **Recommended Diet Plan**: Suggest a top-level diet plan (e.g., "focus on liquids and easily digestible foods").
+4.  **Recommended Tests**: Recommend 1-2 relevant diagnostic tests for discussion with a doctor.
+5.  **Disclaimer**: Conclude with a strong, clear disclaimer emphasizing that this is not a medical diagnosis and that the user must consult a qualified doctor for any health concerns.
 
 User Symptoms: {{{symptoms}}}
 `,

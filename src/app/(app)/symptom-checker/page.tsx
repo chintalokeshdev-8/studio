@@ -8,6 +8,8 @@ import { analyzeSymptoms, SymptomAnalysisOutput } from '@/ai/flows/ai-symptom-ch
 import { Loader2, Mic, Sparkles, Search, AlertTriangle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 
 const commonSymptoms = [
     { english: "Fever", telugu: "జ్వరం" },
@@ -24,6 +26,7 @@ const commonSymptoms = [
 
 export default function SymptomCheckerPage() {
     const [selectedSymptoms, setSelectedSymptoms] = useState<string[]>([]);
+    const [customSymptom, setCustomSymptom] = useState('');
     const [analysis, setAnalysis] = useState<SymptomAnalysisOutput | null>(null);
     const [isPending, startTransition] = useTransition();
 
@@ -34,7 +37,7 @@ export default function SymptomCheckerPage() {
     };
 
     const handleSubmit = async () => {
-        const allSymptoms = selectedSymptoms.join(', ');
+        const allSymptoms = [...selectedSymptoms, customSymptom].filter(s => s.trim() !== '').join(', ');
         if (!allSymptoms) {
             return;
         }
@@ -49,7 +52,7 @@ export default function SymptomCheckerPage() {
         <div className="space-y-8">
             <div className="text-center">
                 <h1 className="text-3xl font-bold" style={{color: 'hsl(var(--nav-symptoms))'}}>AI Symptom Checker</h1>
-                <p className="text-muted-foreground mt-2">Select your symptoms to get intelligent health guidance.</p>
+                <p className="text-muted-foreground mt-2">Describe your symptoms to get intelligent health guidance.</p>
             </div>
             
             <Card className="bg-yellow-50 border-yellow-200 dark:bg-yellow-900/20 dark:border-yellow-800/40">
@@ -67,7 +70,7 @@ export default function SymptomCheckerPage() {
 
             <Card>
                 <CardHeader>
-                    <CardTitle>Select Your Symptoms</CardTitle>
+                    <CardTitle>1. Select Common Symptoms</CardTitle>
                 </CardHeader>
                 <CardContent className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     {commonSymptoms.map(symptom => (
@@ -87,18 +90,24 @@ export default function SymptomCheckerPage() {
                 </CardContent>
             </Card>
 
-            <Card className="border-primary/20" style={{backgroundColor: 'hsla(var(--nav-symptoms)/0.1)', borderColor: 'hsla(var(--nav-symptoms)/0.2)'}}>
-                <CardContent className="p-4 flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                            <div className="p-2 rounded-full" style={{backgroundColor: 'hsla(var(--nav-symptoms)/0.1)'}}>
-                            <Mic className="h-6 w-6" style={{color: 'hsl(var(--nav-symptoms))'}}/>
-                        </div>
-                        <div>
-                            <h3 className="font-semibold" style={{color: 'hsl(var(--nav-symptoms))'}}>Voice Symptom Input</h3>
-                            <p className="text-sm text-muted-foreground">Speak your symptoms in Telugu or English</p>
-                        </div>
+            <Card>
+                <CardHeader>
+                    <CardTitle>2. Describe Your Symptoms in Detail</CardTitle>
+                </CardHeader>
+                 <CardContent className="space-y-4">
+                    <Label htmlFor="custom-symptoms">Use the box below to add more details. You can type in English or Telugu.</Label>
+                    <div className="relative">
+                        <Textarea 
+                            id="custom-symptoms"
+                            placeholder="e.g., I have a mild fever and a dry cough since yesterday morning. I also feel tired." 
+                            className="min-h-[120px] pr-12"
+                            value={customSymptom}
+                            onChange={(e) => setCustomSymptom(e.target.value)}
+                        />
+                        <Button variant="ghost" size="icon" className="absolute top-2 right-2">
+                             <Mic className="h-5 w-5" style={{color: 'hsl(var(--nav-symptoms))'}}/>
+                        </Button>
                     </div>
-                    <Button style={{backgroundColor: 'hsl(var(--nav-symptoms))'}}>Speak Now</Button>
                 </CardContent>
             </Card>
             
@@ -137,7 +146,7 @@ export default function SymptomCheckerPage() {
             )}
 
             <div className="p-4 sticky bottom-20">
-                    <Button onClick={handleSubmit} disabled={isPending || selectedSymptoms.length === 0} className="w-full h-12 text-lg font-bold" style={{backgroundColor: 'hsl(var(--nav-symptoms))'}}>
+                    <Button onClick={handleSubmit} disabled={isPending || (selectedSymptoms.length === 0 && customSymptom.trim() === '')} className="w-full h-12 text-lg font-bold" style={{backgroundColor: 'hsl(var(--nav-symptoms))'}}>
                     {isPending ? (
                         <>
                             <Loader2 className="mr-2 h-5 w-5 animate-spin" />
@@ -146,7 +155,7 @@ export default function SymptomCheckerPage() {
                     ) : (
                             <>
                             <Search className="mr-2 h-5 w-5" />
-                            GET AI ANALYSIS ({selectedSymptoms.length})
+                            GET AI ANALYSIS ({selectedSymptoms.length + (customSymptom.trim() ? 1 : 0)})
                             </>
                     )}
                 </Button>
