@@ -124,10 +124,10 @@ export default function SymptomCheckerPage() {
                 <CardContent className="p-4 flex items-start gap-4">
                     <AlertTriangle className="h-5 w-5 text-yellow-600 dark:text-yellow-400 mt-1 flex-shrink-0" />
                     <div>
-                        <h3 className="font-bold text-yellow-800 dark:text-yellow-300">For Your Awareness (మీ అవగాహన కోసం)</h3>
+                        <h3 className="font-bold text-yellow-800 dark:text-yellow-300">Disclaimer (గమనిక)</h3>
                         <div className="text-sm text-yellow-700 dark:text-yellow-400/80 space-y-1 mt-1">
-                           <p>This AI provides first-aid guidance only, not a medical diagnosis. Always consult a doctor for health concerns.</p>
-                           <p>ఈ AI ప్రథమ చికిత్స మార్గదర్శకత్వం మాత్రమే అందిస్తుంది, వైద్య నిర్ధారణ కాదు. ఆరోగ్య సమస్యల కోసం ఎల్లప్పుడూ వైద్యుడిని సంప్రదించండి.</p>
+                           <p>This is for first-aid guidance only, not a medical diagnosis. Always consult a doctor.</p>
+                           <p>ఇది ప్రథమ చికిత్స కోసం మాత్రమే, వైద్య నిర్ధారణ కాదు. ఎల్లప్పుడూ వైద్యుడిని సంప్రదించండి.</p>
                         </div>
                     </div>
                 </CardContent>
@@ -144,9 +144,8 @@ export default function SymptomCheckerPage() {
                             onClick={() => handleSymptomClick(symptom.english)}
                             className={cn(
                                 "cursor-pointer transition-all rounded-lg p-2 text-center border-2",
-                                selectedSymptoms.includes(symptom.english) ? 'border-primary bg-primary/10' : 'bg-muted/40 border-input hover:border-muted-foreground/20'
+                                selectedSymptoms.includes(symptom.english) ? 'border-green-500 bg-green-500/10' : 'bg-muted/40 border-input hover:border-muted-foreground/20'
                             )}
-                             style={selectedSymptoms.includes(symptom.english) ? {borderColor: 'hsl(var(--nav-symptoms))', backgroundColor: 'hsla(var(--nav-symptoms)/0.1)'} : {}}
                         >
                             <p className="font-semibold text-sm">{symptom.english}</p>
                             <p className="text-muted-foreground text-xs">{symptom.telugu}</p>
