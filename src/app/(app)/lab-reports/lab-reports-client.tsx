@@ -262,9 +262,9 @@ export function LabReportsClient({
                 <p className="text-muted-foreground">Find diagnostic tests and view your reports.</p>
             </div>
             <Tabs defaultValue="diagnostics" className="w-full">
-                <TabsList className="grid w-full grid-cols-2 border" style={{borderColor: 'hsl(var(--nav-diagnostics))'}}>
-                    <TabsTrigger value="diagnostics" style={{color: 'hsl(var(--nav-diagnostics))'}} className="data-[state=active]:font-bold data-[state=active]:shadow-sm">Find Diagnostics</TabsTrigger>
-                    <TabsTrigger value="reports" style={{color: 'hsl(var(--nav-diagnostics))'}} className="data-[state=active]:font-bold data-[state=active]:shadow-sm">My Reports</TabsTrigger>
+                <TabsList className="grid w-full grid-cols-2 border p-0 h-auto" style={{borderColor: 'hsl(var(--nav-diagnostics))'}}>
+                    <TabsTrigger value="diagnostics" style={{color: 'hsl(var(--nav-diagnostics))'}} className="data-[state=active]:font-bold data-[state=active]:shadow-sm rounded-none border-r" >Find Diagnostics</TabsTrigger>
+                    <TabsTrigger value="reports" style={{color: 'hsl(var(--nav-diagnostics))'}} className="data-[state=active]:font-bold data-[state=active]:shadow-sm rounded-none">My Reports</TabsTrigger>
                 </TabsList>
                 <TabsContent value="diagnostics" className="mt-6">
                     <Card>
