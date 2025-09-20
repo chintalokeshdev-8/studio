@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState, useTransition } from 'react';
+import React, { useState, useTransition, useEffect, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { analyzeSymptoms, SymptomAnalysisOutput } from '@/ai/flows/ai-symptom-check';
@@ -29,6 +29,58 @@ export default function SymptomCheckerPage() {
     const [customSymptom, setCustomSymptom] = useState('');
     const [analysis, setAnalysis] = useState<SymptomAnalysisOutput | null>(null);
     const [isPending, startTransition] = useTransition();
+    const [isListening, setIsListening] = useState(false);
+    
+    const recognitionRef = useRef<any>(null);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (SpeechRecognition) {
+                const recognition = new SpeechRecognition();
+                recognition.continuous = true;
+                recognition.interimResults = true;
+                recognition.lang = 'en-US';
+
+                recognition.onresult = (event) => {
+                    let interimTranscript = '';
+                    let finalTranscript = '';
+                    for (let i = event.resultIndex; i < event.results.length; ++i) {
+                        if (event.results[i].isFinal) {
+                            finalTranscript += event.results[i][0].transcript;
+                        } else {
+                            interimTranscript += event.results[i][0].transcript;
+                        }
+                    }
+                    setCustomSymptom(prev => prev + finalTranscript);
+                };
+
+                recognition.onstart = () => {
+                    setIsListening(true);
+                };
+
+                recognition.onend = () => {
+                    setIsListening(false);
+                };
+                
+                recognitionRef.current = recognition;
+            } else {
+                console.log("Speech Recognition not supported");
+            }
+        }
+    }, []);
+
+    const handleMicClick = () => {
+        const recognition = recognitionRef.current;
+        if (recognition) {
+            if (isListening) {
+                recognition.stop();
+            } else {
+                recognition.start();
+            }
+        }
+    };
+
 
     const handleSymptomClick = (symptom: string) => {
         setSelectedSymptoms(prev => 
@@ -111,8 +163,8 @@ export default function SymptomCheckerPage() {
                             value={customSymptom}
                             onChange={(e) => setCustomSymptom(e.target.value)}
                         />
-                        <Button variant="ghost" size="icon" className="absolute top-2 right-2">
-                             <Mic className="h-5 w-5" style={{color: 'hsl(var(--nav-symptoms))'}}/>
+                        <Button variant="ghost" size="icon" onClick={handleMicClick} className="absolute top-2 right-2">
+                             <Mic className={cn("h-5 w-5", isListening ? "text-destructive animation-blink" : "text-primary")} style={isListening ? {} : {color: 'hsl(var(--nav-symptoms))'}}/>
                         </Button>
                     </div>
                 </CardContent>
@@ -185,3 +237,5 @@ export default function SymptomCheckerPage() {
         </div>
     );
 }
+
+    
