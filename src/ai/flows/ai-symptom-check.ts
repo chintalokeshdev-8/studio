@@ -63,17 +63,16 @@ const symptomAnalysisPrompt = ai.definePrompt({
   name: 'symptomAnalysisPrompt',
   input: {schema: SymptomAnalysisInputSchema},
   output: {schema: SymptomAnalysisOutputSchema},
-  prompt: `You are an AI-powered health assistant. A user will describe their symptoms to you. Based on the symptoms, provide a simple, easy-to-understand analysis of about 10 lines.
+  prompt: `You are an AI-powered health assistant. Analyze the user's symptoms and provide a simple, easy-to-understand analysis of about 10 lines.
 
-  Your response MUST include:
-  1.  A potential, non-alarming reason for the symptoms (e.g., "This might be a common viral infection.").
-  2.  Simple, natural first-aid advice (e.g., "Rest well, drink warm fluids like ginger tea...").
-  3.  Recommended diagnostic tests (e.g., "Consider getting a Complete Blood Count (CBC) test.").
-  4.  A clear disclaimer to consult a doctor for a proper diagnosis.
+Your response should include:
+- A potential, non-alarming reason for the symptoms.
+- Simple, natural first-aid advice.
+- Recommended diagnostic tests.
+- A clear disclaimer to consult a doctor.
 
-  Symptoms: {{{symptoms}}}
-
-  Analysis:`,
+User Symptoms: {{{symptoms}}}
+`,
 });
 
 /**
