@@ -19,9 +19,15 @@ const commonSymptoms = [
     { english: "Stomach Pain", telugu: "కడుపునొప్పి" },
     { english: "Vomiting", telugu: "వాంతులు" },
     { english: "Body Pain", telugu: "శరీర నొప్పులు" },
-    { english: "Breathing Issues", telugu: "ఊపిరితిత్తుల సమస్య" },
+    { english: "Breathing Issues", telugu: "శ్వాస సమస్య" },
     { english: "Chest Pain", telugu: "ఛాతీ నొప్పి" },
     { english: "Dizziness", telugu: "తల తిరుగుట" },
+    { english: "Diarrhea", telugu: "విరేచనాలు" },
+    { english: "Sore Throat", telugu: "గొంతు నొప్పి" },
+    { english: "Fatigue", telugu: "అలసట" },
+    { english: "Nausea", telugu: "వికారం" },
+    { english: "Skin Rash", telugu: "చర్మపు దద్దుర్లు" },
+    { english: "Muscle Pain", telugu: "కండరాల నొప్పి" },
 ];
 
 export default function SymptomCheckerPage() {
@@ -116,12 +122,12 @@ export default function SymptomCheckerPage() {
             
             <Card className="bg-yellow-50 border-yellow-200 dark:bg-yellow-900/20 dark:border-yellow-800/40">
                 <CardContent className="p-4 flex items-start gap-4">
-                    <AlertTriangle className="h-6 w-6 text-yellow-600 dark:text-yellow-400 mt-1 flex-shrink-0" />
+                    <AlertTriangle className="h-5 w-5 text-yellow-600 dark:text-yellow-400 mt-1 flex-shrink-0" />
                     <div>
                         <h3 className="font-bold text-yellow-800 dark:text-yellow-300">For Your Awareness (మీ అవగాహన కోసం)</h3>
                         <div className="text-sm text-yellow-700 dark:text-yellow-400/80 space-y-1 mt-1">
-                           <p>This AI tool provides first-aid guidance only. It is not a medical diagnosis. Always consult a qualified doctor for health concerns.</p>
-                           <p>ఈ AI సాధనం ప్రథమ చికిత్స మార్గదర్శకత్వం మాత్రమే అందిస్తుంది. ఇది వైద్య నిర్ధారణ కాదు. ఆరోగ్య సమస్యల కోసం ఎల్లప్పుడూ అర్హత కలిగిన వైద్యుడిని సంప్రదించండి.</p>
+                           <p>This AI provides first-aid guidance only, not a medical diagnosis. Always consult a doctor for health concerns.</p>
+                           <p>ఈ AI ప్రథమ చికిత్స మార్గదర్శకత్వం మాత్రమే అందిస్తుంది, వైద్య నిర్ధారణ కాదు. ఆరోగ్య సమస్యల కోసం ఎల్లప్పుడూ వైద్యుడిని సంప్రదించండి.</p>
                         </div>
                     </div>
                 </CardContent>
@@ -131,19 +137,19 @@ export default function SymptomCheckerPage() {
                 <CardHeader>
                     <CardTitle>1. Select Common Symptoms</CardTitle>
                 </CardHeader>
-                <CardContent className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <CardContent className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
                     {commonSymptoms.map(symptom => (
                         <div
                             key={symptom.english}
                             onClick={() => handleSymptomClick(symptom.english)}
                             className={cn(
-                                "cursor-pointer transition-all rounded-lg p-4 text-center border-2",
-                                selectedSymptoms.includes(symptom.english) ? 'border-primary bg-primary/10' : 'bg-muted/40 border-transparent hover:border-muted-foreground/20'
+                                "cursor-pointer transition-all rounded-lg p-3 text-center border-2",
+                                selectedSymptoms.includes(symptom.english) ? 'border-primary bg-primary/10' : 'bg-muted/40 border-input hover:border-muted-foreground/20'
                             )}
                              style={selectedSymptoms.includes(symptom.english) ? {borderColor: 'hsl(var(--nav-symptoms))', backgroundColor: 'hsla(var(--nav-symptoms)/0.1)'} : {}}
                         >
-                            <p className="font-semibold">{symptom.english}</p>
-                            <p className="text-muted-foreground text-sm">{symptom.telugu}</p>
+                            <p className="font-semibold text-sm">{symptom.english}</p>
+                            <p className="text-muted-foreground text-xs">{symptom.telugu}</p>
                         </div>
                     ))}
                 </CardContent>
