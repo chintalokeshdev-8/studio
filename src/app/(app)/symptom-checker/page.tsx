@@ -136,7 +136,7 @@ export default function SymptomCheckerPage() {
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-6">
-                        {analysis.map((section, index) => (
+                        {analysis.analysis.map((section, index) => (
                             <div key={index}>
                                 <h3 className="font-bold text-lg mb-2 flex items-center gap-2" style={{color: section.title.toLowerCase().includes('disclaimer') ? 'hsl(var(--destructive))' : 'hsl(var(--nav-symptoms))'}}>
                                      {section.title.toLowerCase().includes('disclaimer') ? <AlertTriangle/> : getIconForTitle(section.title)}
