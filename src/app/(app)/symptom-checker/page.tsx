@@ -5,7 +5,7 @@ import React, { useState, useTransition } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { analyzeSymptoms, SymptomAnalysisOutput } from '@/ai/flows/ai-symptom-check';
-import { Loader2, Mic, Sparkles, Search, AlertTriangle } from 'lucide-react';
+import { Loader2, Mic, Sparkles, Search, AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { Textarea } from '@/components/ui/textarea';
@@ -47,6 +47,13 @@ export default function SymptomCheckerPage() {
             setAnalysis(result);
         });
     };
+
+    const getIconForTitle = (title: string) => {
+        if (title.toLowerCase().includes('first aid')) return <Sparkles className="h-5 w-5" />;
+        if (title.toLowerCase().includes('diet')) return <Sparkles className="h-5 w-5" />;
+        if (title.toLowerCase().includes('tests')) return <Sparkles className="h-5 w-5" />;
+        return <Sparkles className="h-5 w-5" />;
+    }
 
     return (
         <div className="space-y-8">
@@ -128,8 +135,23 @@ export default function SymptomCheckerPage() {
                             <Sparkles /> AI Analysis Result
                         </CardTitle>
                     </CardHeader>
-                    <CardContent className="space-y-4">
-                        <p className="whitespace-pre-wrap leading-relaxed">{analysis.analysis}</p>
+                    <CardContent className="space-y-6">
+                        {analysis.map((section, index) => (
+                            <div key={index}>
+                                <h3 className="font-bold text-lg mb-2 flex items-center gap-2" style={{color: section.title.toLowerCase().includes('disclaimer') ? 'hsl(var(--destructive))' : 'hsl(var(--nav-symptoms))'}}>
+                                     {section.title.toLowerCase().includes('disclaimer') ? <AlertTriangle/> : getIconForTitle(section.title)}
+                                     {section.title}
+                                </h3>
+                                <ul className="space-y-2">
+                                    {section.points.map((point, i) => (
+                                        <li key={i} className="flex items-start gap-3">
+                                            <CheckCircle2 className="h-5 w-5 mt-1 text-green-500 flex-shrink-0" />
+                                            <span className="text-muted-foreground">{point}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
                     </CardContent>
                     <CardFooter className="flex-col items-start gap-4 bg-muted/40 p-4">
                          <div>

@@ -36,10 +36,11 @@ export type SymptomAnalysisInput = z.infer<typeof SymptomAnalysisInputSchema>;
  * Output schema for the symptom analysis flow.
  */
 const SymptomAnalysisOutputSchema = z.object({
-  analysis:
-    z.string()
-      .describe(
-        'An AI-powered analysis of the symptoms. Provide a structured response: 1. **Initial Analysis**: A brief, non-alarming analysis of the symptoms. 2. **Suggested First Aid**: Simple, natural first-aid or home care advice. 3. **Recommended Diet Plan**: A top-level diet plan (e.g., "focus on liquids and easily digestible foods"). 4. **Recommended Tests**: Suggest relevant diagnostic tests. 5. **Disclaimer**: A strong, clear disclaimer to consult a doctor for a proper diagnosis.'
+  analysis: z.array(z.object({
+    title: z.string(),
+    points: z.array(z.string()),
+  })).describe(
+        'An AI-powered analysis of the symptoms. Provide a structured response with titles like "Initial Analysis", "Suggested First Aid", "Recommended Diet Plan", "Recommended Tests", and "Disclaimer".'
       ),
 });
 
@@ -66,11 +67,11 @@ const symptomAnalysisPrompt = ai.definePrompt({
   output: {schema: SymptomAnalysisOutputSchema},
   prompt: `You are an AI-powered health assistant. Your goal is to provide a helpful, preliminary analysis of a user's symptoms. The user can provide symptoms in English or Telugu. Respond in simple, easy-to-understand language.
 
-Analyze the user's symptoms and provide a structured response in about 10-12 lines total, covering the following points:
+Analyze the user's symptoms and provide a structured response, with each section having a title and an array of points. The sections should be:
 
-1.  **Initial Analysis**: Start with a brief, non-alarming potential reason for the symptoms.
+1.  **Initial Analysis**: Start with a brief, non-alarming potential reason for the symptoms. (1-2 points)
 2.  **Suggested First Aid**: Provide 2-3 simple, natural first-aid or home care tips.
-3.  **Recommended Diet Plan**: Suggest a top-level diet plan (e.g., "focus on liquids and easily digestible foods").
+3.  **Recommended Diet Plan**: Suggest a top-level diet plan (e.g., "focus on liquids and easily digestible foods"). (2-3 points)
 4.  **Recommended Tests**: Recommend 1-2 relevant diagnostic tests for discussion with a doctor.
 5.  **Disclaimer**: Conclude with a strong, clear disclaimer emphasizing that this is not a medical diagnosis and that the user must consult a qualified doctor for any health concerns.
 
