@@ -15,6 +15,7 @@ import { analyzeReport, ReportAnalysisInput, ReportAnalysisOutput } from '@/ai/f
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import Image from 'next/image';
+import { cn } from '@/lib/utils';
 
 const getStatusBadgeClass = (status: string) => {
     switch (status) {
@@ -42,7 +43,7 @@ const ReportTable = ({ reports, onAnalyze, onView }: { reports: any[], onAnalyze
         </TableHeader>
         <TableBody>
             {reports.map((report, index) => (
-                <TableRow key={index}>
+                <TableRow key={index} className='border-b'>
                     <TableCell className="font-medium">{report.testName}</TableCell>
                     <TableCell>{report.date}</TableCell>
                     <TableCell>{report.doctor}</TableCell>
@@ -167,7 +168,7 @@ const ReportViewer = ({ content }: { content: string }) => {
                     </TableHeader>
                     <TableBody>
                         {testResults.map((result, index) => (
-                            <TableRow key={index} className={result.isAbnormal ? 'bg-red-50 dark:bg-red-900/20' : ''}>
+                            <TableRow key={index} className={cn('border-b', result.isAbnormal ? 'bg-red-50 dark:bg-red-900/20' : '')}>
                                 <TableCell className="font-semibold">{result.test}</TableCell>
                                 <TableCell className={`font-bold ${result.isAbnormal ? 'text-red-600' : ''}`}>
                                     {result.value} {result.remark && <span className="text-xs font-normal"> - {result.remark.replace('-','').trim()}</span>}
@@ -261,9 +262,9 @@ export function LabReportsClient({
                 <p className="text-muted-foreground">Find diagnostic tests and view your reports.</p>
             </div>
             <Tabs defaultValue="diagnostics" className="w-full">
-                <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="diagnostics">Find Diagnostics</TabsTrigger>
-                    <TabsTrigger value="reports">My Reports</TabsTrigger>
+                <TabsList className="grid w-full grid-cols-2 border" style={{borderColor: 'hsl(var(--nav-diagnostics))'}}>
+                    <TabsTrigger value="diagnostics" className="data-[state=active]:bg-green-100 data-[state=active]:text-green-800">Find Diagnostics</TabsTrigger>
+                    <TabsTrigger value="reports" className="data-[state=active]:bg-green-100 data-[state=active]:text-green-800">My Reports</TabsTrigger>
                 </TabsList>
                 <TabsContent value="diagnostics" className="mt-6">
                     <Card>
