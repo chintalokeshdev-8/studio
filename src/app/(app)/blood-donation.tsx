@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { User, Droplets, MapPin, UserPlus } from "lucide-react";
@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { formatDistanceToNow } from "date-fns";
 import { Switch } from "@/components/ui/switch";
 
-const bloodRequests = [
+const bloodRequestsData = [
     { patientName: "lokesh chinta", bloodType: "O+", city: "guntur", contactInfo: "lokesh@email.com", postedAt: new Date(Date.now() - 1000 * 60 * 5) },
     { patientName: "venkatesh", bloodType: "A+", city: "hyderabad", contactInfo: "venky@email.com", postedAt: new Date(Date.now() - 1000 * 60 * 30) },
     { patientName: "surya", bloodType: "B-", city: "guntur", contactInfo: "surya@email.com", postedAt: new Date(Date.now() - 1000 * 60 * 60 * 2) },
@@ -23,6 +23,16 @@ const bloodGroups = ["All", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 const cities = ["All", "guntur", "hyderabad", "vijayawada", "mumbai", "bangalore"];
 
 export function BloodDonation() {
+    const [bloodRequests, setBloodRequests] = useState<any[]>([]);
+
+    useEffect(() => {
+        // This runs only on the client, after hydration
+        setBloodRequests(bloodRequestsData.map(req => ({
+            ...req,
+            postedAtString: formatDistanceToNow(req.postedAt, { addSuffix: true })
+        })));
+    }, []);
+
     return (
         <Card>
             <CardHeader>
@@ -64,6 +74,9 @@ export function BloodDonation() {
                                     </Select>
                                 </div>
                                 <div className="space-y-3 max-h-96 overflow-y-auto p-1">
+                                    {bloodRequests.length === 0 && (
+                                        <div className="text-center p-8 text-muted-foreground">Loading...</div>
+                                    )}
                                     {bloodRequests.map((req, index) => (
                                         <Card key={index} className="p-4 shadow-sm">
                                             <div className="flex justify-between items-start">
@@ -81,7 +94,7 @@ export function BloodDonation() {
                                                 <div className="text-right">
                                                     <Button style={{backgroundColor: "hsl(var(--primary))"}}>Contact</Button>
                                                     <p className="text-xs text-muted-foreground mt-2">
-                                                        {formatDistanceToNow(req.postedAt, { addSuffix: true })}
+                                                        {req.postedAtString}
                                                     </p>
                                                 </div>
                                             </div>
