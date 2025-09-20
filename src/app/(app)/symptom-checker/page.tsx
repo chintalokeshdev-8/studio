@@ -118,10 +118,10 @@ export default function SymptomCheckerPage() {
                 <CardContent className="p-4 flex items-start gap-4">
                     <AlertTriangle className="h-6 w-6 text-yellow-600 dark:text-yellow-400 mt-1 flex-shrink-0" />
                     <div>
-                        <h3 className="font-bold text-yellow-800 dark:text-yellow-300">For Your Awareness (మీ అవగాహన కోసం)</h3>
-                        <div className="text-sm text-yellow-700 dark:text-yellow-400/80 space-y-2 mt-2">
-                           <p><strong>This AI analysis is for informational purposes only and is not a substitute for a professional medical diagnosis. Think of it as a first-aid guide, not a doctor's prescription. Always consult a qualified healthcare provider for any health concerns.</strong></p>
-                           <p><strong>ఈ AI విశ్లేషణ సమాచార ప్రయోజనాల కోసం మాత్రమే మరియు వృత్తిపరమైన వైద్య నిర్ధారణకు ప్రత్యామ్నాయం కాదు. దీనిని ప్రథమ చికిత్స మార్గదర్శిగా భావించండి, డాక్టర్ ప్రిస్క్రిప్షన్‌గా కాదు. ఏవైనా ఆరోగ్య సమస్యల కోసం ఎల్లప్పుడూ అర్హత కలిగిన ఆరోగ్య సంరక్షణ ప్రదాతను సంప్రదించండి.</strong></p>
+                        <h3 className="font-bold text-yellow-800 dark:text-yellow-300">Disclaimer (గమనిక)</h3>
+                        <div className="text-sm text-yellow-700 dark:text-yellow-400/80 space-y-1 mt-1">
+                           <p>This AI tool is for informational purposes only and is not a medical diagnosis. Always consult a doctor for health concerns.</p>
+                           <p>ఈ AI సాధనం సమాచార ప్రయోజనాల కోసం మాత్రమే, వైద్య నిర్ధారణ కాదు. ఆరోగ్య సమస్యల కోసం ఎల్లప్పుడూ వైద్యుడిని సంప్రదించండి.</p>
                         </div>
                     </div>
                 </CardContent>
@@ -237,5 +237,3 @@ export default function SymptomCheckerPage() {
         </div>
     );
 }
-
-    
