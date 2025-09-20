@@ -143,7 +143,7 @@ export default function SymptomCheckerPage() {
                             key={symptom.english}
                             onClick={() => handleSymptomClick(symptom.english)}
                             className={cn(
-                                "cursor-pointer transition-all rounded-lg p-3 text-center border-2",
+                                "cursor-pointer transition-all rounded-lg p-2 text-center border-2",
                                 selectedSymptoms.includes(symptom.english) ? 'border-primary bg-primary/10' : 'bg-muted/40 border-input hover:border-muted-foreground/20'
                             )}
                              style={selectedSymptoms.includes(symptom.english) ? {borderColor: 'hsl(var(--nav-symptoms))', backgroundColor: 'hsla(var(--nav-symptoms)/0.1)'} : {}}
