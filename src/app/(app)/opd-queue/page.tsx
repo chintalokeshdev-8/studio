@@ -104,6 +104,30 @@ export default function OpdQueuePage() {
                 <p className="text-muted-foreground">Live updates and chat for your upcoming appointment.</p>
             </div>
 
+            <div className="grid grid-cols-2 gap-4">
+                <Card className="border-primary/20" style={{backgroundColor: 'hsla(var(--nav-chat)/0.1)', borderColor: 'hsla(var(--nav-chat)/0.2)'}}>
+                    <CardHeader className="pb-2">
+                        <CardTitle className="flex items-center gap-2 text-base" style={{color: 'hsl(var(--nav-chat))'}}><User /> Your Token</CardTitle>
+                    </CardHeader>
+                    <CardContent className="text-center">
+                        <p className="text-4xl font-bold" style={{color: 'hsl(var(--nav-chat))'}}>#23</p>
+                        <div className="flex items-center justify-center gap-2 mt-1 text-xs" style={{color: 'hsla(var(--nav-chat)/0.8)'}}>
+                            <Clock className="w-3 h-3" />
+                            <span className="font-semibold">Est. Wait: 5 mins</span>
+                        </div>
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardHeader className="pb-2">
+                        <CardTitle className="text-base">Now Serving</CardTitle>
+                        <CardDescription className="text-xs">Patient with the doctor</CardDescription>
+                    </CardHeader>
+                    <CardContent className="text-center">
+                        <p className="text-4xl font-bold">#19</p>
+                    </CardContent>
+                </Card>
+            </div>
+
             <Card>
                 <CardHeader>
                     <div className="flex flex-col sm:flex-row items-start gap-6">
@@ -142,30 +166,6 @@ export default function OpdQueuePage() {
 
             <div className="grid lg:grid-cols-2 gap-8 items-start">
                 <div className="space-y-8">
-                     <div className="grid grid-cols-2 gap-4">
-                        <Card className="border-primary/20" style={{backgroundColor: 'hsla(var(--nav-chat)/0.1)', borderColor: 'hsla(var(--nav-chat)/0.2)'}}>
-                            <CardHeader className="pb-2">
-                                <CardTitle className="flex items-center gap-2 text-base" style={{color: 'hsl(var(--nav-chat))'}}><User /> Your Token</CardTitle>
-                            </CardHeader>
-                            <CardContent className="text-center">
-                                <p className="text-4xl font-bold" style={{color: 'hsl(var(--nav-chat))'}}>#23</p>
-                                <div className="flex items-center justify-center gap-2 mt-1 text-xs" style={{color: 'hsla(var(--nav-chat)/0.8)'}}>
-                                    <Clock className="w-3 h-3" />
-                                    <span className="font-semibold">Est. Wait: 5 mins</span>
-                                </div>
-                            </CardContent>
-                        </Card>
-                        <Card>
-                            <CardHeader className="pb-2">
-                                <CardTitle className="text-base">Now Serving</CardTitle>
-                                <CardDescription className="text-xs">Patient with the doctor</CardDescription>
-                            </CardHeader>
-                            <CardContent className="text-center">
-                                <p className="text-4xl font-bold">#19</p>
-                            </CardContent>
-                        </Card>
-                    </div>
-
                     <Card>
                         <CardHeader>
                             <CardTitle>OP Status (డాక్టర్ స్థితి)</CardTitle>
@@ -281,5 +281,3 @@ export default function OpdQueuePage() {
         </div>
     );
 }
-
-    
