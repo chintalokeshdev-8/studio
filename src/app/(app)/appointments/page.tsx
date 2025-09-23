@@ -112,7 +112,7 @@ const doctors = [
         experience: "25+ years",
         hospital: "Guntur Kidney & Multispeciality Hospital",
         surgeries: "20,000+ Successful Surgeries",
-        mainDealing: "Urology and advanced surgical procedures.",
+        mainDealing: "Urology, advanced surgical procedures, and successful kidney transplants.",
         avatar: "https://picsum.photos/seed/doc11/100/100",
         dataAiHint: "male doctor experienced",
         location: "Guntur"
