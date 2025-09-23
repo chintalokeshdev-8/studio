@@ -3,7 +3,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { User, Clock, Bell, Send, Stethoscope, Briefcase, Plane, MapPin, Phone, Globe, Share2, Map, Award } from "lucide-react";
+import { User, Clock, Bell, Send, Stethoscope, Briefcase, Plane, MapPin, Phone, Globe, Share2, Map, Award, Calendar } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -47,6 +47,21 @@ const appointmentDetails = {
     },
     status: "Available", // Can be "Available", "In Surgery", "On Leave"
 };
+
+const otherAppointments = [
+    {
+        doctor: "Dr. Chinta Ramana",
+        specialty: "Cardiologist",
+        date: "2024-08-05",
+        time: "11:00 AM",
+    },
+    {
+        doctor: "Dr. Lakshmi Narasaiah",
+        specialty: "Orthopedic Surgeon",
+        date: "2024-08-12",
+        time: "02:30 PM",
+    }
+];
 
 const getStatusInfo = (status: string) => {
     switch (status) {
@@ -96,12 +111,13 @@ const getStatusInfo = (status: string) => {
 export default function OpdQueuePage() {
     const currentStatusInfo = getStatusInfo(appointmentDetails.status);
     const StatusIcon = currentStatusInfo.icon;
+    const today = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
     return (
         <div className="space-y-8">
             <div className="text-center">
-                <h1 className="text-3xl font-bold" style={{color: 'hsl(var(--nav-chat))'}}>Your Appointment Queue</h1>
-                <p className="text-muted-foreground">Live updates and chat for your upcoming appointment.</p>
+                <h1 className="text-3xl font-bold" style={{color: 'hsl(var(--nav-chat))'}}>Your Appointment Status</h1>
+                <p className="text-muted-foreground mt-2">Status for your appointments on {today}.</p>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -218,6 +234,25 @@ export default function OpdQueuePage() {
                         </CardContent>
                     </Card>
 
+                     <Card>
+                        <CardHeader>
+                            <CardTitle>Other Appointments</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-3">
+                            {otherAppointments.map((appt, index) => (
+                                <div key={index} className="flex items-center justify-between p-3 bg-muted/40 rounded-lg">
+                                    <div>
+                                        <p className="font-semibold">{appt.doctor}</p>
+                                        <p className="text-sm text-muted-foreground">{appt.specialty}</p>
+                                    </div>
+                                    <div className="text-right">
+                                        <p className="font-semibold flex items-center gap-2"><Calendar className="h-4 w-4"/> {appt.date}</p>
+                                        <p className="text-sm text-muted-foreground flex items-center gap-2 justify-end"><Clock className="h-4 w-4"/> {appt.time}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </CardContent>
+                    </Card>
                 </div>
 
                  <Card className="flex flex-col h-[70vh]">
@@ -280,4 +315,5 @@ export default function OpdQueuePage() {
 
         </div>
     );
-}
+
+    
