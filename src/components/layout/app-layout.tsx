@@ -18,6 +18,7 @@ import {
   ChevronRight,
   Heart,
   ChevronLeft,
+  Droplets,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -32,6 +33,7 @@ const menuItems = [
   { href: "/opd-queue", label: "Chat & Queue", telugu: "మీ వంతు & చాట్", icon: MessageSquare, color: "hsl(var(--nav-chat))" },
   { href: "/lab-reports", label: "Diagnostics", telugu: "రిపోర్టులు", icon: TestTube, color: "hsl(var(--nav-diagnostics))" },
   { href: "/medicines", label: "Medicines", telugu: "మందులు", icon: Pill, color: "hsl(var(--nav-medicines))" },
+  { href: "/blood-bank", label: "Blood Bank", telugu: "రక్త నిధి", icon: Droplets, color: "hsl(var(--nav-blood-bank))" },
   { href: "/health-tracker", label: "Health Tracker", telugu: "ఆరోగ్య ట్రాకర్", icon: Heart, color: "hsl(var(--nav-profile))" },
   { href: "/junior-doctors", label: "Jr. Doctors", telugu: "డాక్టర్లు", icon: Headset, color: "hsl(var(--nav-junior-doctors))" },
   { href: "/pregnancy-tracker", label: "Pregnancy Care", telugu: "గర్భం", icon: PregnantLadyIcon, color: "hsl(var(--nav-appointments))" },
@@ -92,29 +94,32 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 <nav className="flex w-max space-x-1 p-2 px-12 justify-center">
                     {menuItems.map((item) => {
                         const isActive = isClient && pathname === item.href;
-                        const isEmergency = item.label === 'Emergency';
+                        const isSpecial = item.label === 'Emergency' || item.label === 'Blood Bank';
+                        const specialColor = item.label === 'Emergency' ? 'hsl(var(--destructive))' : 'hsl(var(--nav-blood-bank))';
+
                         return (
                            <Link href={item.href} key={item.label} className="flex-shrink-0">
                                <div className={cn(
                                    "flex flex-col items-center justify-center gap-1 rounded-lg transition-transform duration-200 ease-in-out w-24 py-1",
                                    isActive ? "scale-105" : "scale-100",
-                                   isEmergency ? 'bg-destructive/10' : ''
+                                   isSpecial ? 'bg-destructive/10' : '',
+                                   item.label === 'Blood Bank' && 'bg-red-500/10'
                                )}>
                                    <div
                                         className="p-2 rounded-full"
                                         style={{
-                                            backgroundColor: isActive && !isEmergency ? `${item.color.replace(')', ' / 0.1)')}` : 'transparent',
+                                            backgroundColor: isActive && !isSpecial ? `${item.color.replace(')', ' / 0.1)')}` : 'transparent',
                                         }}
                                     >
-                                       <item.icon className="h-6 w-6" style={{ color: item.color }} />
+                                       <item.icon className="h-6 w-6" style={{ color: isSpecial ? specialColor : item.color }} />
                                    </div>
                                    <div className="text-center leading-tight">
                                         <p className="text-xs font-bold"
-                                           style={{color: isActive || isEmergency ? item.color : 'hsl(var(--foreground))'}}>
+                                           style={{color: isActive || isSpecial ? (isSpecial ? specialColor : item.color) : 'hsl(var(--foreground))'}}>
                                            {item.label}
                                         </p>
                                         <p className="text-[10px] font-medium"
-                                           style={{color: isActive || isEmergency ? item.color : 'hsl(var(--muted-foreground))'}}>
+                                           style={{color: isActive || isSpecial ? (isSpecial ? specialColor : item.color) : 'hsl(var(--muted-foreground))'}}>
                                            {item.telugu}
                                         </p>
                                    </div>

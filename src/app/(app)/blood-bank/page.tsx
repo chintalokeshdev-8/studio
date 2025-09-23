@@ -22,7 +22,7 @@ const bloodRequestsData = [
 const bloodGroups = ["All", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 const cities = ["All", "guntur", "hyderabad", "vijayawada", "mumbai", "bangalore"];
 
-export function BloodDonation() {
+export default function BloodBankPage() {
     const [bloodRequests, setBloodRequests] = useState<any[]>([]);
 
     useEffect(() => {
@@ -36,7 +36,7 @@ export function BloodDonation() {
     return (
         <Card>
             <CardHeader>
-                <CardTitle className="flex items-center gap-2 font-extrabold text-2xl"><Droplets className="text-destructive"/> Blood Donation</CardTitle>
+                <CardTitle className="flex items-center gap-2 font-extrabold text-2xl" style={{color: 'hsl(var(--nav-blood-bank))'}}><Droplets/> Blood Bank</CardTitle>
                 <CardDescription>Connect with donors or request blood in critical moments.</CardDescription>
             </CardHeader>
             <CardContent>
@@ -85,14 +85,14 @@ export function BloodDonation() {
                                                         <User className="h-4 w-4"/> {req.patientName}
                                                     </p>
                                                     <div className="flex items-center gap-4 mt-2">
-                                                        <Badge variant="destructive" className="text-base font-bold px-3 py-1">{req.bloodType}</Badge>
+                                                        <Badge variant="destructive" className="text-base font-bold px-3 py-1" style={{backgroundColor: 'hsl(var(--nav-blood-bank))'}}>{req.bloodType}</Badge>
                                                         <p className="text-sm text-muted-foreground flex items-center gap-2">
                                                             <MapPin className="h-4 w-4"/> {req.city}
                                                         </p>
                                                     </div>
                                                 </div>
                                                 <div className="text-right">
-                                                    <Button style={{backgroundColor: "hsl(var(--primary))"}}>Contact</Button>
+                                                    <Button style={{backgroundColor: "hsl(var(--nav-blood-bank))"}}>Contact</Button>
                                                     <p className="text-xs text-muted-foreground mt-2">
                                                         {req.postedAtString}
                                                     </p>
@@ -137,7 +137,7 @@ export function BloodDonation() {
                                     <Label htmlFor="contactInfo">Contact Info (Phone or Email)</Label>
                                     <Input id="contactInfo" placeholder="Enter contact details" />
                                 </div>
-                                <Button type="submit" variant="destructive" className="w-full">Post Blood Request</Button>
+                                <Button type="submit" className="w-full" style={{backgroundColor: 'hsl(var(--nav-blood-bank))'}}>Post Blood Request</Button>
                             </form>
                         </TabsContent>
                         <TabsContent value="register" className="mt-0">
@@ -184,7 +184,7 @@ export function BloodDonation() {
                                     </div>
                                     <Switch id="availability-mode" />
                                 </div>
-                                <Button type="submit" className="w-full" style={{backgroundColor: 'hsl(var(--nav-emergency))'}}>Register as a Donor</Button>
+                                <Button type="submit" className="w-full" style={{backgroundColor: 'hsl(var(--nav-blood-bank))'}}>Register as a Donor</Button>
                             </form>
                         </TabsContent>
                     </div>

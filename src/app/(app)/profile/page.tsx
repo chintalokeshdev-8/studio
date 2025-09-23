@@ -11,7 +11,6 @@ import { Separator } from "@/components/ui/separator";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { BloodDonation } from '../blood-donation';
 import { HealthOverview } from '../health-overview';
 
 const recentVisits = [
@@ -271,7 +270,6 @@ export default function ProfilePage() {
                     <Button variant="destructive" className="w-full"><ShieldAlert className="mr-2 h-4 w-4" /> Manage Emergency Contacts</Button>
                 </div>
             </div>
-            <BloodDonation />
         </div>
     );
 }
