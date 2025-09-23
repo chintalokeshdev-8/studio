@@ -37,7 +37,7 @@
     --nav-junior-doctors: 140 70% 32%;
     --nav-diagnostics: 150 80% 25%;
     --nav-medicines: 165 65% 28%;
-    --nav-blood-bank: 0 84.2% 60.2%;
+    --nav-blood-bank: 0 70% 45%;
     --nav-profile: 150 70% 35%;
     --nav-emergency: 130 85% 28%;
   }
@@ -75,7 +75,7 @@
     --nav-junior-doctors: 140 60% 42%;
     --nav-diagnostics: 150 70% 35%;
     --nav-medicines: 165 55% 38%;
-    --nav-blood-bank: 0 72.2% 50.2%;
+    --nav-blood-bank: 0 70% 40%;
     --nav-profile: 150 60% 45%;
     --nav-emergency: 130 75% 38%;
   }

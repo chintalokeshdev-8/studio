@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { formatDistanceToNow } from "date-fns";
 import { Switch } from "@/components/ui/switch";
+import { cn } from '@/lib/utils';
 
 const bloodRequestsData = [
     { patientName: "lokesh chinta", bloodType: "O+", city: "guntur", contactInfo: "lokesh@email.com", postedAt: new Date(Date.now() - 1000 * 60 * 5) },
@@ -93,7 +94,7 @@ export default function BloodBankPage() {
                                                     </div>
                                                 </div>
                                                 <div className="text-right">
-                                                    <Button style={{backgroundColor: "hsl(var(--nav-blood-bank))"}}>Contact</Button>
+                                                    <Button className="bg-green-600 hover:bg-green-700">Contact</Button>
                                                     <p className="text-xs text-muted-foreground mt-2">
                                                         {req.postedAtString}
                                                     </p>
