@@ -1,7 +1,9 @@
 
+'use client';
+
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { User, Clock, Bell, Send, Stethoscope, Briefcase, Plane } from "lucide-react";
+import { User, Clock, Bell, Send, Stethoscope, Briefcase, Plane, MapPin, Phone, Globe } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -27,8 +29,20 @@ const quickQuestions = [
     "Can I share my reports?",
 ];
 
-// Assume this is the current status from a data source
-const doctorStatus = {
+const appointmentDetails = {
+    doctor: {
+        name: "Dr. Ramesh Babu",
+        specialty: "Nephrologist",
+        avatar: "https://picsum.photos/seed/doc8/100/100",
+        dataAiHint: "male doctor professional",
+    },
+    hospital: {
+        name: "Guntur Kidney & Multispeciality Hospital",
+        address: "Kothapet, Guntur, Andhra Pradesh 522001",
+        phone: "0863 222 3456",
+        website: "https://gunturkidneyhospital.com",
+        location: "Guntur",
+    },
     status: "Available", // Can be "Available", "In Surgery", "On Leave"
 };
 
@@ -78,15 +92,39 @@ const getStatusInfo = (status: string) => {
 };
 
 export default function OpdQueuePage() {
-    const currentStatusInfo = getStatusInfo(doctorStatus.status);
+    const currentStatusInfo = getStatusInfo(appointmentDetails.status);
     const StatusIcon = currentStatusInfo.icon;
 
     return (
         <div className="space-y-8">
             <div className="text-center">
-                <h1 className="text-3xl font-bold" style={{color: 'hsl(var(--nav-chat))'}}>Chat & OPD Queue</h1>
-                <p className="text-muted-foreground">Live updates and chat for Dr. Rajesh Kumar's clinic.</p>
+                <h1 className="text-3xl font-bold" style={{color: 'hsl(var(--nav-chat))'}}>Your Appointment Queue</h1>
+                <p className="text-muted-foreground">Live updates and chat for your upcoming appointment.</p>
             </div>
+
+            <Card>
+                <CardHeader>
+                    <div className="flex flex-col sm:flex-row items-start gap-6">
+                        <Avatar className="h-24 w-24 border-4" style={{borderColor: 'hsl(var(--nav-chat))'}}>
+                            <AvatarImage src={appointmentDetails.doctor.avatar} data-ai-hint={appointmentDetails.doctor.dataAiHint} />
+                            <AvatarFallback>{appointmentDetails.doctor.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                        </Avatar>
+                        <div className="flex-1">
+                            <CardTitle className="text-2xl">{appointmentDetails.doctor.name}</CardTitle>
+                            <CardDescription className="font-semibold text-base" style={{color: 'hsl(var(--nav-chat))'}}>{appointmentDetails.doctor.specialty}</CardDescription>
+                             <div className="mt-4 space-y-2 text-sm">
+                                <p className="font-bold text-lg">{appointmentDetails.hospital.name}</p>
+                                <p className="flex items-start gap-2 text-muted-foreground"><MapPin className="h-4 w-4 mt-1 flex-shrink-0"/> {appointmentDetails.hospital.address}</p>
+                                <p className="flex items-center gap-2 text-muted-foreground"><Phone className="h-4 w-4"/> {appointmentDetails.hospital.phone}</p>
+                                <a href={appointmentDetails.hospital.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-primary hover:underline" style={{color: 'hsl(var(--nav-chat))'}}>
+                                    <Globe className="h-4 w-4"/> Visit Website
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </CardHeader>
+            </Card>
+
 
             <div className="grid lg:grid-cols-2 gap-8 items-start">
                 <div className="space-y-8">
@@ -123,7 +161,7 @@ export default function OpdQueuePage() {
                                 <StatusIcon className={`h-6 w-6 ${currentStatusInfo.textColor} mt-1`}/>
                                 <div className="flex-1">
                                     <p className={`font-bold ${currentStatusInfo.textColor} flex items-center gap-2`}>
-                                        {doctorStatus.status} ({currentStatusInfo.teluguStatus})
+                                        {appointmentDetails.status} ({currentStatusInfo.teluguStatus})
                                     </p>
                                     <p className={`text-sm ${currentStatusInfo.textColor}/80`}>{currentStatusInfo.details}</p>
                                     <p className={`text-sm ${currentStatusInfo.textColor}/80`}>{currentStatusInfo.teluguDetails}</p>
@@ -171,11 +209,11 @@ export default function OpdQueuePage() {
                  <Card className="flex flex-col h-[70vh]">
                     <CardHeader className="flex flex-row items-center gap-4 border-b">
                         <Avatar>
-                            <AvatarImage src="/images/profile.jpg" data-ai-hint="doctor portrait" />
-                            <AvatarFallback>DR</AvatarFallback>
+                            <AvatarImage src={appointmentDetails.doctor.avatar} data-ai-hint={appointmentDetails.doctor.dataAiHint} />
+                            <AvatarFallback>{appointmentDetails.doctor.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                         </Avatar>
                         <div>
-                            <CardTitle>Dr. Rajesh Kumar</CardTitle>
+                            <CardTitle>{appointmentDetails.doctor.name}</CardTitle>
                             <p className="text-sm text-green-600 font-medium flex items-center gap-1.5">
                                 <span className="relative flex h-3 w-3">
                                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
@@ -190,8 +228,8 @@ export default function OpdQueuePage() {
                             <div key={index} className={`flex items-end gap-2 max-w-[80%] ${msg.sender === 'user' ? 'justify-end ml-auto' : 'justify-start'}`}>
                                 {msg.sender === 'doctor' && (
                                     <Avatar className="h-8 w-8">
-                                        <AvatarImage src="/images/profile.jpg" data-ai-hint="doctor portrait" />
-                                        <AvatarFallback>DR</AvatarFallback>
+                                        <AvatarImage src={appointmentDetails.doctor.avatar} data-ai-hint={appointmentDetails.doctor.dataAiHint} />
+                                        <AvatarFallback>{appointmentDetails.doctor.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                                     </Avatar>
                                 )}
                                 <div className={`rounded-lg px-4 py-2 ${msg.sender === 'user' ? 'text-primary-foreground' : 'bg-muted'}`}
@@ -229,3 +267,5 @@ export default function OpdQueuePage() {
         </div>
     );
 }
+
+    
