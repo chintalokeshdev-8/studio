@@ -2,6 +2,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -27,7 +28,7 @@ const hospitalsData = {
     "Guntur Kidney & Multispeciality Hospital": {
         location: "Guntur",
         address: "Kothapet, Guntur, Andhra Pradesh 522001",
-        phone: "0863 222 3456",
+        phone: "8008334948",
         website: "https://gunturkidneyhospital.com"
     },
     "Padmavathy Super Speciality Hospital": {
@@ -271,6 +272,7 @@ export default function AppointmentsPage() {
     const [selectedDoctor, setSelectedDoctor] = useState<any | null>(null);
     const [isProfileOpen, setProfileOpen] = useState(false);
     const { toast } = useToast();
+    const router = useRouter();
 
     const handleViewProfile = (doctor: any) => {
         setSelectedDoctor(doctor);
@@ -285,6 +287,14 @@ export default function AppointmentsPage() {
             title: "Copied to Clipboard",
             description: "Doctor's details have been copied.",
         });
+    };
+
+    const handleBookAppointment = (doctor: any) => {
+        toast({
+            title: "Appointment Confirmed!",
+            description: `Your appointment with ${doctor.name} is booked. Check the OP Status page for live updates.`,
+        });
+        router.push('/opd-queue');
     };
 
     return (
@@ -362,7 +372,7 @@ export default function AppointmentsPage() {
                             </div>
                              <div className="mt-6 flex justify-end gap-2">
                                 <Button variant="outline" onClick={() => handleViewProfile(doctor)}>View Profile</Button>
-                                <Button style={{backgroundColor: 'hsl(var(--nav-appointments))'}}>Book Appointment</Button>
+                                <Button style={{backgroundColor: 'hsl(var(--nav-appointments))'}} onClick={() => handleBookAppointment(doctor)}>Book Appointment</Button>
                             </div>
                         </CardContent>
                     </Card>
@@ -401,7 +411,7 @@ export default function AppointmentsPage() {
                                     <Button variant="outline" onClick={() => handleShare(selectedDoctor)}>
                                         <Copy className="mr-2 h-4 w-4" /> Copy Details
                                     </Button>
-                                     <Button style={{backgroundColor: 'hsl(var(--nav-appointments))'}}>
+                                     <Button style={{backgroundColor: 'hsl(var(--nav-appointments))'}} onClick={() => handleBookAppointment(selectedDoctor)}>
                                         Book Appointment
                                     </Button>
                                 </div>
