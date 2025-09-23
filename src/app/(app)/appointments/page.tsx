@@ -1,10 +1,102 @@
 
+'use client';
+
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { Search, MapPin, HeartPulse, Bone, Brain, Stethoscope as StethoscopeIcon, Baby, Leaf } from "lucide-react";
+import { Search, MapPin, HeartPulse, Bone, Brain, Stethoscope as StethoscopeIcon, Baby, Leaf, Phone, Globe, Share2, Copy } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { useToast } from '@/hooks/use-toast';
+
+const hospitalsData = {
+    "Apollo Hospital, Jubilee Hills": {
+        location: "Hyderabad",
+        address: "Rd Number 72, opposite Bharatiya Vidya Bhavan School, Film Nagar, Jubilee Hills, Hyderabad, Telangana 500033",
+        phone: "040 2360 7777",
+        website: "https://apollohospitals.com/locations/india/hyderabad/jubilee-hills/"
+    },
+    "Care Hospital, Banjara Hills": {
+        location: "Hyderabad",
+        address: "Rd Number 1, Prem Nagar, Banjara Hills, Hyderabad, Telangana 500034",
+        phone: "040 3041 8888",
+        website: "https://www.carehospitals.com/locations/hyderabad/banjara-hills/"
+    },
+    "Guntur Kidney & Multispeciality Hospital": {
+        location: "Guntur",
+        address: "Kothapet, Guntur, Andhra Pradesh 522001",
+        phone: "0863 222 3456",
+        website: "https://gunturkidneyhospital.com"
+    },
+    "Padmavathy Super Speciality Hospital": {
+        location: "Guntur",
+        address: "4/1, Arundelpet, Guntur, Andhra Pradesh 522002",
+        phone: "0863 223 4567",
+        website: "https://padmavathyhospital.com"
+    },
+    "Yashoda Hospital, Secunderabad": {
+        location: "Hyderabad",
+        address: "Alexander Rd, Kummari Guda, Shivaji Nagar, Secunderabad, Telangana 500003",
+        phone: "040 4567 4567",
+        website: "https://www.yashodahospitals.com/locations/secunderabad/"
+    },
+    "Lalitha Super Specialities Hospital": {
+        location: "Guntur",
+        address: "Brodipet, Guntur, Andhra Pradesh 522002",
+        phone: "0863 224 5678",
+        website: "https://lalithahospital.com"
+    },
+    "MaxCure Hospital, Madhapur": {
+        location: "Hyderabad",
+        address: "Behind Cyber Towers, Lane Next to McDonalds, Madhapur, Hyderabad, Telangana 500081",
+        phone: "040 4242 4242",
+        website: "https://maxcurehospitals.com/"
+    },
+    "Rainbow Children's Hospital, Banjara Hills": {
+        location: "Hyderabad",
+        address: "Rd Number 2, Sri Ram Nagar Colony, Banjara Hills, Hyderabad, Telangana 500034",
+        phone: "1800 212 2",
+        website: "https://www.rainbowhospitals.in/locations/hyderabad/banjara-hills-flagship"
+    },
+    "KIMS Hospital, Secunderabad": {
+        location: "Hyderabad",
+        address: "1-8-31/1, Minister Rd, Krishna Nagar Colony, Begumpet, Secunderabad, Telangana 500003",
+        phone: "040 4488 5000",
+        website: "https://www.kimshospitals.com/secunderabad/"
+    },
+     "Continental Hospitals, Gachibowli": {
+        location: "Hyderabad",
+        address: "Plot No 3, Road No 2, Financial District, Nanakramguda, Gachibowli, Hyderabad, Telangana 500032",
+        phone: "040 6700 0000",
+        website: "https://continentalhospitals.com/"
+    },
+    "Ahalya Ivf And Nursing Home": {
+        location: "Guntur",
+        address: "Backside Sivalayam, Kothapet, Guntur",
+        phone: "N/A",
+        website: "#"
+    },
+    "Amar Orthopaedic Hospital": {
+        location: "Guntur",
+        address: "13-2-12, 1st Lane, Old Club Road, Kothapet, Guntur",
+        phone: "N/A",
+        website: "#"
+    },
+    "Amaravathi Institute Of Medical Sciences Pvt Ltd": {
+        location: "Guntur",
+        address: "D.No:13-4-74, M.N.R Plaza, Oldclub Road, Kothapet, Guntur",
+        phone: "N/A",
+        website: "#"
+    },
+    "American Oncology Insititute": {
+        location: "Mangalagiri",
+        address: "Mangalagiri Road, NRI Hospital Campus, Chinakakani, Mangalagiri",
+        phone: "N/A",
+        website: "#"
+    }
+};
 
 const doctors = [
     {
@@ -16,7 +108,6 @@ const doctors = [
         mainDealing: "Complex angioplasty and valve replacements.",
         avatar: "https://picsum.photos/seed/doc1/100/100",
         dataAiHint: "male doctor portrait",
-        location: "Hyderabad"
     },
     {
         name: "Dr. Lakshmi Narasaiah",
@@ -27,7 +118,6 @@ const doctors = [
         mainDealing: "Knee and hip replacements.",
         avatar: "https://picsum.photos/seed/doc2/100/100",
         dataAiHint: "female doctor",
-        location: "Hyderabad"
     },
      {
         name: "Dr. Ramesh Babu",
@@ -38,7 +128,6 @@ const doctors = [
         mainDealing: "Chronic kidney disease and dialysis.",
         avatar: "https://picsum.photos/seed/doc8/100/100",
         dataAiHint: "male doctor professional",
-        location: "Guntur"
     },
     {
         name: "Dr. Padmavathi",
@@ -49,7 +138,6 @@ const doctors = [
         mainDealing: "High-risk pregnancies and IVF.",
         avatar: "https://picsum.photos/seed/doc9/100/100",
         dataAiHint: "female doctor professional",
-        location: "Guntur"
     },
     {
         name: "Dr. Rupa",
@@ -60,7 +148,6 @@ const doctors = [
         mainDealing: "Epilepsy and stroke treatment.",
         avatar: "https://picsum.photos/seed/doc3/100/100",
         dataAiHint: "female doctor professional",
-        location: "Hyderabad"
     },
      {
         name: "Dr. Gondi Siva Rama Krishna",
@@ -71,7 +158,6 @@ const doctors = [
         mainDealing: "Nephrology and kidney diseases.",
         avatar: "https://picsum.photos/seed/doc15/100/100",
         dataAiHint: "male doctor glasses",
-        location: "Guntur"
     },
     {
         name: "Dr. Anjali",
@@ -82,7 +168,6 @@ const doctors = [
         mainDealing: "General health check-ups and infectious diseases.",
         avatar: "https://picsum.photos/seed/doc4/100/100",
         dataAiHint: "female doctor smile",
-        location: "Hyderabad"
     },
      {
         name: "Dr. Srinivas",
@@ -93,7 +178,6 @@ const doctors = [
         mainDealing: "Laparoscopic and general surgery.",
         avatar: "https://picsum.photos/seed/doc10/100/100",
         dataAiHint: "male doctor serious",
-        location: "Guntur"
     },
     {
         name: "Dr. Anusha",
@@ -104,7 +188,6 @@ const doctors = [
         mainDealing: "Child care and vaccinations.",
         avatar: "https://picsum.photos/seed/doc5/100/100",
         dataAiHint: "female doctor glasses",
-        location: "Hyderabad"
     },
     {
         name: "Dr. V. Venkata Naidu",
@@ -115,7 +198,6 @@ const doctors = [
         mainDealing: "Urology, advanced surgical procedures, and successful kidney transplants.",
         avatar: "https://picsum.photos/seed/doc11/100/100",
         dataAiHint: "male doctor experienced",
-        location: "Guntur"
     },
     {
         name: "Dr. G. Ravi Shankara Reddy",
@@ -126,7 +208,6 @@ const doctors = [
         mainDealing: "Orthopaedic consultations and treatments.",
         avatar: "https://picsum.photos/seed/doc14/100/100",
         dataAiHint: "male doctor professional",
-        location: "Guntur"
     },
     {
         name: "Dr. Subbamma",
@@ -137,7 +218,6 @@ const doctors = [
         mainDealing: "Acne treatment and skin rejuvenation.",
         avatar: "https://picsum.photos/seed/doc6/100/100",
         dataAiHint: "female doctor professional",
-        location: "Hyderabad"
     },
     {
         name: "Dr. V. Sasikala",
@@ -148,7 +228,6 @@ const doctors = [
         mainDealing: "Critical care and intensive medical treatment.",
         avatar: "https://picsum.photos/seed/doc12/100/100",
         dataAiHint: "female doctor serious",
-        location: "Guntur"
     },
     {
         name: "Dr. Jaya Lakshmi",
@@ -159,7 +238,6 @@ const doctors = [
         mainDealing: "High-risk pregnancy and infertility.",
         avatar: "https://picsum.photos/seed/doc7/100/100",
         dataAiHint: "female doctor professional",
-        location: "Hyderabad"
     },
     {
         name: "Dr. K. Sai Mounica Reddy",
@@ -170,7 +248,6 @@ const doctors = [
         mainDealing: "Diabetes management and general health.",
         avatar: "https://picsum.photos/seed/doc13/100/100",
         dataAiHint: "female doctor glasses",
-        location: "Guntur"
     },
 ];
 
@@ -186,24 +263,30 @@ const departments = [
 ];
 
 const hospitals = [
-    "All Hospitals", 
-    "Apollo Hospital, Jubilee Hills", 
-    "Care Hospital, Banjara Hills", 
-    "Yashoda Hospital, Secunderabad", 
-    "MaxCure Hospital, Madhapur", 
-    "Rainbow Children's Hospital, Banjara Hills", 
-    "KIMS Hospital, Secunderabad", 
-    "Continental Hospitals, Gachibowli",
-    "Lalitha Super Specialities Hospital",
-    "Padmavathy Super Speciality Hospital",
-    "Guntur Kidney & Multispeciality Hospital",
-    "Ahalya Ivf And Nursing Home",
-    "Amar Orthopaedic Hospital",
-    "Amaravathi Institute Of Medical Sciences Pvt Ltd",
-    "American Oncology Insititute"
+    "All Hospitals",
+    ...Object.keys(hospitalsData),
 ];
 
 export default function AppointmentsPage() {
+    const [selectedDoctor, setSelectedDoctor] = useState<any | null>(null);
+    const [isProfileOpen, setProfileOpen] = useState(false);
+    const { toast } = useToast();
+
+    const handleViewProfile = (doctor: any) => {
+        setSelectedDoctor(doctor);
+        setProfileOpen(true);
+    };
+    
+    const handleShare = (doctor: any) => {
+        const hospital = hospitalsData[doctor.hospital as keyof typeof hospitalsData];
+        const shareText = `Check out Dr. ${doctor.name}, ${doctor.specialty} at ${doctor.hospital}.\nAddress: ${hospital.address}\nContact: ${hospital.phone}`;
+        navigator.clipboard.writeText(shareText);
+        toast({
+            title: "Copied to Clipboard",
+            description: "Doctor's details have been copied.",
+        });
+    };
+
     return (
         <div className="space-y-8">
             <div className="text-center">
@@ -278,13 +361,56 @@ export default function AppointmentsPage() {
                                 <p><strong className="font-semibold">Main Focus:</strong> {doctor.mainDealing}</p>
                             </div>
                              <div className="mt-6 flex justify-end gap-2">
-                                <Button variant="outline">View Profile</Button>
+                                <Button variant="outline" onClick={() => handleViewProfile(doctor)}>View Profile</Button>
                                 <Button style={{backgroundColor: 'hsl(var(--nav-appointments))'}}>Book Appointment</Button>
                             </div>
                         </CardContent>
                     </Card>
                 ))}
             </div>
+
+            <Dialog open={isProfileOpen} onOpenChange={setProfileOpen}>
+                <DialogContent className="sm:max-w-2xl">
+                    {selectedDoctor && (
+                        <>
+                            <DialogHeader>
+                                <div className="flex items-center gap-4">
+                                     <Avatar className="h-20 w-20 border-4" style={{borderColor: 'hsl(var(--nav-appointments))'}}>
+                                        <AvatarImage src={selectedDoctor.avatar} data-ai-hint={selectedDoctor.dataAiHint} />
+                                        <AvatarFallback>{selectedDoctor.name.split(' ').map((n: string) => n[0]).join('')}</AvatarFallback>
+                                    </Avatar>
+                                    <div>
+                                        <DialogTitle className="text-2xl">{selectedDoctor.name}</DialogTitle>
+                                        <DialogDescription className="text-base" style={{color: 'hsl(var(--nav-appointments))'}}>{selectedDoctor.specialty}</DialogDescription>
+                                        <p className="text-sm text-muted-foreground">{selectedDoctor.experience} of experience</p>
+                                    </div>
+                                </div>
+                            </DialogHeader>
+                            <div className="space-y-4 py-4">
+                                <div className="p-4 rounded-lg bg-muted/50">
+                                    <h4 className="font-semibold text-lg mb-2">{selectedDoctor.hospital}</h4>
+                                    <div className="space-y-2 text-sm">
+                                        <p className="flex items-start gap-2"><MapPin className="h-4 w-4 mt-1 flex-shrink-0"/> {hospitalsData[selectedDoctor.hospital as keyof typeof hospitalsData]?.address}</p>
+                                        <p className="flex items-center gap-2"><Phone className="h-4 w-4"/> {hospitalsData[selectedDoctor.hospital as keyof typeof hospitalsData]?.phone}</p>
+                                        <a href={hospitalsData[selectedDoctor.hospital as keyof typeof hospitalsData]?.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-primary hover:underline">
+                                            <Globe className="h-4 w-4"/> Visit Website
+                                        </a>
+                                    </div>
+                                </div>
+                                <div className="flex justify-end gap-2">
+                                    <Button variant="outline" onClick={() => handleShare(selectedDoctor)}>
+                                        <Copy className="mr-2 h-4 w-4" /> Copy Details
+                                    </Button>
+                                     <Button style={{backgroundColor: 'hsl(var(--nav-appointments))'}}>
+                                        Book Appointment
+                                    </Button>
+                                </div>
+                            </div>
+                        </>
+                    )}
+                </DialogContent>
+            </Dialog>
+
         </div>
     );
 }
