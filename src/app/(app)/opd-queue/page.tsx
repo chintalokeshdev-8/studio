@@ -3,7 +3,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { User, Clock, Bell, Send, Stethoscope, Briefcase, Plane, MapPin, Phone, Globe, Share2, Map } from "lucide-react";
+import { User, Clock, Bell, Send, Stethoscope, Briefcase, Plane, MapPin, Phone, Globe, Share2, Map, Award } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -35,6 +35,8 @@ const appointmentDetails = {
         specialty: "Nephrologist",
         avatar: "https://picsum.photos/seed/doc8/100/100",
         dataAiHint: "male doctor professional",
+        surgeries: "300+ kidney transplants",
+        mainDealing: "Chronic kidney disease and dialysis.",
     },
     hospital: {
         name: "Guntur Kidney & Multispeciality Hospital",
@@ -112,6 +114,10 @@ export default function OpdQueuePage() {
                         <div className="flex-1">
                             <CardTitle className="text-2xl">{appointmentDetails.doctor.name}</CardTitle>
                             <CardDescription className="font-semibold text-base" style={{color: 'hsl(var(--nav-chat))'}}>{appointmentDetails.doctor.specialty}</CardDescription>
+                            <div className="mt-2 space-y-1 text-sm text-muted-foreground">
+                                <p className="flex items-center gap-2"><Award className="h-4 w-4 text-primary" style={{color: 'hsl(var(--nav-chat))'}}/><strong>Successful Surgeries:</strong> {appointmentDetails.doctor.surgeries}</p>
+                                <p className="flex items-center gap-2"><Stethoscope className="h-4 w-4 text-primary" style={{color: 'hsl(var(--nav-chat))'}}/><strong>Main Focus:</strong> {appointmentDetails.doctor.mainDealing}</p>
+                            </div>
                              <div className="mt-4 space-y-2 text-sm">
                                 <p className="font-bold text-lg">{appointmentDetails.hospital.name}</p>
                                 <p className="flex items-start gap-2 text-muted-foreground"><MapPin className="h-4 w-4 mt-1 flex-shrink-0"/> {appointmentDetails.hospital.address}</p>
@@ -275,3 +281,5 @@ export default function OpdQueuePage() {
         </div>
     );
 }
+
+    
