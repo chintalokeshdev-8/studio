@@ -168,7 +168,7 @@ export default function OpdQueuePage() {
 
                     <Card>
                         <CardHeader>
-                            <CardTitle>Doctor Status (డాక్టర్ స్థితి)</CardTitle>
+                            <CardTitle>OP Status (డాక్టర్ స్థితి)</CardTitle>
                         </CardHeader>
                         <CardContent>
                              <div className={`flex items-start gap-4 p-4 ${currentStatusInfo.color} rounded-lg border bg-background`}>
@@ -281,3 +281,5 @@ export default function OpdQueuePage() {
         </div>
     );
 }
+
+    
