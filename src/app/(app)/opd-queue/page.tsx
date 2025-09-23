@@ -50,7 +50,7 @@ const appointmentDetails = {
 
 const otherAppointments = [
     {
-        doctor: "Dr. Chinta Ramana",
+        doctor: "Dr. Dokku Vasu Babu",
         specialty: "Cardiologist",
         date: "2024-08-05",
         time: "11:00 AM",
