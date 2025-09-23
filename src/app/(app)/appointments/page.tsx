@@ -14,7 +14,7 @@ const doctors = [
         hospital: "Apollo Hospital, Jubilee Hills",
         surgeries: "600+ successful cardiac surgeries",
         mainDealing: "Complex angioplasty and valve replacements.",
-        avatar: "https://placehold.co/100x100.png",
+        avatar: "https://picsum.photos/seed/doc1/100/100",
         dataAiHint: "male doctor portrait",
         location: "Hyderabad"
     },
@@ -25,9 +25,31 @@ const doctors = [
         hospital: "Care Hospital, Banjara Hills",
         surgeries: "900+ joint replacement surgeries",
         mainDealing: "Knee and hip replacements.",
-        avatar: "https://placehold.co/100x100.png",
+        avatar: "https://picsum.photos/seed/doc2/100/100",
         dataAiHint: "female doctor",
         location: "Hyderabad"
+    },
+     {
+        name: "Dr. Ramesh Babu",
+        specialty: "Nephrologist",
+        experience: "20 years",
+        hospital: "Guntur Kidney & Multispeciality Hospital",
+        surgeries: "300+ kidney transplants",
+        mainDealing: "Chronic kidney disease and dialysis.",
+        avatar: "https://picsum.photos/seed/doc8/100/100",
+        dataAiHint: "male doctor professional",
+        location: "Guntur"
+    },
+    {
+        name: "Dr. Padmavathi",
+        specialty: "Gynaecologist",
+        experience: "25 years",
+        hospital: "Padmavathy Super Speciality Hospital",
+        surgeries: "1000+ successful deliveries",
+        mainDealing: "High-risk pregnancies and IVF.",
+        avatar: "https://picsum.photos/seed/doc9/100/100",
+        dataAiHint: "female doctor professional",
+        location: "Guntur"
     },
     {
         name: "Dr. Rupa",
@@ -36,7 +58,7 @@ const doctors = [
         hospital: "Yashoda Hospital, Secunderabad",
         surgeries: "400+ successful brain surgeries",
         mainDealing: "Epilepsy and stroke treatment.",
-        avatar: "https://placehold.co/100x100.png",
+        avatar: "https://picsum.photos/seed/doc3/100/100",
         dataAiHint: "female doctor professional",
         location: "Hyderabad"
     },
@@ -47,9 +69,20 @@ const doctors = [
         hospital: "MaxCure Hospital, Madhapur",
         surgeries: "N/A",
         mainDealing: "General health check-ups and infectious diseases.",
-        avatar: "https://placehold.co/100x100.png",
+        avatar: "https://picsum.photos/seed/doc4/100/100",
         dataAiHint: "female doctor smile",
         location: "Hyderabad"
+    },
+     {
+        name: "Dr. Srinivas",
+        specialty: "General Surgeon",
+        experience: "12 years",
+        hospital: "Lalitha Super Specialities Hospital",
+        surgeries: "700+ various surgeries",
+        mainDealing: "Laparoscopic and general surgery.",
+        avatar: "https://picsum.photos/seed/doc10/100/100",
+        dataAiHint: "male doctor serious",
+        location: "Guntur"
     },
     {
         name: "Dr. Anusha",
@@ -58,7 +91,7 @@ const doctors = [
         hospital: "Rainbow Children's Hospital, Banjara Hills",
         surgeries: "N/A",
         mainDealing: "Child care and vaccinations.",
-        avatar: "https://placehold.co/100x100.png",
+        avatar: "https://picsum.photos/seed/doc5/100/100",
         dataAiHint: "female doctor glasses",
         location: "Hyderabad"
     },
@@ -69,7 +102,7 @@ const doctors = [
         hospital: "KIMS Hospital, Secunderabad",
         surgeries: "100+ cosmetic procedures",
         mainDealing: "Acne treatment and skin rejuvenation.",
-        avatar: "https://placehold.co/100x100.png",
+        avatar: "https://picsum.photos/seed/doc6/100/100",
         dataAiHint: "female doctor professional",
         location: "Hyderabad"
     },
@@ -80,7 +113,7 @@ const doctors = [
         hospital: "Continental Hospitals, Gachibowli",
         surgeries: "500+ successful deliveries",
         mainDealing: "High-risk pregnancy and infertility.",
-        avatar: "https://placehold.co/100x100.png",
+        avatar: "https://picsum.photos/seed/doc7/100/100",
         dataAiHint: "female doctor professional",
         location: "Hyderabad"
     }
@@ -98,7 +131,21 @@ const departments = [
 ];
 
 const hospitals = [
-    "All Hospitals", "Apollo Hospital, Jubilee Hills", "Care Hospital, Banjara Hills", "Yashoda Hospital, Secunderabad", "MaxCure Hospital, Madhapur", "Rainbow Children's Hospital, Banjara Hills", "KIMS Hospital, Secunderabad", "Continental Hospitals, Gachibowli"
+    "All Hospitals", 
+    "Apollo Hospital, Jubilee Hills", 
+    "Care Hospital, Banjara Hills", 
+    "Yashoda Hospital, Secunderabad", 
+    "MaxCure Hospital, Madhapur", 
+    "Rainbow Children's Hospital, Banjara Hills", 
+    "KIMS Hospital, Secunderabad", 
+    "Continental Hospitals, Gachibowli",
+    "Lalitha Super Specialities Hospital",
+    "Padmavathy Super Speciality Hospital",
+    "Guntur Kidney & Multispeciality Hospital",
+    "Ahalya Ivf And Nursing Home",
+    "Amar Orthopaedic Hospital",
+    "Amaravathi Institute Of Medical Sciences Pvt Ltd",
+    "American Oncology Insititute"
 ];
 
 export default function AppointmentsPage() {
@@ -147,6 +194,7 @@ export default function AppointmentsPage() {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="hyderabad">Hyderabad</SelectItem>
+                             <SelectItem value="guntur">Guntur</SelectItem>
                             <SelectItem value="mumbai">Mumbai</SelectItem>
                             <SelectItem value="bangalore">Bangalore</SelectItem>
                         </SelectContent>
