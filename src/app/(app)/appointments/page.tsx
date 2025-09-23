@@ -62,6 +62,17 @@ const doctors = [
         dataAiHint: "female doctor professional",
         location: "Hyderabad"
     },
+     {
+        name: "Dr. Gondi Siva Rama Krishna",
+        specialty: "Consultant Nephrologist",
+        experience: "15 years",
+        hospital: "Guntur Kidney & Multispeciality Hospital",
+        surgeries: "N/A",
+        mainDealing: "Nephrology and kidney diseases.",
+        avatar: "https://picsum.photos/seed/doc15/100/100",
+        dataAiHint: "male doctor glasses",
+        location: "Guntur"
+    },
     {
         name: "Dr. Anjali",
         specialty: "General Physician",
@@ -96,6 +107,28 @@ const doctors = [
         location: "Hyderabad"
     },
     {
+        name: "Dr. V. Venkata Naidu",
+        specialty: "Urologist",
+        experience: "25+ years",
+        hospital: "Guntur Kidney & Multispeciality Hospital",
+        surgeries: "20,000+ Successful Surgeries",
+        mainDealing: "Urology and advanced surgical procedures.",
+        avatar: "https://picsum.photos/seed/doc11/100/100",
+        dataAiHint: "male doctor experienced",
+        location: "Guntur"
+    },
+    {
+        name: "Dr. G. Ravi Shankara Reddy",
+        specialty: "Orthopaedics",
+        experience: "12 years",
+        hospital: "Guntur Kidney & Multispeciality Hospital",
+        surgeries: "N/A",
+        mainDealing: "Orthopaedic consultations and treatments.",
+        avatar: "https://picsum.photos/seed/doc14/100/100",
+        dataAiHint: "male doctor professional",
+        location: "Guntur"
+    },
+    {
         name: "Dr. Subbamma",
         specialty: "Dermatologist",
         experience: "7 years",
@@ -107,6 +140,17 @@ const doctors = [
         location: "Hyderabad"
     },
     {
+        name: "Dr. V. Sasikala",
+        specialty: "Intensivist",
+        experience: "10 years",
+        hospital: "Guntur Kidney & Multispeciality Hospital",
+        surgeries: "N/A",
+        mainDealing: "Critical care and intensive medical treatment.",
+        avatar: "https://picsum.photos/seed/doc12/100/100",
+        dataAiHint: "female doctor serious",
+        location: "Guntur"
+    },
+    {
         name: "Dr. Jaya Lakshmi",
         specialty: "Gynaecologist",
         experience: "15 years",
@@ -116,7 +160,18 @@ const doctors = [
         avatar: "https://picsum.photos/seed/doc7/100/100",
         dataAiHint: "female doctor professional",
         location: "Hyderabad"
-    }
+    },
+    {
+        name: "Dr. K. Sai Mounica Reddy",
+        specialty: "General Physician & Diabetalogist",
+        experience: "6 years",
+        hospital: "Guntur Kidney & Multispeciality Hospital",
+        surgeries: "N/A",
+        mainDealing: "Diabetes management and general health.",
+        avatar: "https://picsum.photos/seed/doc13/100/100",
+        dataAiHint: "female doctor glasses",
+        location: "Guntur"
+    },
 ];
 
 const departments = [
