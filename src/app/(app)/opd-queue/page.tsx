@@ -3,7 +3,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { User, Clock, Bell, Send, Stethoscope, Briefcase, Plane, MapPin, Phone, Globe } from "lucide-react";
+import { User, Clock, Bell, Send, Stethoscope, Briefcase, Plane, MapPin, Phone, Globe, Share2, Map } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -39,7 +39,7 @@ const appointmentDetails = {
     hospital: {
         name: "Guntur Kidney & Multispeciality Hospital",
         address: "Kothapet, Guntur, Andhra Pradesh 522001",
-        phone: "0863 222 3456",
+        phone: "8008334948",
         website: "https://gunturkidneyhospital.com",
         location: "Guntur",
     },
@@ -119,6 +119,14 @@ export default function OpdQueuePage() {
                                 <a href={appointmentDetails.hospital.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-primary hover:underline" style={{color: 'hsl(var(--nav-chat))'}}>
                                     <Globe className="h-4 w-4"/> Visit Website
                                 </a>
+                                <div className="flex gap-2 pt-2">
+                                    <Button variant="outline" size="sm">
+                                        <Share2 className="mr-2 h-4 w-4"/> Share Directions
+                                    </Button>
+                                    <Button variant="outline" size="sm">
+                                        <Map className="mr-2 h-4 w-4"/> View Location
+                                    </Button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -267,5 +275,3 @@ export default function OpdQueuePage() {
         </div>
     );
 }
-
-    
