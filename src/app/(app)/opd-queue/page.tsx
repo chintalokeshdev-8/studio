@@ -3,7 +3,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { User, Clock, Bell, Send, Stethoscope, Briefcase, Plane, MapPin, Phone, Globe, Share2, Map, Award, Calendar } from "lucide-react";
+import { User, Clock, Bell, Send, Stethoscope, Briefcase, Plane, MapPin, Phone, Globe, Share2, Map, Award, Calendar, History } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -62,6 +62,28 @@ const otherAppointments = [
         time: "02:30 PM",
     }
 ];
+
+const previousAppointments = [
+    {
+        doctor: "Dr. Anjali",
+        specialty: "General Physician",
+        date: "2024-07-15",
+        notes: "Consultation for seasonal flu. Prescribed Paracetamol."
+    },
+    {
+        doctor: "Dr. Subbamma",
+        specialty: "Dermatologist",
+        date: "2024-06-28",
+        notes: "Follow-up on skin rash. Advised to continue medication."
+    },
+    {
+        doctor: "Dr. Ramesh Babu",
+        specialty: "Nephrologist",
+        date: "2024-05-20",
+        notes: "Regular kidney check-up. Reports were normal."
+    }
+];
+
 
 const getStatusInfo = (status: string) => {
     switch (status) {
@@ -236,7 +258,7 @@ export default function OpdQueuePage() {
 
                      <Card>
                         <CardHeader>
-                            <CardTitle>Other Appointments</CardTitle>
+                            <CardTitle className="flex items-center gap-2"><Calendar className="h-5 w-5"/>Other Appointments</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-3">
                             {otherAppointments.map((appt, index) => (
@@ -246,8 +268,27 @@ export default function OpdQueuePage() {
                                         <p className="text-sm text-muted-foreground">{appt.specialty}</p>
                                     </div>
                                     <div className="text-right">
-                                        <p className="font-semibold flex items-center gap-2"><Calendar className="h-4 w-4"/> {appt.date}</p>
+                                        <p className="font-semibold flex items-center gap-2"> {appt.date}</p>
                                         <p className="text-sm text-muted-foreground flex items-center gap-2 justify-end"><Clock className="h-4 w-4"/> {appt.time}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </CardContent>
+                    </Card>
+                     <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2"><History className="h-5 w-5"/>Previous Appointments</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-3">
+                            {previousAppointments.map((appt, index) => (
+                                <div key={index} className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 cursor-pointer">
+                                    <div>
+                                        <p className="font-semibold">{appt.doctor}</p>
+                                        <p className="text-sm text-muted-foreground">{appt.specialty}</p>
+                                         <p className="text-xs text-muted-foreground mt-2">{appt.notes}</p>
+                                    </div>
+                                    <div className="text-right">
+                                        <p className="font-semibold flex items-center gap-2"><Calendar className="h-4 w-4"/> {appt.date}</p>
                                     </div>
                                 </div>
                             ))}
@@ -315,5 +356,7 @@ export default function OpdQueuePage() {
 
         </div>
     );
+
+    
 
     
