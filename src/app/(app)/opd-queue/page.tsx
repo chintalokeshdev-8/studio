@@ -269,7 +269,7 @@ export default function OpdQueuePage() {
                                     </div>
                                     <div className="text-right">
                                         <p className="font-semibold flex items-center gap-2"> {appt.date}</p>
-                                        <p className="text-sm text-muted-foreground flex items-center gap-2 justify-end"><Clock className="h-4 w-4"/> {appt.time}</p>
+                                        <p className="text-sm text-muted-foreground flex items-center gap-2 justify-end"><Clock className="h-4 w-4"/> Est. Time: {appt.time}</p>
                                     </div>
                                 </div>
                             ))}
@@ -356,6 +356,8 @@ export default function OpdQueuePage() {
 
         </div>
     );
+
+    
 
     
 
