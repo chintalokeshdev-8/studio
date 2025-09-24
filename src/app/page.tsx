@@ -1,7 +1,9 @@
+
 import { redirect } from 'next/navigation';
 
 export default function RootPage() {
-  // Redirect to the sign-in page by default.
-  // The app layout will handle redirecting to the dashboard if already logged in.
-  redirect('/sign-in');
+  // By default, redirect to the main application dashboard.
+  // The layout for the (app) group at /src/app/(app)/layout.tsx
+  // contains the authentication guard that will redirect to /sign-in if the user is not logged in.
+  redirect('/');
 }
