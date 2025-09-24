@@ -101,7 +101,7 @@ const hospitalsData = {
 
 const doctors = [
     {
-        name: "Dr. Dokku Vasu Babu",
+        name: "Dr. Chinta Ramana",
         specialty: "Cardiologist",
         experience: "18 years",
         hospital: "Apollo Hospital, Jubilee Hills",
