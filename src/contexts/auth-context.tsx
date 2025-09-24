@@ -2,9 +2,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { getAuth, onAuthStateChanged, User, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut as firebaseSignOut } from 'firebase/auth';
-import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
-import { firebaseApp } from '@/lib/firebase';
+import { User } from 'firebase/auth';
 import { useRouter, usePathname } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 
@@ -26,51 +24,28 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Mock user data
+const mockUser = {
+  uid: 'mock-patient-uid',
+  email: 'patient@medbridgee.com',
+  displayName: 'Chinta Lokesh Babu',
+} as User;
+
+const mockUserProfile: UserProfile = {
+  firstName: 'Chinta',
+  lastName: 'Lokesh Babu',
+  email: 'patient@medbridgee.com',
+  role: 'Patient',
+};
+
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<User | null>(mockUser);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(mockUserProfile);
+  const [loading, setLoading] = useState(false); // Set to false as we are not fetching auth state
 
-  const auth = getAuth(firebaseApp);
-  const db = getFirestore(firebaseApp);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        setUser(user);
-        const userDoc = await getDoc(doc(db, 'users', user.uid));
-        if (userDoc.exists()) {
-          setUserProfile(userDoc.data() as UserProfile);
-        } else {
-          // This case might happen if user exists in Auth but not in Firestore
-          setUserProfile(null);
-        }
-      } else {
-        setUser(null);
-        setUserProfile(null);
-      }
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, [auth, db]);
-
-  const signUp = async (email: string, password: string, profile: Omit<UserProfile, 'email'>) => {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-    const userProfileData: UserProfile = { ...profile, email: user.email! };
-
-    await setDoc(doc(db, 'users', user.uid), userProfileData);
-    setUserProfile(userProfileData);
-  };
-
-  const signIn = async (email: string, password: string) => {
-    await signInWithEmailAndPassword(auth, email, password);
-  };
-
-  const signOut = async () => {
-    await firebaseSignOut(auth);
-  };
+  const signUp = async () => { console.log("Sign-up is disabled in mock mode."); };
+  const signIn = async () => { console.log("Sign-in is disabled in mock mode."); };
+  const signOut = async () => { console.log("Sign-out is disabled in mock mode."); };
 
   const value = {
     user,
@@ -83,7 +58,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   return (
     <AuthContext.Provider value={value}>
-      <RouteGuard>{children}</RouteGuard>
+      {children}
     </AuthContext.Provider>
   );
 }
@@ -94,53 +69,4 @@ export function useAuth() {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
-}
-
-function RouteGuard({ children }: { children: React.ReactNode }) {
-    const { user, loading } = useAuth();
-    const router = useRouter();
-    const pathname = usePathname();
-
-    useEffect(() => {
-        if (!loading) {
-            const isAuthRoute = pathname.startsWith('/sign-in') || pathname.startsWith('/sign-up');
-            
-            if (!user && !isAuthRoute) {
-                router.push('/sign-in');
-            }
-            
-            if (user && isAuthRoute) {
-                router.push('/');
-            }
-        }
-    }, [user, loading, router, pathname]);
-
-    if (loading) {
-        return (
-            <div className="flex items-center justify-center min-h-screen">
-                <Loader2 className="h-10 w-10 animate-spin" />
-            </div>
-        );
-    }
-
-    // Prevent rendering children on auth routes if user is logged in
-    const isAuthRoute = pathname.startsWith('/sign-in') || pathname.startsWith('/sign-up');
-    if (user && isAuthRoute) {
-      return (
-        <div className="flex items-center justify-center min-h-screen">
-            <Loader2 className="h-10 w-10 animate-spin" />
-        </div>
-      );
-    }
-    
-    // Prevent rendering children on protected routes if user is not logged in
-    if (!user && !isAuthRoute) {
-        return (
-          <div className="flex items-center justify-center min-h-screen">
-              <Loader2 className="h-10 w-10 animate-spin" />
-          </div>
-        );
-    }
-
-    return <>{children}</>;
 }
