@@ -19,7 +19,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 
-type Role = 'Admin' | 'Receptionist' | 'Doctor' | 'Lab Technician';
+type Role = 'Patient' | 'Admin' | 'Receptionist' | 'Doctor' | 'Lab Technician';
 
 export default function SignUpPage() {
   const [email, setEmail] = useState('');
@@ -103,6 +103,7 @@ export default function SignUpPage() {
                 <SelectValue placeholder="Select a role" />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="Patient">Patient</SelectItem>
                 <SelectItem value="Admin">Admin</SelectItem>
                 <SelectItem value="Receptionist">Receptionist</SelectItem>
                 <SelectItem value="Doctor">Doctor</SelectItem>
