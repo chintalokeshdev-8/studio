@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview This file defines a Genkit flow for AI-powered symptom analysis.
@@ -22,7 +23,7 @@ const SymptomAnalysisInputSchema = z.object({
   symptoms:
     z.string()
       .describe(
-        'A description of the symptoms experienced by the user, which can be in Telugu or English.'
+        'A description of the symptoms experienced by the user, which can be in English or Telugu. It can be a comma-separated list or a free-form text.'
       ),
 });
 
@@ -35,11 +36,13 @@ export type SymptomAnalysisInput = z.infer<typeof SymptomAnalysisInputSchema>;
  * Output schema for the symptom analysis flow.
  */
 const SymptomAnalysisOutputSchema = z.object({
-  analysis:
-    z.string()
-      .describe(
-        'An AI-powered analysis of the symptoms, providing potential health concerns and recommendations.'
+  analysis: z.array(z.object({
+    title: z.string(),
+    points: z.array(z.string()),
+  })).describe(
+        'An AI-powered analysis of the symptoms. Provide a structured response with titles like "Initial Analysis", "Suggested First Aid", "Recommended Diet Plan", "Recommended Tests", and "Disclaimer".'
       ),
+  recommendedSpecialist: z.string().describe("Based on the symptoms, recommend a single, appropriate specialist type to consult (e.g., 'General Physician', 'Cardiologist', 'Dermatologist')."),
 });
 
 /**
@@ -63,11 +66,20 @@ const symptomAnalysisPrompt = ai.definePrompt({
   name: 'symptomAnalysisPrompt',
   input: {schema: SymptomAnalysisInputSchema},
   output: {schema: SymptomAnalysisOutputSchema},
-  prompt: `You are an AI-powered health assistant. A user will describe their symptoms to you, and you will provide an analysis of potential health concerns.
+  prompt: `You are an AI-powered health assistant. Your goal is to provide a helpful, preliminary analysis of a user's symptoms. The user can provide symptoms in English or Telugu. Respond in simple, easy-to-understand language.
 
-  Symptoms: {{{symptoms}}}
+Analyze the user's symptoms and provide a structured response, with each section having a title and an array of points. The sections should be:
 
-  Analysis:`,
+1.  **Initial Analysis**: Start with a brief, non-alarming potential reason for the symptoms. (1-2 points)
+2.  **Suggested First Aid**: Provide 2-3 simple, natural first-aid or home care tips.
+3.  **Recommended Diet Plan**: Suggest a top-level diet plan (e.g., "focus on liquids and easily digestible foods"). (2-3 points)
+4.  **Recommended Tests**: Recommend 1-2 relevant diagnostic tests for discussion with a doctor.
+5.  **Disclaimer**: Conclude with a strong, clear disclaimer emphasizing that this is not a medical diagnosis and that the user must consult a qualified doctor for any health concerns.
+
+Based on the symptoms, also provide a recommendation for the single most appropriate specialist to consult.
+
+User Symptoms: {{{symptoms}}}
+`,
 });
 
 /**

@@ -5,12 +5,13 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User, Heart, Droplets, Phone, Mail, MapPin, Shield, FileDown, Pencil, ShieldAlert, Users, HeartPulse, Pill, Trash2, Palette, Search, Hospital } from "lucide-react";
+import { User, Heart, Droplets, Phone, Mail, MapPin, Shield, FileDown, Pencil, ShieldAlert, Users, HeartPulse, Pill, Trash2, Palette, Search, Hospital, UserPlus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { HealthOverview } from '../health-overview';
 
 const recentVisits = [
   { date: "2024-07-15", reason: "Fever & Cold", doctor: "Dr. Shashank" },
@@ -23,12 +24,6 @@ const medicalReports = [
     { name: "Lipid Profile", date: "2024-06-20" },
     { name: "X-Ray Chest", date: "2023-11-05" },
 ]
-
-const healthOverviewItems = [
-    { value: "12", label: "Total Visits", icon: Users },
-    { value: "2", label: "Active Conditions", icon: HeartPulse },
-    { value: "4", label: "Medications", icon: Pill },
-];
 
 const networkHospitals = [
   {
@@ -57,6 +52,38 @@ const networkHospitals = [
   },
 ];
 
+const healthOverviewItems = {
+  totalVisits: {
+    value: "12",
+    label: "Total Visits",
+    icon: Users,
+    data: [
+      { date: "2024-07-15", reason: "Fever & Cold", doctor: "Dr. Shashank" },
+      { date: "2024-06-20", reason: "Regular Checkup", doctor: "Dr. Siva Parvathi" },
+      { date: "2024-03-10", reason: "Stomach Pain", doctor: "Dr. Nageswarao" },
+    ]
+  },
+  activeConditions: {
+    value: "2",
+    label: "Active Conditions",
+    icon: HeartPulse,
+    data: [
+        { condition: "Fever & Cold", since: "2024-07-15", status: "Improving" },
+        { condition: "Allergic Rhinitis", since: "2024-01-01", status: "Ongoing" },
+    ]
+  },
+  medications: {
+    value: "4",
+    label: "Medications",
+    icon: Pill,
+    data: [
+        { name: "Paracetamol", dosage: "500mg", frequency: "As needed" },
+        { name: "Cetirizine", dosage: "10mg", frequency: "Once a day" },
+        { name: "Metformin", dosage: "1000mg", frequency: "Twice a day" },
+        { name: "Vitamin D3", dosage: "60000 IU", frequency: "Once a week" },
+    ]
+  },
+};
 
 export default function ProfilePage() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -65,6 +92,37 @@ export default function ProfilePage() {
         hospital.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         hospital.address.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    const handleDownloadData = () => {
+        const userProfileData = {
+            name: "Chinta Lokesh Babu",
+            age: 27,
+            gender: "Male",
+            bloodGroup: "O+ Positive",
+            address: "Rentachintala, Palnadu District",
+            email: "lokeshbabu9298@gmail.com",
+            phone: "+91 8008334948",
+        };
+
+        const comprehensiveData = {
+            userProfile: userProfileData,
+            healthOverview: healthOverviewItems,
+            recentVisits,
+            medicalReports,
+            healthInsurance: {
+                provider: "Star Health - Family Plan",
+                status: "Active",
+            },
+        };
+
+        const jsonString = `data:text/json;charset=utf-8,${encodeURIComponent(
+            JSON.stringify(comprehensiveData, null, 2)
+        )}`;
+        const link = document.createElement("a");
+        link.href = jsonString;
+        link.download = "medbridgee-my-data.json";
+        link.click();
+    };
 
     return (
         <div className="space-y-8">
@@ -102,21 +160,7 @@ export default function ProfilePage() {
                 <div className="lg:col-span-2 space-y-8">
                      <section>
                         <h2 className="text-xl font-semibold mb-4">Health Overview</h2>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {healthOverviewItems.map((item) => (
-                                 <Card key={item.label} className="p-4">
-                                    <div className="flex items-center justify-between">
-                                      <div className="flex items-center gap-3">
-                                         <div className="p-3 bg-muted/50 rounded-full">
-                                            <item.icon className="h-6 w-6" style={{color: 'hsl(var(--nav-profile))'}} />
-                                        </div>
-                                        <p className="text-lg font-bold">{item.label}</p>
-                                      </div>
-                                      <p className="text-3xl font-extrabold">{item.value}</p>
-                                    </div>
-                                </Card>
-                            ))}
-                        </div>
+                        <HealthOverview />
                     </section>
                     <Card>
                         <CardHeader>
@@ -161,7 +205,7 @@ export default function ProfilePage() {
                     </Card>
                      <Card>
                         <CardHeader>
-                            <CardTitle>Settings</CardTitle>
+                            <CardTitle>Settings & Data</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <div className="flex items-center justify-between p-3 bg-muted/40 rounded-lg">
@@ -170,6 +214,13 @@ export default function ProfilePage() {
                                     <p className="font-semibold">Theme</p>
                                 </div>
                                 <ThemeToggle />
+                            </div>
+                            <div className="flex items-center justify-between p-3 bg-muted/40 rounded-lg">
+                                <div className="flex items-center gap-3">
+                                   <FileDown className="h-5 w-5" style={{color: 'hsl(var(--nav-profile))'}}/>
+                                   <p className="font-semibold">Export My Data</p>
+                                </div>
+                               <Button variant="outline" size="sm" onClick={handleDownloadData}>Download</Button>
                             </div>
                              <div className="flex items-center justify-between p-3 bg-muted/40 rounded-lg">
                                 <div className="flex items-center gap-3">

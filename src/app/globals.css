@@ -20,8 +20,8 @@
     --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
+    --border: 145 80% 30% / 0.4;
+    --input: 145 80% 30% / 0.4;
     --ring: 145 80% 30%;
     --radius: 0.75rem;
     --chart-1: 12 76% 61%;
@@ -37,6 +37,7 @@
     --nav-junior-doctors: 140 70% 32%;
     --nav-diagnostics: 150 80% 25%;
     --nav-medicines: 165 65% 28%;
+    --nav-blood-bank: 0 70% 45%;
     --nav-profile: 150 70% 35%;
     --nav-emergency: 130 85% 28%;
   }
@@ -58,8 +59,8 @@
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
+    --border: 145 70% 40% / 0.3;
+    --input: 145 70% 40% / 0.3;
     --ring: 145 70% 40%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
@@ -74,6 +75,7 @@
     --nav-junior-doctors: 140 60% 42%;
     --nav-diagnostics: 150 70% 35%;
     --nav-medicines: 165 55% 38%;
+    --nav-blood-bank: 0 70% 40%;
     --nav-profile: 150 60% 45%;
     --nav-emergency: 130 75% 38%;
   }

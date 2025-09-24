@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { HeartPulse, MessageSquare, Siren, Users, TestTube, FlaskConical, LifeBuoy, Stethoscope, Microscope, Pill, Headset, Phone, Link2, CalendarCheck, User, Heart, Baby, Leaf, Droplets, Wind, Brain, LayoutGrid, Activity } from 'lucide-react';
+import { HeartPulse, MessageSquare, Siren, Users, TestTube, FlaskConical, LifeBuoy, Stethoscope, Microscope, Pill, Headset, Phone, Link2, CalendarCheck, User, Heart, Baby, Leaf, Droplets, Wind, Brain, LayoutGrid, Activity, FileText, MapPin, UserPlus } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
@@ -11,17 +11,23 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import React from 'react';
 import { PregnantLadyIcon } from '@/components/icons/pregnant-lady-icon';
+import { formatDistanceToNow } from "date-fns";
+import { HealthOverview } from './health-overview';
+import { OrganHealthDialog } from '@/components/layout/organ-health-dialog';
+import { organHealthData } from '@/lib/organ-health-data';
+
 
 const quickAccessItems = [
   { href: "/", icon: LayoutGrid, label: 'Dashboard', description: 'హోమ్', color: 'hsl(var(--nav-home))' },
   { href: '/symptom-checker', icon: HeartPulse, label: 'AI Symptom Checker', description: 'వైద్య లక్షణాలు తనిఖీ', color: 'hsl(var(--nav-symptoms))' },
-  { href: '/health-tracker', label: 'Health Tracker', description: 'ఆరోగ్య ట్రాకర్', icon: Activity, color: 'hsl(var(--nav-profile))' },
-  { href: '/pregnancy-tracker', label: 'Pregnancy Care', description: 'గర్భం', icon: PregnantLadyIcon, color: 'hsl(var(--nav-appointments))' },
   { href: '/appointments', icon: CalendarCheck, label: 'Appointments', description: 'సమయం నమోదు చేసుకోండి', color: 'hsl(var(--nav-appointments))' },
-  { href: '/opd-queue', icon: MessageSquare, label: 'Chat & Queue', description: 'మీ వంతు & చాట్', color: 'hsl(var(--nav-chat))' },
-  { href: '/junior-doctors', icon: Headset, label: '24/7 Jr. Doctors', description: 'ఉచిత సలహా', color: 'hsl(var(--nav-junior-doctors))' },
+  { href: '/opd-queue', icon: MessageSquare, label: 'OP STATUS', description: 'OP స్థితి', color: 'hsl(var(--nav-chat))' },
   { href: '/lab-reports', icon: TestTube, label: 'Diagnostics', description: 'రిపోర్టులు చూడండి', color: 'hsl(var(--nav-diagnostics))' },
   { href: '/medicines', icon: Pill, label: 'My Medicines', description: 'మీ మందులు', color: 'hsl(var(--nav-medicines))' },
+  { href: '/blood-bank', icon: Droplets, label: 'Blood Bank', description: 'రక్త నిధి', color: 'hsl(var(--nav-blood-bank))' },
+  { href: '/health-tracker', label: 'Health Tracker', description: 'ఆరోగ్య ట్రాకర్', icon: Activity, color: 'hsl(var(--nav-profile))' },
+  { href: '/junior-doctors', icon: Headset, label: '24/7 Jr. Doctors', description: 'ఉచిత సలహా', color: 'hsl(var(--nav-junior-doctors))' },
+  { href: '/pregnancy-tracker', label: 'Pregnancy Care', description: 'గర్భం', icon: PregnantLadyIcon, color: 'hsl(var(--nav-appointments))' },
   { href: '/profile', icon: User, label: 'Profile', description: 'ప్రొఫైల్', color: 'hsl(var(--nav-profile))' },
   { href: '/emergency', icon: Siren, label: 'Emergency', description: 'తక్షణ సహాయం', color: 'hsl(var(--nav-emergency))' },
 ];
@@ -41,72 +47,6 @@ const medicineAssistanceItems = [
         buttonText: 'Consult',
         href: '#'
     },
-];
-
-const healthOverviewItems = [
-    { value: "12", label: "Total Visits", icon: Users },
-    { value: "2", label: "Active Conditions", icon: HeartPulse },
-    { value: "4", label: "Medications", icon: Pill },
-];
-
-const StomachIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-        <path d="M8.5 2.5C5.5 2.5 4.5 5.5 4.5 8.5C4.5 11.5 5.5 13.5 8.5 13.5C11.5 13.5 12.5 11.5 12.5 8.5C12.5 5.5 11.5 2.5 8.5 2.5z" />
-        <path d="M15.5 12.5C15.5 12.5 16.5 13.5 16.5 15.5C16.5 17.5 15.5 18.5 15.5 18.5" />
-        <path d="M4.5 8.5C4.5 8.5 4.5 14.5 8.5 17.5C12.5 20.5 15.5 18.5 15.5 18.5" />
-    </svg>
-);
-
-
-const organHealthData = [
-    {
-      name: "Heart",
-      health: 95,
-      icon: Heart,
-      image: "https://picsum.photos/seed/heart/100/100",
-      dataAiHint: "heart organ",
-      color: "hsl(var(--nav-emergency))",
-    },
-    {
-      name: "Liver",
-      health: 92,
-      icon: Leaf,
-      image: "https://picsum.photos/seed/liver/100/100",
-      dataAiHint: "liver organ",
-      color: "hsl(var(--nav-diagnostics))",
-    },
-    {
-      name: "Kidneys",
-      health: 90,
-      icon: Droplets,
-      image: "https://picsum.photos/seed/kidneys/100/100",
-      dataAiHint: "kidneys organ",
-      color: "hsl(var(--nav-chat))",
-    },
-    {
-      name: "Lungs",
-      health: 88,
-      icon: Wind,
-      image: "https://picsum.photos/seed/lungs/100/100",
-      dataAiHint: "lungs organ",
-      color: "hsl(var(--nav-junior-doctors))",
-    },
-    {
-      name: "Brain",
-      health: 98,
-      icon: Brain,
-      image: "https://picsum.photos/seed/brain/100/100",
-      dataAiHint: "brain organ",
-      color: "hsl(var(--nav-symptoms))",
-    },
-    {
-        name: "Stomach (Gut)",
-        health: 93,
-        icon: StomachIcon,
-        image: "https://picsum.photos/seed/stomach/100/100",
-        dataAiHint: "stomach organ",
-        color: "hsl(var(--nav-medicines))",
-    }
 ];
 
 const CircularProgress = ({ percentage, children, size = 100, strokeWidth = 8, color } : { percentage: number, children: React.ReactNode, size?: number, strokeWidth?: number, color?: string }) => {
@@ -143,7 +83,6 @@ const CircularProgress = ({ percentage, children, size = 100, strokeWidth = 8, c
     );
 };
 
-
 export default function DashboardPage() {
   return (
     <div className="space-y-8">
@@ -175,7 +114,7 @@ export default function DashboardPage() {
 
        <Card>
           <CardHeader>
-              <CardTitle className="flex items-center gap-2" style={{color: 'hsl(var(--nav-profile))'}}><Heart style={{color: 'hsl(var(--nav-profile))'}}/>Organ Health Overview</CardTitle>
+              <CardTitle className="flex items-center gap-2" style={{color: 'hsl(var(--primary))'}}><Heart style={{color: 'hsl(var(--primary))'}}/>Organ Health Overview</CardTitle>
                 <div className="text-sm text-muted-foreground">
                     <p>A summary of your key organ health based on recent reports.</p>
                     <p>మీ గత నివేదికల(Reports) ప్రకారం, మీ ముఖ్య అవయవాల ఆరోగ్య స్థితి యొక్క సారాంశం ఇది.</p>
@@ -183,21 +122,23 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-6 gap-2">
               {organHealthData.map((organ) => (
-                  <Card key={organ.name} className="p-2 flex flex-col items-center text-center">
-                      <CircularProgress percentage={organ.health} size={80} strokeWidth={6} color={organ.color}>
-                          <Image
-                              src={organ.image}
-                              alt={organ.name}
-                              width={40}
-                              height={40}
-                              data-ai-hint={organ.dataAiHint}
-                              className="rounded-full object-cover"
-                          />
-                      </CircularProgress>
-                      <p className="mt-2 text-sm font-bold">{organ.name}</p>
-                      <p className="font-semibold text-base" style={{color: organ.color}}>{organ.health}%</p>
-                      <p className="text-xs text-muted-foreground">Healthy</p>
-                  </Card>
+                  <OrganHealthDialog key={organ.name} organ={organ}>
+                    <Card className="p-2 flex flex-col items-center text-center cursor-pointer hover:bg-muted/50">
+                        <CircularProgress percentage={organ.health} size={80} strokeWidth={6} color={organ.color}>
+                            <Image
+                                src={organ.image}
+                                alt={organ.name}
+                                width={40}
+                                height={40}
+                                data-ai-hint={organ.dataAiHint}
+                                className="rounded-full object-cover"
+                            />
+                        </CircularProgress>
+                        <p className="mt-2 text-sm font-bold">{organ.name}</p>
+                        <p className="font-semibold text-base" style={{color: organ.color}}>{organ.health}%</p>
+                        <p className="text-xs text-muted-foreground">Healthy</p>
+                    </Card>
+                  </OrganHealthDialog>
               ))}
           </CardContent>
       </Card>
@@ -223,21 +164,7 @@ export default function DashboardPage() {
       <div className="grid md:grid-cols-2 gap-8">
         <section>
           <h2 className="text-xl font-semibold mb-4">Health Overview</h2>
-          <div className="grid grid-cols-1 gap-4">
-              {healthOverviewItems.map((item) => (
-                   <Card key={item.label} className="p-4">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                           <div className="p-2 bg-muted/50 rounded-full">
-                              <item.icon className="h-5 w-5 text-primary" />
-                          </div>
-                          <p className="font-semibold">{item.label}</p>
-                        </div>
-                        <p className="text-2xl font-bold">{item.value}</p>
-                      </div>
-                  </Card>
-              ))}
-          </div>
+          <HealthOverview />
         </section>
 
         <section>
@@ -253,6 +180,7 @@ export default function DashboardPage() {
                           <div className="flex-1">
                               <h3 className="font-semibold">{item.title}</h3>
                               <p className="text-sm text-muted-foreground">{item.description}</p>
+
                           </div>
                           <Button size="sm" variant="ghost" style={{color: 'hsl(var(--nav-medicines))'}}>{item.buttonText}</Button>
                       </CardContent>
@@ -262,9 +190,6 @@ export default function DashboardPage() {
           </div>
         </section>
       </div>
-
     </div>
   );
 }
-
-    

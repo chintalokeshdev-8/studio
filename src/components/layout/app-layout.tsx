@@ -18,6 +18,7 @@ import {
   ChevronRight,
   Heart,
   ChevronLeft,
+  Droplets,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -27,16 +28,17 @@ import { PregnantLadyIcon } from "../icons/pregnant-lady-icon";
 
 const menuItems = [
   { href: "/", label: "Home", telugu: "హోమ్", icon: LayoutGrid, color: "hsl(var(--nav-home))" },
-  { href: "/health-tracker", label: "Health Tracker", telugu: "ఆరోగ్య ట్రాకర్", icon: Heart, color: "hsl(var(--nav-profile))" },
   { href: "/symptom-checker", label: "AI Symptom Checker", telugu: "లక్షణాలు", icon: HeartPulse, color: "hsl(var(--nav-symptoms))" },
-  { href: "/pregnancy-tracker", label: "Pregnancy Care", telugu: "గర్భం", icon: PregnantLadyIcon, color: "hsl(var(--nav-appointments))" },
   { href: "/appointments", label: "Appointments", telugu: "నమోదులు", icon: CalendarCheck, color: "hsl(var(--nav-appointments))" },
-  { href: "/opd-queue", label: "Chat & Queue", telugu: "మీ వంతు & చాట్", icon: MessageSquare, color: "hsl(var(--nav-chat))" },
-  { href: "/junior-doctors", label: "Jr. Doctors", telugu: "డాక్టర్లు", icon: Headset, color: "hsl(var(--nav-junior-doctors))" },
+  { href: "/opd-queue", label: "OP STATUS", telugu: "OP స్థితి", icon: MessageSquare, color: "hsl(var(--nav-chat))" },
   { href: "/lab-reports", label: "Diagnostics", telugu: "రిపోర్టులు", icon: TestTube, color: "hsl(var(--nav-diagnostics))" },
   { href: "/medicines", label: "Medicines", telugu: "మందులు", icon: Pill, color: "hsl(var(--nav-medicines))" },
+  { href: "/blood-bank", label: "Blood Bank", telugu: "రక్త నిధి", icon: Droplets, color: "hsl(var(--nav-blood-bank))" },
+  { href: "/health-tracker", label: "Health Tracker", telugu: "ఆరోగ్య ట్రాకర్", icon: Heart, color: "hsl(var(--nav-profile))" },
+  { href: "/junior-doctors", label: "Jr. Doctors", telugu: "డాక్టర్లు", icon: Headset, color: "hsl(var(--nav-junior-doctors))" },
+  { href: "/pregnancy-tracker", label: "Pregnancy Care", telugu: "గర్భం", icon: PregnantLadyIcon, color: "hsl(var(--nav-appointments))" },
   { href: "/profile", label: "Profile", telugu: "ప్రొఫైల్", icon: User, color: "hsl(var(--nav-profile))" },
-  { href: "/emergency", label: "Emergency", telugu: "తక్షణ సహాయం", icon: Siren, color: "hsl(var(--nav-emergency))" },
+  { href: "/emergency", label: "Emergency", telugu: "తక్షణ సహాయం", icon: Siren, color: "hsl(var(--destructive))" },
 ];
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
@@ -92,27 +94,32 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 <nav className="flex w-max space-x-1 p-2 px-12 justify-center">
                     {menuItems.map((item) => {
                         const isActive = isClient && pathname === item.href;
+                        const isSpecial = item.label === 'Emergency' || item.label === 'Blood Bank';
+                        const specialColor = item.label === 'Emergency' ? 'hsl(var(--destructive))' : 'hsl(var(--nav-blood-bank))';
+
                         return (
                            <Link href={item.href} key={item.label} className="flex-shrink-0">
                                <div className={cn(
                                    "flex flex-col items-center justify-center gap-1 rounded-lg transition-transform duration-200 ease-in-out w-24 py-1",
-                                   isActive ? "scale-105" : "scale-100"
+                                   isActive ? "scale-105" : "scale-100",
+                                   isSpecial ? 'bg-destructive/10' : '',
+                                   item.label === 'Blood Bank' && 'bg-red-500/10'
                                )}>
                                    <div
                                         className="p-2 rounded-full"
                                         style={{
-                                            backgroundColor: isActive ? `${item.color.replace(')', ' / 0.1)')}` : 'transparent',
+                                            backgroundColor: isActive && !isSpecial ? `${item.color.replace(')', ' / 0.1)')}` : 'transparent',
                                         }}
                                     >
-                                       <item.icon className="h-6 w-6" style={{ color: item.color }} />
+                                       <item.icon className="h-6 w-6" style={{ color: isSpecial ? specialColor : item.color }} />
                                    </div>
                                    <div className="text-center leading-tight">
                                         <p className="text-xs font-bold"
-                                           style={{color: isActive ? item.color : 'hsl(var(--foreground))'}}>
+                                           style={{color: isActive || isSpecial ? (isSpecial ? specialColor : item.color) : 'hsl(var(--foreground))'}}>
                                            {item.label}
                                         </p>
                                         <p className="text-[10px] font-medium"
-                                           style={{color: isActive ? item.color : 'hsl(var(--muted-foreground))'}}>
+                                           style={{color: isActive || isSpecial ? (isSpecial ? specialColor : item.color) : 'hsl(var(--muted-foreground))'}}>
                                            {item.telugu}
                                         </p>
                                    </div>

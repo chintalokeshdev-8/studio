@@ -53,9 +53,10 @@ MedBridgee integrates multiple essential health services into one seamless appli
 - **What it is:** A one-tap access point for critical emergency services.
 - **Importance:** In an emergency, this feature allows users to quickly call an ambulance, share their location, and access vital personal health information (like blood group and allergies) to share with first responders.
 
-### 11. User Profile
+### 11. User Profile & Data Export
 - **What it is:** A personal space where users can manage their health information, including contact details, medical history, insurance, and app settings.
-- **Importance:** It ensures that all personal and health-related data is up-to-date and easily accessible when needed.
+- **Data Export:** Users can download all of their personal and health data in a single JSON file. This provides a complete, portable record of their information, empowering them with ownership over their data.
+- **Importance:** It ensures that all personal and health-related data is up-to-date, easily accessible, and portable.
 
 ---
 
@@ -70,6 +71,6 @@ The app is designed for an intuitive user experience. Here’s a typical navigat
     *   If a user needs to manage their daily health, they can go to the **Health Tracker** or **My Medicines** pages.
     *   For existing appointments, the **Chat & OPD Queue** provides live updates.
 4.  **Footer Navigation:** A scrollable navigation bar at the bottom of the screen provides persistent access to all key features from anywhere in the app, making it easy to switch between tasks without returning to the dashboard.
-5.  **Profile & Settings:** The **Profile** page acts as a central hub for managing personal data and app preferences.
+5.  **Profile & Settings:** The **Profile** page acts as a central hub for managing personal data, app preferences, and exporting data.
 
 This workflow ensures that even users with limited technical skills can navigate the app confidently and access the care they need with minimal effort.
