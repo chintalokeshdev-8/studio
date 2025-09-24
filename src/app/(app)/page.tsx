@@ -13,6 +13,9 @@ import React from 'react';
 import { PregnantLadyIcon } from '@/components/icons/pregnant-lady-icon';
 import { formatDistanceToNow } from "date-fns";
 import { HealthOverview } from './health-overview';
+import { OrganHealthDialog } from '@/components/layout/organ-health-dialog';
+import { organHealthData } from '@/lib/organ-health-data';
+
 
 const quickAccessItems = [
   { href: "/", icon: LayoutGrid, label: 'Dashboard', description: 'హోమ్', color: 'hsl(var(--nav-home))' },
@@ -44,66 +47,6 @@ const medicineAssistanceItems = [
         buttonText: 'Consult',
         href: '#'
     },
-];
-
-const StomachIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-        <path d="M8.5 2.5C5.5 2.5 4.5 5.5 4.5 8.5C4.5 11.5 5.5 13.5 8.5 13.5C11.5 13.5 12.5 11.5 12.5 8.5C12.5 5.5 11.5 2.5 8.5 2.5z" />
-        <path d="M15.5 12.5C15.5 12.5 16.5 13.5 16.5 15.5C16.5 17.5 15.5 18.5 15.5 18.5" />
-        <path d="M4.5 8.5C4.5 8.5 4.5 14.5 8.5 17.5C12.5 20.5 15.5 18.5 15.5 18.5" />
-    </svg>
-);
-
-
-const organHealthData = [
-    {
-      name: "Heart",
-      health: 95,
-      icon: Heart,
-      image: "https://picsum.photos/seed/heart/100/100",
-      dataAiHint: "heart organ",
-      color: "hsl(var(--nav-emergency))",
-    },
-    {
-      name: "Liver",
-      health: 92,
-      icon: Leaf,
-      image: "https://picsum.photos/seed/liver/100/100",
-      dataAiHint: "liver organ",
-      color: "hsl(var(--nav-diagnostics))",
-    },
-    {
-      name: "Kidneys",
-      health: 90,
-      icon: Droplets,
-      image: "https://picsum.photos/seed/kidneys/100/100",
-      dataAiHint: "kidneys organ",
-      color: "hsl(var(--nav-chat))",
-    },
-    {
-      name: "Lungs",
-      health: 88,
-      icon: Wind,
-      image: "https://picsum.photos/seed/lungs/100/100",
-      dataAiHint: "lungs organ",
-      color: "hsl(var(--nav-junior-doctors))",
-    },
-    {
-      name: "Brain",
-      health: 98,
-      icon: Brain,
-      image: "https://picsum.photos/seed/brain/100/100",
-      dataAiHint: "brain organ",
-      color: "hsl(var(--nav-symptoms))",
-    },
-    {
-        name: "Stomach (Gut)",
-        health: 93,
-        icon: StomachIcon,
-        image: "https://picsum.photos/seed/stomach/100/100",
-        dataAiHint: "stomach organ",
-        color: "hsl(var(--nav-medicines))",
-    }
 ];
 
 const CircularProgress = ({ percentage, children, size = 100, strokeWidth = 8, color } : { percentage: number, children: React.ReactNode, size?: number, strokeWidth?: number, color?: string }) => {
@@ -179,21 +122,23 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-6 gap-2">
               {organHealthData.map((organ) => (
-                  <Card key={organ.name} className="p-2 flex flex-col items-center text-center">
-                      <CircularProgress percentage={organ.health} size={80} strokeWidth={6} color={organ.color}>
-                          <Image
-                              src={organ.image}
-                              alt={organ.name}
-                              width={40}
-                              height={40}
-                              data-ai-hint={organ.dataAiHint}
-                              className="rounded-full object-cover"
-                          />
-                      </CircularProgress>
-                      <p className="mt-2 text-sm font-bold">{organ.name}</p>
-                      <p className="font-semibold text-base" style={{color: organ.color}}>{organ.health}%</p>
-                      <p className="text-xs text-muted-foreground">Healthy</p>
-                  </Card>
+                  <OrganHealthDialog key={organ.name} organ={organ}>
+                    <Card className="p-2 flex flex-col items-center text-center cursor-pointer hover:bg-muted/50">
+                        <CircularProgress percentage={organ.health} size={80} strokeWidth={6} color={organ.color}>
+                            <Image
+                                src={organ.image}
+                                alt={organ.name}
+                                width={40}
+                                height={40}
+                                data-ai-hint={organ.dataAiHint}
+                                className="rounded-full object-cover"
+                            />
+                        </CircularProgress>
+                        <p className="mt-2 text-sm font-bold">{organ.name}</p>
+                        <p className="font-semibold text-base" style={{color: organ.color}}>{organ.health}%</p>
+                        <p className="text-xs text-muted-foreground">Healthy</p>
+                    </Card>
+                  </OrganHealthDialog>
               ))}
           </CardContent>
       </Card>
