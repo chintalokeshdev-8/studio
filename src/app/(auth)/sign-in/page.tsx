@@ -6,13 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/auth-context';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
@@ -33,10 +27,11 @@ export default function SignInPage() {
       await signIn(email, password);
       toast({
         title: 'Login Successful',
-        description: 'Welcome back!',
+        description: "Welcome back!",
       });
-      router.replace('/'); // Redirect to the main dashboard
+      router.push('/');
     } catch (error: any) {
+      console.error("Sign-in error:", error);
       toast({
         variant: 'destructive',
         title: 'Login Failed',
@@ -51,10 +46,7 @@ export default function SignInPage() {
     <Card className="mx-auto max-w-sm">
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
-        <CardDescription>
-          Enter your email below to login to your account. <br/>
-          Use <code className="font-bold">patient@medbridgee.com</code> and password <code className="font-bold">password123</code>
-        </CardDescription>
+        <CardDescription>Enter your email below to login to your account</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="grid gap-4">
@@ -63,7 +55,7 @@ export default function SignInPage() {
             <Input
               id="email"
               type="email"
-              placeholder="patient@medbridgee.com"
+              placeholder="m@example.com"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -72,18 +64,21 @@ export default function SignInPage() {
           <div className="grid gap-2">
             <div className="flex items-center">
               <Label htmlFor="password">Password</Label>
+              <Link href="#" className="ml-auto inline-block text-sm underline">
+                Forgot your password?
+              </Link>
             </div>
             <Input 
               id="password" 
               type="password" 
-              placeholder="password123"
               required 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Login'}
+            {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+            Login
           </Button>
         </form>
         <div className="mt-4 text-center text-sm">

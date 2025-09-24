@@ -19,14 +19,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 
-type Role = 'Patient' | 'Admin' | 'Receptionist' | 'Doctor' | 'Lab Technician';
+type Role = 'Admin' | 'Receptionist' | 'Doctor' | 'Lab Technician';
 
 export default function SignUpPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [role, setRole] = useState<Role | ''>('Patient');
+  const [role, setRole] = useState<Role | ''>('');
   const [isLoading, setIsLoading] = useState(false);
   const { signUp } = useAuth();
   const router = useRouter();
@@ -44,16 +44,18 @@ export default function SignUpPage() {
     }
     setIsLoading(true);
     try {
-      // In our mock setup, signUp doesn't do anything, but we keep the structure.
-      console.log('Simulating sign up for:', { email, firstName, lastName, role });
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate network request
-      
+      await signUp(email, password, {
+        firstName,
+        lastName,
+        role,
+      });
       toast({
-        title: 'Sign Up Successful',
-        description: 'You can now log in with the default credentials.',
+        title: 'Registration Successful',
+        description: 'You can now log in with your new account.',
       });
       router.push('/sign-in');
     } catch (error: any) {
+      console.error("Sign-up error:", error);
       toast({
         variant: 'destructive',
         title: 'Registration Failed',
@@ -101,7 +103,6 @@ export default function SignUpPage() {
                 <SelectValue placeholder="Select a role" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Patient">Patient</SelectItem>
                 <SelectItem value="Admin">Admin</SelectItem>
                 <SelectItem value="Receptionist">Receptionist</SelectItem>
                 <SelectItem value="Doctor">Doctor</SelectItem>

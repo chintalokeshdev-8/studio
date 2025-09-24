@@ -11,7 +11,6 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import React from 'react';
 import { PregnantLadyIcon } from '@/components/icons/pregnant-lady-icon';
-import { formatDistanceToNow } from "date-fns";
 import { HealthOverview } from './health-overview';
 import { OrganHealthDialog } from '@/components/layout/organ-health-dialog';
 import { organHealthData } from '@/lib/organ-health-data';
