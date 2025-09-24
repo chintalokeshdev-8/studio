@@ -1,10 +1,15 @@
 
 'use client';
 
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { User } from 'firebase/auth';
-import { useRouter, usePathname } from 'next/navigation';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { Loader2 } from 'lucide-react';
+
+// Define a generic User type to avoid Firebase dependency here
+interface MockUser {
+  uid: string;
+  email: string;
+  displayName: string;
+}
 
 interface UserProfile {
   firstName: string;
@@ -14,7 +19,7 @@ interface UserProfile {
 }
 
 interface AuthContextType {
-  user: User | null;
+  user: MockUser | null;
   userProfile: UserProfile | null;
   loading: boolean;
   signUp: (email: string, password: string, profile: Omit<UserProfile, 'email'>) => Promise<void>;
@@ -24,41 +29,90 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Mock user data
-const mockUser = {
+const defaultUser: MockUser = {
   uid: 'mock-patient-uid',
   email: 'patient@medbridgee.com',
   displayName: 'Chinta Lokesh Babu',
-} as User;
+};
 
-const mockUserProfile: UserProfile = {
+const defaultUserProfile: UserProfile = {
   firstName: 'Chinta',
   lastName: 'Lokesh Babu',
   email: 'patient@medbridgee.com',
   role: 'Patient',
 };
 
-export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(mockUser);
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(mockUserProfile);
-  const [loading, setLoading] = useState(false); // Set to false as we are not fetching auth state
+const MOCK_EMAIL = 'patient@medbridgee.com';
+const MOCK_PASSWORD = 'password123';
 
-  const signUp = async () => { console.log("Sign-up is disabled in mock mode."); };
-  const signIn = async () => { console.log("Sign-in is disabled in mock mode."); };
-  const signOut = async () => { console.log("Sign-out is disabled in mock mode."); };
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<MockUser | null>(null);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  // Effect to check session storage on initial load
+  useEffect(() => {
+    try {
+      const storedUser = sessionStorage.getItem('user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+        setUserProfile(defaultUserProfile);
+      }
+    } catch (error) {
+      console.error("Could not parse user from session storage", error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const signIn = async (email: string, password: string) => {
+    return new Promise<void>((resolve, reject) => {
+      setLoading(true);
+      setTimeout(() => {
+        if (email === MOCK_EMAIL && password === MOCK_PASSWORD) {
+          setUser(defaultUser);
+          setUserProfile(defaultUserProfile);
+          sessionStorage.setItem('user', JSON.stringify(defaultUser));
+          setLoading(false);
+          resolve();
+        } else {
+          setLoading(false);
+          reject(new Error('Invalid email or password.'));
+        }
+      }, 1000);
+    });
+  };
+
+  const signOut = async () => {
+    setUser(null);
+    setUserProfile(null);
+    sessionStorage.removeItem('user');
+  };
+
+  const signUp = async () => {
+    console.log("Sign-up is for demonstration and does not create a real user in this mock setup.");
+    // You can add logic here to simulate a successful signup if needed
+    return Promise.resolve();
+  };
 
   const value = {
     user,
     userProfile,
     loading,
-    signUp,
     signIn,
     signOut,
+    signUp,
   };
 
   return (
     <AuthContext.Provider value={value}>
-      {children}
+      {loading ? (
+        <div className="flex h-screen w-full items-center justify-center">
+          <Loader2 className="h-8 w-8 animate-spin" />
+        </div>
+      ) : (
+        children
+      )}
     </AuthContext.Provider>
   );
 }

@@ -26,7 +26,7 @@ export default function SignUpPage() {
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [role, setRole] = useState<Role | ''>('');
+  const [role, setRole] = useState<Role | ''>('Patient');
   const [isLoading, setIsLoading] = useState(false);
   const { signUp } = useAuth();
   const router = useRouter();
@@ -44,18 +44,16 @@ export default function SignUpPage() {
     }
     setIsLoading(true);
     try {
-      await signUp(email, password, {
-        firstName,
-        lastName,
-        role,
-      });
+      // In our mock setup, signUp doesn't do anything, but we keep the structure.
+      console.log('Simulating sign up for:', { email, firstName, lastName, role });
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate network request
+      
       toast({
-        title: 'Registration Successful',
-        description: 'You can now log in with your new account.',
+        title: 'Sign Up Successful',
+        description: 'You can now log in with the default credentials.',
       });
       router.push('/sign-in');
     } catch (error: any) {
-      console.error("Sign-up error:", error);
       toast({
         variant: 'destructive',
         title: 'Registration Failed',
